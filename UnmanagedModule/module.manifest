@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module>
+  <id>Sample.Unmanaged</id>
+  <version>2.0.0</version>
+  <platformVersion>2.10</platformVersion>
+
+  <title>Sample Unmanaged Module</title>
+  <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vitae sagittis nulla, ac condimentum quam. Maecenas sit amet nibh volutpat, eleifend enim sit amet, cursus erat.</description>
+  <authors>
+    <author>VirtoCommerce</author>
+  </authors>
+
+  <styles>
+    <file virtualPath="$/Content/css/UnmanagedModule.css" />
+  </styles>
+  <scripts>
+    <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
+  </scripts>
+</module>

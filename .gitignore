@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ManagedModule/.vs
+/ManagedModule/packages
+/ManagedModule/VirtoCommerce.ManagedModule.Web/bin
+/ManagedModule/VirtoCommerce.ManagedModule.Web/obj
+*.user
