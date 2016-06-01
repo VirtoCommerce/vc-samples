@@ -7,3 +7,7 @@
 /ManagedModule/VirtoCommerce.ManagedModule.Web/bin
 /ManagedModule/VirtoCommerce.ManagedModule.Web/obj
 *.user
+/MemberExtensionSampleModule/.vs
+/MemberExtensionSampleModule/bin
+/MemberExtensionSampleModule/obj
+/MemberExtensionSampleModule/packages

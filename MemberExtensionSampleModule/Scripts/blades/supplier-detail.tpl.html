@@ -1,0 +1,25 @@
+﻿<div class="blade-static __bottom" ng-include="'$(Platform)/Scripts/common/templates/create.tpl.html'" ng-if="blade.isNew"></div>
+<div class="blade-content">
+    <div class="blade-inner">
+        <div class="inner-block clearfix">
+            <form class="form" name="detailForm">
+                <fieldset>
+                    <div ng-init="setForm(detailForm)">
+                        <label class="form-label">supplier name</label>
+                        <div class="form-input">
+                            <input ng-model="blade.currentEntity.name" focus-on="" required placeholder="enter supplier name" />
+                        </div>
+                    </div>                
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="form-label">Contract Number</label>
+                        <div class="form-input">
+                            <input ng-model="blade.currentEntity.contractNumber" placeholder="enter contract number">
+                        </div>
+                    </div>                  
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
