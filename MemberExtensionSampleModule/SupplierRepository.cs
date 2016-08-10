@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using MemberExtensionSampleModule.Web.Model;
+using VirtoCommerce.CustomerModule.Data.Model;
 using VirtoCommerce.CustomerModule.Data.Repositories;
 using VirtoCommerce.Platform.Data.Infrastructure.Interceptors;
 
@@ -34,6 +35,17 @@ namespace MemberExtensionSampleModule.Web
             modelBuilder.Entity<SupplierDataEntity>().ToTable("Supplier");
             #endregion
 
+            #region SupplierReviews
+            modelBuilder.Entity<SupplierReviewDataEntity>().HasKey(x => x.Id)
+                .Property(x => x.Id);
+            modelBuilder.Entity<SupplierReviewDataEntity>().ToTable("SupplierReview");
+
+            modelBuilder.Entity<SupplierReviewDataEntity>().HasRequired(m => m.Supplier)
+                                                 .WithMany(m => m.Reviews).HasForeignKey(m => m.SupplierId)
+                                                 .WillCascadeOnDelete(true);
+            #endregion
+
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -46,6 +58,18 @@ namespace MemberExtensionSampleModule.Web
         public IQueryable<SupplierDataEntity> Suppliers
         {
             get { return GetAsQueryable<SupplierDataEntity>(); }
+        }
+
+        public IQueryable<SupplierReviewDataEntity> SupplierReviews
+        {
+            get { return GetAsQueryable<SupplierReviewDataEntity>(); }
+        }
+
+        public override MemberDataEntity[] GetMembersByIds(string[] ids, string[] memberTypes = null)
+        {
+            var retVal = base.GetMembersByIds(ids, memberTypes);
+            var reviews = SupplierReviews.Where(x => ids.Contains(x.SupplierId)).ToArray();
+            return retVal;
         }
     }
 }

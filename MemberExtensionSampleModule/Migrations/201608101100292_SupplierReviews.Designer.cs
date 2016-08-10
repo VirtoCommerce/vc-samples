@@ -7,13 +7,13 @@ namespace MemberExtensionSampleModule.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class SupplierReviews : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SupplierReviews));
         
         string IMigrationMetadata.Id
         {
-            get { return "201603301005386_Initial"; }
+            get { return "201608101100292_SupplierReviews"; }
         }
         
         string IMigrationMetadata.Source

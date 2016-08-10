@@ -24,6 +24,7 @@ namespace MemberExtensionSampleModule.Web
         {
         }
 
+      
         //Override this method you can construct you customer data model from domain member type instance
         protected override MemberDataEntity TryCreateDataMember(Member member)
         {

@@ -10,6 +10,7 @@ namespace MemberExtensionSampleModule.Web.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Migrations";
         }
 
         protected override void Seed(SupplierRepository context)

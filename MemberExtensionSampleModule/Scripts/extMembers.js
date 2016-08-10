@@ -10,6 +10,6 @@ angular.module(moduleName, [])
   ['$rootScope', 'virtoCommerce.customerModule.memberTypesResolverService', function ($rootScope, memberTypesResolverService) {
     
       // register member types
-  	memberTypesResolverService.registerType({ memberType: 'Supplier',  fullTypeName: 'ContactExtModule.Web.Model.Supplier', descriptionAdd : 'Supplier description',  titleAdd : 'Supplier', icon: 'fa fa-truck', template: 'Modules/$(Contact2Module)/Scripts/blades/supplier-detail.tpl.html' });
+  	memberTypesResolverService.registerType({ memberType: 'Supplier', fullTypeName: 'MemberExtensionSampleModule.Web.Model.Supplier', descriptionAdd: 'Supplier description', titleAdd: 'Supplier', icon: 'fa fa-truck', template: 'Modules/$(VirtoCommerce.MemberExtensionSampleModule)/Scripts/blades/supplier-detail.tpl.html' });
     
   }]);
