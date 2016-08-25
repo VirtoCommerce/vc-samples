@@ -28,9 +28,9 @@ namespace MemberExtensionSampleModule.Web.Model
         /// <summary>
         /// This method used to convert domain Member type instance to data model
         /// </summary>
-        public override MemberDataEntity FromMember(Member member, PrimaryKeyResolvingMap pkMap)
+        public override MemberDataEntity FromModel(Member member, PrimaryKeyResolvingMap pkMap)
         {
-            var retVal = base.FromMember(member, pkMap) as SupplierDataEntity;
+            var retVal = base.FromModel(member, pkMap) as SupplierDataEntity;
             var supplier = member as Supplier;
             if (supplier != null && !supplier.Reviews.IsNullOrEmpty())
             {
@@ -50,11 +50,11 @@ namespace MemberExtensionSampleModule.Web.Model
         /// <summary>
         /// This method used to convert data type instance to domain model
         /// </summary>
-        public override Member ToMember(Member member)
+        public override Member ToModel(Member member)
         {
             // Here you can write code for custom mapping
             // supplier properties will be mapped in base method implementation by using value injection
-            var retVal = base.ToMember(member) as Supplier;
+            var retVal = base.ToModel(member) as Supplier;
             if (retVal != null)
             {
                 retVal.Reviews = this.Reviews.OrderBy(x => x.Id).Select(x => x.ToModel(new SupplierReview())).ToList();
