@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module>
+  <id>VirtoCommerce.OrderModule2</id>
+  <version>1.0.0</version>
+  <platformVersion>2.11.5</platformVersion>
+  <dependencies>
+    <dependency id="VirtoCommerce.Core" version="2.16.1" />
+    <dependency id="VirtoCommerce.Orders" version="2.11.2" />
+  </dependencies>
+
+  <title>Order extension sample module</title>
+  <description>Demo</description>
+  <authors>
+    <author>eugeney tatarincev</author>
+  </authors>
+  <owners>
+    <owner>Virto Commerce</owner>
+  </owners>
+  <projectUrl>http://virtocommerce.com/</projectUrl>
+  <iconUrl>Modules/$(VirtoCommerce.Order)/Content/logo.png</iconUrl>
+  <releaseNotes>First version.</releaseNotes>
+  <copyright>Copyright © 2011-2016 Virto Commerce. All rights reserved</copyright>
+  <tags>orders</tags>
+
+  <assemblyFile>OrderModule2.Web.dll</assemblyFile>
+  <moduleType>OrderModule2.Web.Module, OrderModule2.Web</moduleType>
+  <!--<styles>
+    <directory virtualPath="$/Content/css" searchPattern="*.css" searchSubdirectories="true" />
+  </styles>-->
+  <scripts>
+    <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
+  </scripts>
+
+  <settings>
+
+  </settings>
+
+  <permissions>
+
+  </permissions>
+</module>
