@@ -128,6 +128,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="module.manifest" />
+    <Content Include="Scripts\blades\invoice-detail.js" />
+    <Content Include="Scripts\blades\invoice-detail.tpl.html" />
     <Content Include="Scripts\order2.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

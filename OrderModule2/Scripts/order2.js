@@ -7,53 +7,84 @@ if (AppDependencies != undefined) {
 
 angular.module(moduleName, [])
 .run(
-  ['$rootScope', 
-	function () {
+  ['virtoCommerce.orderModule.knownOperations',
+	function (knownOperations) {
 
-	    OrderModule_orderDetailBlade.prototype.metaFields.push(
-            {
-                name: 'newField',
-                title: "New field",
-                valueType: "ShortText"                
-            });
+	    var foundTemplate = knownOperations.getOperation('CustomerOrder');
+	    if (foundTemplate) {
+	        foundTemplate.detailBlade.metaFields.push(
+                {
+                    name: 'newField',
+                    title: "New field",
+                    valueType: "ShortText"
+                });
 
-	    //OrderModule_orderDetailBlade.prototype.availableChildrenTypes.push['Invoice'];	 
+	        foundTemplate.detailBlade.knownChildrenOperations.push('Invoice');
+	    }
 
 	    var invoiceOperation = {
 	        type: 'Invoice',
-	        getDetailBlade: function (operation, blade) {
+	        // treeTemplateUrl: 'orderOperationDefault.tpl.html',
+	        detailBlade: {
+	            template: 'Modules/$(virtoCommerce.orderModule2)/Scripts/blades/invoice-detail.tpl.html',
+	            metaFields: [
+                    {
+                        name: 'customerId',
+                        isRequired: true,
+                        title: "CustomerId",
+                        valueType: "ShortText"
+                    },
+                    {
+                        name: 'customerName',
+                        isReadonly: true,
+                        title: "Customer name",
+                        valueType: "ShortText"
+                    },
+                    {
+                        name: 'number',
+                        isRequired: true,
+                        title: "Invoice number",
+                        valueType: "ShortText"
+                    },
+                    {
+                        name: 'createdDate',
+                        isReadonly: true,
+                        title: "created",
+                        valueType: "DateTime"
+                    }
+	            ]
+	        },
+	        newInstanceMetadata: {
+	            name: 'Invoice',
+	            descr: 'Sample Invoice document',
+	            action: function (blade) {
+	                bladeNavigationService.closeBlade(blade);
 
-	            new OrderModule_invoiceDetailBlade(operation);
+	                // blade.customerOrder.id
+	                var result = {
+	                    createdDate: new Date(),
+	                    currency: "EUR",
+	                    customerId: "0cda0396-43fe-4034-a20e-d0bab4c88c93",
+	                    id: "c50acc49-a0ed-4c93-aad2-1428899ce40b",
+	                    isApproved: true,
+	                    number: "Inv60826-00000",
+	                    operationType: "Invoice"
+	                }
+
+	                var foundTemplate = knownOperations.getOperation(invoiceOperation.type);
+	                var newBlade = angular.copy(foundTemplate.detailBlade);
+	                newBlade.currentEntity = result;
+	                newBlade.customerOrder = blade.customerOrder;
+	                newBlade.isNew = true;
+	                var foundField = _.findWhere(newBlade.metaFields, { name: 'createdDate' });
+	                if (foundField) {
+	                    foundField.isReadonly = false;
+	                }
+
+	                bladeNavigationService.showBlade(newBlade, blade.parentBlade);
+	            }
 	        }
-	    }
-	    OrderModule_knownOperations.push(invoiceOperation);
+	    };
+	    knownOperations.registerOperation(invoiceOperation);
+
 	}]);
-
-// Invoice detail blade
-function OrderModule_invoiceDetailBlade(operation, blade) {
-    this.currentEntity = operation;
-    this.customerOrder = blade.customerOrder;
-    this.title = 'Invoice';
-    this.titleValues = { number: operation.number };
-    this.subtitle = 'Invoice subtitle';
-    this.template = 'Modules/$(VirtoCommerce.Orders)/Scripts/blades/payment-detail.tpl.html';
-}
-
-// inherit form base operation
-OrderModule_invoiceDetailBlade.prototype = new OrderModule_operationDetailBlade();
-
-OrderModule_invoiceDetailBlade.prototype.metaFields = [
-    {
-        name: 'customerId',
-        isRequired: true,
-        title: "CustomerId",
-        valueType: "ShortText"
-    },
-    {
-        name: 'customerName',
-        isReadonly: true,
-        title: "Customer name",
-        valueType: "ShortText"
-    }
-];
-
