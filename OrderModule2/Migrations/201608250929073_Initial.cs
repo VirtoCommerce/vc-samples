@@ -1,4 +1,4 @@
-namespace OrderExtensionSampleModule.Migrations
+namespace OrderModule2.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
