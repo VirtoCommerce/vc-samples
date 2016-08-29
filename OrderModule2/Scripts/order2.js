@@ -7,8 +7,8 @@ if (AppDependencies != undefined) {
 
 angular.module(moduleName, [])
 .run(
-  ['virtoCommerce.orderModule.knownOperations',
-	function (knownOperations) {
+  ['virtoCommerce.orderModule.knownOperations', '$q', '$http', '$compile',
+	function (knownOperations, $q, $http, $compile) {
 
 	    var foundTemplate = knownOperations.getOperation('CustomerOrder');
 	    if (foundTemplate) {
@@ -24,7 +24,8 @@ angular.module(moduleName, [])
 
 	    var invoiceOperation = {
 	        type: 'Invoice',
-	        // treeTemplateUrl: 'orderOperationDefault.tpl.html',
+	        description: 'Sample Invoice document',
+	        treeTemplateUrl: 'invoiceOperation.tpl.html',
 	        detailBlade: {
 	            template: 'Modules/$(virtoCommerce.orderModule2)/Scripts/blades/invoice-detail.tpl.html',
 	            metaFields: [
@@ -54,37 +55,22 @@ angular.module(moduleName, [])
                     }
 	            ]
 	        },
-	        newInstanceMetadata: {
-	            name: 'Invoice',
-	            descr: 'Sample Invoice document',
-	            action: function (blade) {
-	                bladeNavigationService.closeBlade(blade);
-
-	                // blade.customerOrder.id
-	                var result = {
+	        newInstanceFactoryMethod: function (blade) {
+	            return $q(function (resolve) {
+	                resolve({
 	                    createdDate: new Date(),
 	                    currency: "EUR",
-	                    customerId: "0cda0396-43fe-4034-a20e-d0bab4c88c93",
-	                    id: "c50acc49-a0ed-4c93-aad2-1428899ce40b",
 	                    isApproved: true,
 	                    number: "Inv60826-00000",
 	                    operationType: "Invoice"
-	                }
-
-	                var foundTemplate = knownOperations.getOperation(invoiceOperation.type);
-	                var newBlade = angular.copy(foundTemplate.detailBlade);
-	                newBlade.currentEntity = result;
-	                newBlade.customerOrder = blade.customerOrder;
-	                newBlade.isNew = true;
-	                var foundField = _.findWhere(newBlade.metaFields, { name: 'createdDate' });
-	                if (foundField) {
-	                    foundField.isReadonly = false;
-	                }
-
-	                bladeNavigationService.showBlade(newBlade, blade.parentBlade);
-	            }
+	                });
+	            });
 	        }
 	    };
 	    knownOperations.registerOperation(invoiceOperation);
 
+	    $http.get('Modules/$(virtoCommerce.orderModule2)/Scripts/tree-template.html').then(function (response) {
+	        // compile the response, which will put stuff into the cache
+	        $compile(response.data);
+	    });
 	}]);
