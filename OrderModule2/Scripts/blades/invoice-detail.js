@@ -1,6 +1,6 @@
 ﻿angular.module('virtoCommerce.orderModule')
-.controller('virtoCommerce.orderModule.invoiceDetailController', ['$scope', 'platformWebApp.bladeNavigationService', 'platformWebApp.dialogService', 'platformWebApp.settings',
-    function ($scope, bladeNavigationService, dialogService, settings) {
+.controller('virtoCommerce.orderModule.invoiceDetailController', ['$scope', 'platformWebApp.bladeNavigationService', 'platformWebApp.dialogService', 'platformWebApp.settings', 'virtoCommerce.customerModule.members',
+    function ($scope, bladeNavigationService, dialogService, settings, members) {
         var blade = $scope.blade;
 
         if (blade.isNew) {
@@ -25,5 +25,20 @@
                 blade.statuses = data;
             };
             bladeNavigationService.showBlade(newBlade, blade);
+        };
+
+        // load customers
+        members.search(
+           {
+               memberType: 'Contact',
+               sort: 'fullName:asc',
+               take: 1000
+           },
+           function (data) {
+               blade.contacts = data.results;
+           });
+
+        blade.resetCustomerName = function (newVal) {
+            blade.currentEntity.customerName = newVal ? newVal.fullName : undefined;
         };
     }]);

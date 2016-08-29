@@ -30,18 +30,6 @@ angular.module(moduleName, [])
 	            template: 'Modules/$(virtoCommerce.orderModule2)/Scripts/blades/invoice-detail.tpl.html',
 	            metaFields: [
                     {
-                        name: 'customerId',
-                        isRequired: true,
-                        title: "CustomerId",
-                        valueType: "ShortText"
-                    },
-                    {
-                        name: 'customerName',
-                        isReadonly: true,
-                        title: "Customer name",
-                        valueType: "ShortText"
-                    },
-                    {
                         name: 'number',
                         isRequired: true,
                         title: "Invoice number",
@@ -52,7 +40,12 @@ angular.module(moduleName, [])
                         isReadonly: true,
                         title: "created",
                         valueType: "DateTime"
-                    }
+                    },
+	                {
+	                    name: 'customerId',
+	                    title: "Customer",
+	                    templateUrl: 'customerSelector.html'
+	                }
 	            ]
 	        },
 	        newInstanceFactoryMethod: function (blade) {
