@@ -7,8 +7,8 @@ if (AppDependencies != undefined) {
 
 angular.module(moduleName, [])
 .run(
-  ['virtoCommerce.orderModule.knownOperations', '$q', '$http', '$compile',
-	function (knownOperations, $q, $http, $compile) {
+  ['virtoCommerce.orderModule.knownOperations', '$http', '$compile',
+	function (knownOperations, $http, $compile) {
 
 	    var foundTemplate = knownOperations.getOperation('CustomerOrder');
 	    if (foundTemplate) {
@@ -47,17 +47,6 @@ angular.module(moduleName, [])
 	                    templateUrl: 'customerSelector.html'
 	                }
 	            ]
-	        },
-	        newInstanceFactoryMethod: function (blade) {
-	            return $q(function (resolve) {
-	                resolve({
-	                    createdDate: new Date(),
-	                    currency: "EUR",
-	                    isApproved: true,
-	                    number: "Inv60826-00000",
-	                    operationType: "Invoice"
-	                });
-	            });
 	        }
 	    };
 	    knownOperations.registerOperation(invoiceOperation);

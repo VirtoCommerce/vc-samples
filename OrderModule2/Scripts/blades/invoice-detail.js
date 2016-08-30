@@ -10,6 +10,15 @@
             if (foundField) {
                 foundField.isReadonly = false;
             }
+
+            blade.initialize({
+                operationType: "Invoice",
+                status: 'New',
+                number: "Inv60826-00000",
+                createdDate: new Date(),
+                isApproved: true,
+                currency: "EUR"
+            });
         } else {
             blade.title = 'invoice details';
             blade.subtitle = 'sample';
