@@ -113,7 +113,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="VirtoCommerce.CustomerModule.Data, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VirtoCommerce.CustomerModule.Data.2.12.0-rc2\lib\net451\VirtoCommerce.CustomerModule.Data.dll</HintPath>
+      <HintPath>packages\VirtoCommerce.CustomerModule.Data.2.12.0-rc3\lib\net451\VirtoCommerce.CustomerModule.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="VirtoCommerce.Domain, Version=2.16.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201608101100292_SupplierReviews.Designer.cs">
       <DependentUpon>201608101100292_SupplierReviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608310943556_MemberDbContext2_12.cs" />
+    <Compile Include="Migrations\201608310943556_MemberDbContext2_12.Designer.cs">
+      <DependentUpon>201608310943556_MemberDbContext2_12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\SupplierReview.cs" />
     <Compile Include="Model\SupplierReviewDataEntity.cs" />
     <Compile Include="SupplierRepository.cs" />
@@ -181,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608101100292_SupplierReviews.resx">
       <DependentUpon>201608101100292_SupplierReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608310943556_MemberDbContext2_12.resx">
+      <DependentUpon>201608310943556_MemberDbContext2_12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
