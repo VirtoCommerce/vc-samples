@@ -8,8 +8,24 @@ if (AppDependencies != undefined) {
 angular.module(moduleName, [])
 .run(
   ['$rootScope', 'virtoCommerce.customerModule.memberTypesResolverService', function ($rootScope, memberTypesResolverService) {
-    
-      // register member types
-  	memberTypesResolverService.registerType({ memberType: 'Supplier', fullTypeName: 'MemberExtensionSampleModule.Web.Model.Supplier', descriptionAdd: 'Supplier description', titleAdd: 'Supplier', icon: 'fa fa-truck', template: 'Modules/$(VirtoCommerce.MemberExtensionSampleModule)/Scripts/blades/supplier-detail.tpl.html' });
-    
+
+      // register new Supplier member type
+      memberTypesResolverService.registerType({
+          memberType: 'Supplier',
+          description: 'Supplier description',
+          fullTypeName: 'MemberExtensionSampleModule.Web.Model.Supplier',
+          icon: 'fa fa-truck',
+          detailBlade: {
+              template: 'Modules/$(VirtoCommerce.MemberExtensionSampleModule)/Scripts/blades/supplier-detail.tpl.html',
+              metaFields: [{
+                  name: 'contractNumber',
+                  title: "Contract Number",
+                  valueType: "ShortText"
+              }]
+          }
+      });
+
+      // registering Supplier as possible child for Organization
+      var organizationMetadata = memberTypesResolverService.resolve('Organization');
+      organizationMetadata.knownChildrenTypes.push('Supplier');
   }]);
