@@ -142,6 +142,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\blades\supplier-detail.js" />
     <Content Include="Scripts\blades\supplier-detail.tpl.html" />
     <Content Include="Scripts\extMembers.js" />
     <Content Include="Web.config" />
