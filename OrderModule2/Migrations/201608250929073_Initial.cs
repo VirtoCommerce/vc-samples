@@ -6,9 +6,7 @@ namespace OrderModule2.Migrations
     public partial class Initial : DbMigration
     {
         public override void Up()
-        {
-         
-            
+        {   
             CreateTable(
                 "dbo.CustomerOrder2",
                 c => new
@@ -34,9 +32,8 @@ namespace OrderModule2.Migrations
                 .ForeignKey("dbo.CustomerOrder2", t => t.CustomerOrder2Id)
                 .Index(t => t.Id)
                 .Index(t => t.CustomerOrder2Id);
-            
-        
-            
+
+            Sql("INSERT INTO dbo.CustomerOrder2 (Id) SELECT column_name(s) FROM dbo.CustomerOrder");
         }
         
         public override void Down()
