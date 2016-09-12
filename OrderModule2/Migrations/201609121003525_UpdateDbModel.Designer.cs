@@ -7,13 +7,13 @@ namespace OrderModule2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class OrderDbContext2_12 : IMigrationMetadata
+    public sealed partial class UpdateDbModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OrderDbContext2_12));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateDbModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608311358392_OrderDbContext2_12"; }
+            get { return "201609121003525_UpdateDbModel"; }
         }
         
         string IMigrationMetadata.Source

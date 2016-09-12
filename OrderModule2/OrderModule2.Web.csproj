@@ -109,11 +109,11 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VirtoCommerce.Domain, Version=2.16.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VirtoCommerce.Domain.2.17.0-rc14\lib\net451\VirtoCommerce.Domain.dll</HintPath>
+      <HintPath>packages\VirtoCommerce.Domain.2.17.0-rc18\lib\net451\VirtoCommerce.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="VirtoCommerce.OrderModule.Data, Version=2.11.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VirtoCommerce.OrderModule.Data.2.12.0-rc3\lib\net451\VirtoCommerce.OrderModule.Data.dll</HintPath>
+      <HintPath>packages\VirtoCommerce.OrderModule.Data.2.12.0-rc4\lib\net451\VirtoCommerce.OrderModule.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="VirtoCommerce.Platform.Core">
@@ -147,9 +147,9 @@
     <Compile Include="Migrations\201608250929073_Initial.Designer.cs">
       <DependentUpon>201608250929073_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608311358392_OrderDbContext2_12.cs" />
-    <Compile Include="Migrations\201608311358392_OrderDbContext2_12.Designer.cs">
-      <DependentUpon>201608311358392_OrderDbContext2_12.cs</DependentUpon>
+    <Compile Include="Migrations\201609121003525_UpdateDbModel.cs" />
+    <Compile Include="Migrations\201609121003525_UpdateDbModel.Designer.cs">
+      <DependentUpon>201609121003525_UpdateDbModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\CustomerOrder2Entity.cs" />
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="Migrations\201608250929073_Initial.resx">
       <DependentUpon>201608250929073_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608311358392_OrderDbContext2_12.resx">
-      <DependentUpon>201608311358392_OrderDbContext2_12.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609121003525_UpdateDbModel.resx">
+      <DependentUpon>201609121003525_UpdateDbModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
