@@ -2,10 +2,10 @@
 <module>
     <id>VirtoCommerce.OrderModule2</id>
     <version>1.0.0</version>
-    <platformVersion>2.11.5</platformVersion>
+    <platformVersion>2.12.0</platformVersion>
     <dependencies>
-        <dependency id="VirtoCommerce.Core" version="2.16.1" />
-        <dependency id="VirtoCommerce.Orders" version="2.11.2" />
+        <dependency id="VirtoCommerce.Core" version="2.17.0" />
+        <dependency id="VirtoCommerce.Orders" version="2.12.0" />
     </dependencies>
 
     <title>Order extension sample module</title>
