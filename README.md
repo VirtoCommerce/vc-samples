@@ -2,9 +2,9 @@
 This repository is the official storage for VirtoCommerce samples source code. Each folder represents an individual sample.
 
 # Current samples
-* ManagedModule - source code for "Sample Managed Module" in <a href="http://docs.virtocommerce.com/display/vc2devguide/Creating+new+module#Creatingnewmodule-Modulecontainingserversidelibraries" target="_blank">Creating new module</a> tutorial
-* MemberExtensionSampleModule - source code for <a href="http://docs.virtocommerce.com/x/FQAgAQ" target="_blank">Extending Members domain types</a> tutorial
-* UnmanagedModule - source code for "Sample Unmanaged Module" in <a href="http://docs.virtocommerce.com/display/vc2devguide/Creating+new+module#Creatingnewmodule-PureJavaScriptmodule" target="_blank">Creating new module</a> tutorial
+* ManagedModule - source code for "Sample Managed Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
+* MemberExtensionSampleModule - source code for <a href="https://virtocommerce.com/docs/vc2devguide/extending-commerce/extending-members-domain-types" target="_blank">Extending Members domain types</a> tutorial
+* UnmanagedModule - source code for "Sample Unmanaged Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
 
 
 # License
