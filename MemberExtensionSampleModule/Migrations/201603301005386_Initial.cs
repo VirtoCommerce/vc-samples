@@ -18,9 +18,10 @@ namespace MemberExtensionSampleModule.Web.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Contact", t => t.Id)
                 .Index(t => t.Id);
-            
-          
-            
+
+            //Convert  all exist Contact records to Contact2
+            Sql("INSERT INTO dbo.Contact2 (Id) SELECT Id FROM dbo.Contact");
+
         }
         
         public override void Down()

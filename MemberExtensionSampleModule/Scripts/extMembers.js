@@ -9,6 +9,14 @@ angular.module(moduleName, [])
 .run(
   ['$rootScope', 'virtoCommerce.customerModule.memberTypesResolverService', function ($rootScope, memberTypesResolverService) {
 
+      // add JobTitle field to Contact detail blade
+      var contactInfo = memberTypesResolverService.resolve("Contact");
+      contactInfo.detailBlade.metaFields.unshift({
+          name: 'jobTitle',
+          title: "JobTitle",
+          valueType: "ShortText"
+      });
+
       // register new Supplier member type
       memberTypesResolverService.registerType({
           memberType: 'Supplier',
