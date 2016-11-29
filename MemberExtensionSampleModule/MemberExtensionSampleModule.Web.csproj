@@ -154,26 +154,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201608101100292_SupplierReviews.cs" />
-    <Compile Include="Migrations\201608101100292_SupplierReviews.Designer.cs">
-      <DependentUpon>201608101100292_SupplierReviews.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608310943556_MemberDbContext2_12.cs" />
-    <Compile Include="Migrations\201608310943556_MemberDbContext2_12.Designer.cs">
-      <DependentUpon>201608310943556_MemberDbContext2_12.cs</DependentUpon>
+    <Compile Include="Migrations\201611291318508_Initial.cs" />
+    <Compile Include="Migrations\201611291318508_Initial.Designer.cs">
+      <DependentUpon>201611291318508_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\SupplierReview.cs" />
     <Compile Include="Model\SupplierReviewDataEntity.cs" />
     <Compile Include="SupplierRepository.cs" />
     <Compile Include="SupplierMemberService.cs" />
-    <Compile Include="Migrations\201603301005386_Initial.cs" />
-    <Compile Include="Migrations\201603301005386_Initial.Designer.cs">
-      <DependentUpon>201603301005386_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604051339192_Supplier.cs" />
-    <Compile Include="Migrations\201604051339192_Supplier.Designer.cs">
-      <DependentUpon>201604051339192_Supplier.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Contact2.cs" />
     <Compile Include="Model\Contact2DataEntity.cs" />
@@ -184,17 +172,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603301005386_Initial.resx">
-      <DependentUpon>201603301005386_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604051339192_Supplier.resx">
-      <DependentUpon>201604051339192_Supplier.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101100292_SupplierReviews.resx">
-      <DependentUpon>201608101100292_SupplierReviews.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608310943556_MemberDbContext2_12.resx">
-      <DependentUpon>201608310943556_MemberDbContext2_12.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611291318508_Initial.resx">
+      <DependentUpon>201611291318508_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
