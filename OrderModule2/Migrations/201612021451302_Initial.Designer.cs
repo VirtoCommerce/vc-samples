@@ -13,7 +13,7 @@ namespace OrderModule2.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201611290832593_Initial"; }
+            get { return "201612021451302_Initial"; }
         }
         
         string IMigrationMetadata.Source

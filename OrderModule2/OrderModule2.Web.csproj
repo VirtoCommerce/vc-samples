@@ -154,13 +154,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201611290832593_Initial.cs" />
-    <Compile Include="Migrations\201611290832593_Initial.Designer.cs">
-      <DependentUpon>201611290832593_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201612021451302_Initial.cs" />
+    <Compile Include="Migrations\201612021451302_Initial.Designer.cs">
+      <DependentUpon>201612021451302_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\CustomerOrder2Entity.cs" />
     <Compile Include="Model\InvoiceEntity.cs" />
+    <Compile Include="Model\LineItem2.cs" />
+    <Compile Include="Model\LineItem2Entity.cs" />
     <Compile Include="OrderRepository2.cs" />
     <Compile Include="Model\CustomerOrder2.cs" />
     <Compile Include="Model\Invoice.cs" />
@@ -168,8 +170,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611290832593_Initial.resx">
-      <DependentUpon>201611290832593_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612021451302_Initial.resx">
+      <DependentUpon>201612021451302_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

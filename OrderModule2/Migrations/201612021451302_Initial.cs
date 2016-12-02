@@ -8,6 +8,17 @@ namespace OrderModule2.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.OrderLineItem2",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        OuterId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.OrderLineItem", t => t.Id)
+                .Index(t => t.Id);
+
+            CreateTable(
                "dbo.CustomerOrder2",
                c => new
                {
@@ -34,10 +45,16 @@ namespace OrderModule2.Migrations
                 .Index(t => t.CustomerOrder2Id);
             //Convert  all exist CustomerOrder records to CustomerOrder2
             Sql("INSERT INTO dbo.CustomerOrder2 (Id) SELECT Id FROM dbo.CustomerOrder");
+            //Convert  all exist LineItem records to lineItem2
+            Sql("INSERT INTO dbo.OrderLineItem2 (Id) SELECT Id FROM dbo.OrderLineItem");
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.OrderLineItem2", "Id", "dbo.OrderLineItem");
+            DropIndex("dbo.OrderLineItem2", new[] { "Id" });        
+            DropTable("dbo.OrderLineItem2");
+
             DropForeignKey("dbo.OrderInvoice", "CustomerOrder2Id", "dbo.CustomerOrder2");
             DropForeignKey("dbo.OrderInvoice", "Id", "dbo.OrderOperation");
             DropForeignKey("dbo.CustomerOrder2", "Id", "dbo.CustomerOrder");

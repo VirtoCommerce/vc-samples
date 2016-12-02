@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
 using OrderModule2.Model;
+using OrderModule2.Web.Model;
 using VirtoCommerce.Domain.Commerce.Model;
 using VirtoCommerce.Domain.Order.Model;
 using VirtoCommerce.OrderModule.Data.Model;
@@ -50,6 +51,8 @@ namespace OrderModule2.Web
             AbstractTypeFactory<CustomerOrderEntity>.OverrideType<CustomerOrderEntity, CustomerOrder2Entity>();
             AbstractTypeFactory<CustomerOrder>.OverrideType<CustomerOrder, CustomerOrder2>()
                                            .WithFactory(() => new CustomerOrder2 { OperationType = "CustomerOrder" });
+            AbstractTypeFactory<LineItem>.OverrideType<LineItem, LineItem2>();
+            AbstractTypeFactory<LineItemEntity>.OverrideType<LineItemEntity, LineItem2Entity>();
             //Thats need for PolymorphicOperationJsonConverter for API deserialization
             AbstractTypeFactory<IOperation>.RegisterType<Invoice>();
         }
