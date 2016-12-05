@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>VirtoCommerce.Samples.Cart2</id>
+        <version>1.0.3</version>
+        <title>$title$</title>
+        <authors>VirtoCommerce</authors>
+        <owners>VirtoCommerce</owners>
+        <licenseUrl>https://github.com/VirtoCommerce/vc-module-cart/raw/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/VirtoCommerce/vc-samples/tree/master/CartModule2</projectUrl>
+        <iconUrl>https://github.com/VirtoCommerce/vc-module-cart/raw/master/NuGet/icon.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Shopping cart model extension sample module</description>
+        <copyright>Copyright © VirtoCommerce 2011-2016</copyright>
+    </metadata>
+</package>

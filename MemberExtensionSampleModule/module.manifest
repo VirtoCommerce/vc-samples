@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <module>
-    <id>VirtoCommerce.MemberExtensionSampleModule</id>
+    <id>VirtoCommerce.Samples.MemberExtension</id>
     <version>2.12.0</version>
     <platformVersion>2.12.0</platformVersion>
     <dependencies>

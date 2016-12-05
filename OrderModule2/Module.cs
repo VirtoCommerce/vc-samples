@@ -2,10 +2,12 @@
 using Microsoft.Practices.Unity;
 using OrderModule2.Model;
 using OrderModule2.Web.Model;
+using OrderModule2.Web.Services;
 using VirtoCommerce.Domain.Commerce.Model;
 using VirtoCommerce.Domain.Order.Model;
 using VirtoCommerce.OrderModule.Data.Model;
 using VirtoCommerce.OrderModule.Data.Repositories;
+using VirtoCommerce.OrderModule.Data.Services;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Data.Infrastructure;
@@ -40,8 +42,9 @@ namespace OrderModule2.Web
             base.Initialize();
 
             _container.RegisterType<IOrderRepository>(new InjectionFactory(c => new OrderRepository2(_connectionStringName, _container.Resolve<AuditableInterceptor>(), new EntityPrimaryKeyGeneratorInterceptor())));
+            //Override ICustomerOrderBuilder default implementation
+            _container.RegisterType<ICustomerOrderBuilder, CustomerOrderBuilder2Impl>();
 
-         
         }
 
         public override void PostInitialize()

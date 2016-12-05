@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <module>
-    <id>CartModule2</id>
+    <id>VirtoCommerce.Samples.Cart2</id>
     <version>1.0.0</version>
     <platformVersion>2.12.2</platformVersion>
 

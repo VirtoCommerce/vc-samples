@@ -48,6 +48,10 @@
       <HintPath>packages\CacheManager.Core.0.8.0\lib\net45\CacheManager.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CartModule2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\VirtoCommerce.Samples.Cart2.1.0.3\lib\net461\CartModule2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -117,6 +121,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="VirtoCommerce.CartModule.Data, Version=2.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\VirtoCommerce.CartModule.Data.2.13.0\lib\net451\VirtoCommerce.CartModule.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="VirtoCommerce.Domain, Version=2.19.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\VirtoCommerce.Domain.2.19.1\lib\net451\VirtoCommerce.Domain.dll</HintPath>
       <Private>True</Private>
@@ -168,6 +176,7 @@
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CustomerOrderBuilder2Impl.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612021451302_Initial.resx">
