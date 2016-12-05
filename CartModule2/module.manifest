@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>CartModule2</id>
+    <version>1.0.0</version>
+    <platformVersion>2.12.2</platformVersion>
+
+    <title>Sample cart extension</title>
+    <description>Extending VC cart and line item with new fields</description>
+    <authors>
+        <author>VirtoCommerce</author>
+    </authors>
+
+    <assemblyFile>CartModule2.dll</assemblyFile>
+    <moduleType>CartModule2.Module, CartModule2</moduleType>    
+    
+    <settings>     
+    </settings>
+</module>
