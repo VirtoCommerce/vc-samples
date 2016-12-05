@@ -1,5 +1,5 @@
-﻿angular.module('contactExtMemberModule')
-    .controller('contactExtMemberModule.supplierDetailController', function ($scope) {
+﻿angular.module('virtoCommerce.samples.memberExtension')
+    .controller('virtoCommerce.samples.memberExtension.supplierDetailController',  ['$scope', function ($scope) {
         var blade = $scope.blade;
         
         if (blade.isNew) {
@@ -19,4 +19,4 @@
                 blade.title = blade.currentEntity.name + '\'s details';
             }
         };
-    });
+    }]);

@@ -1,5 +1,5 @@
 ﻿//Call this to register our module to main application
-var moduleTemplateName = "platformWebApp.managedModule";
+var moduleTemplateName = "virtoCommerce.samples.managed";
 
 if (AppDependencies != undefined) {
     AppDependencies.push(moduleTemplateName);
@@ -16,8 +16,8 @@ angular.module(moduleTemplateName, [])
                     '$scope', 'platformWebApp.bladeNavigationService', function ($scope, bladeNavigationService) {
                         var newBlade = {
                             id: 'blade1',
-                            controller: 'blade1Controller',
-                            template: 'Modules/$(Sample.Managed)/Scripts/blades/blade1.tpl.html',
+                            controller: 'virtoCommerce.samples.managed.blade1Controller',
+                            template: 'Modules/$(virtoCommerce.samples.managed)/Scripts/blades/blade1.tpl.html',
                             isClosingDisabled: true
                         };
                         bladeNavigationService.showBlade(newBlade);

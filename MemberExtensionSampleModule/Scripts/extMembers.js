@@ -1,5 +1,5 @@
 ﻿//Call this to register our module to main application
-var moduleName = "contactExtMemberModule";
+var moduleName = "virtoCommerce.samples.memberExtension";
 
 if (AppDependencies != undefined) {
     AppDependencies.push(moduleName);
@@ -24,7 +24,7 @@ angular.module(moduleName, [])
           fullTypeName: 'MemberExtensionSampleModule.Web.Model.Supplier',
           icon: 'fa fa-truck',
           detailBlade: {
-              template: 'Modules/$(VirtoCommerce.MemberExtensionSampleModule)/Scripts/blades/supplier-detail.tpl.html',
+              template: 'Modules/$(VirtoCommerce.Samples.MemberExtension)/Scripts/blades/supplier-detail.tpl.html',
               metaFields: [{
                   name: 'contractNumber',
                   title: "Contract Number",

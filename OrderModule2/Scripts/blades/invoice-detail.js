@@ -1,5 +1,5 @@
-﻿angular.module('virtoCommerce.orderModule')
-.controller('virtoCommerce.orderModule.invoiceDetailController', ['$scope', 'platformWebApp.bladeNavigationService', 'platformWebApp.dialogService', 'platformWebApp.settings', 'virtoCommerce.customerModule.members',
+﻿angular.module('virtoCommerce.samples.order2')
+.controller('virtoCommerce.samples.order2.invoiceDetailController', ['$scope', 'platformWebApp.bladeNavigationService', 'platformWebApp.dialogService', 'platformWebApp.settings', 'virtoCommerce.customerModule.members',
     function ($scope, bladeNavigationService, dialogService, settings, members) {
         var blade = $scope.blade;
 

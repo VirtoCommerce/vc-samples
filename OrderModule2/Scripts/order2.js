@@ -1,5 +1,5 @@
 ﻿//Call this to register our module to main application
-var moduleName = "virtoCommerce.orderModule2";
+var moduleName = "virtoCommerce.samples.order2";
 
 if (AppDependencies != undefined) {
     AppDependencies.push(moduleName);
@@ -27,7 +27,7 @@ angular.module(moduleName, [])
 	        description: 'Sample Invoice document',
 	        treeTemplateUrl: 'invoiceOperation.tpl.html',
 	        detailBlade: {
-	            template: 'Modules/$(virtoCommerce.orderModule2)/Scripts/blades/invoice-detail.tpl.html',
+	            template: 'Modules/$(virtoCommerce.samples.order2)/Scripts/blades/invoice-detail.tpl.html',
 	            metaFields: [
                     {
                         name: 'number',
@@ -51,7 +51,7 @@ angular.module(moduleName, [])
 	    };
 	    knownOperations.registerOperation(invoiceOperation);
 
-	    $http.get('Modules/$(virtoCommerce.orderModule2)/Scripts/tree-template.html').then(function (response) {
+	    $http.get('Modules/$(virtoCommerce.samples.order2)/Scripts/tree-template.html').then(function (response) {
 	        // compile the response, which will put stuff into the cache
 	        $compile(response.data);
 	    });

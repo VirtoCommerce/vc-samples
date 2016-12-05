@@ -1,5 +1,5 @@
-﻿angular.module('unmanagedModule.blades.blade1', [])
-.controller('um-blade1Controller', ['$scope', function ($scope) {
+﻿angular.module('virtoCommerce.samples.unmanaged', [])
+.controller('virtoCommerce.samples.unmanaged.bladeController', ['$scope', function ($scope) {
     var blade = $scope.blade;
 
     $scope.data = "UnmanagedModule content";
