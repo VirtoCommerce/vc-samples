@@ -39,7 +39,7 @@ namespace CartModule2
 
         public override void PostInitialize()
         {
-            base.Initialize();
+            base.PostInitialize();
             AbstractTypeFactory<ShoppingCart>.OverrideType<ShoppingCart, Cart2>();
             AbstractTypeFactory<ShoppingCartEntity>.OverrideType<ShoppingCartEntity, Cart2Entity>();
             AbstractTypeFactory<LineItem>.OverrideType<LineItem, LineItem2>();
