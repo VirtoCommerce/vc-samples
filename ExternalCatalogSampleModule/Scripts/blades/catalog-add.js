@@ -6,7 +6,7 @@
     $scope.discover = function (apiUrl) {
         blade.isLoading = true;
         extcatalogs.discover({ apiUrl: apiUrl }, function (data) {
-            blade.extCatalogs = data;
+            blade.extCatalogs = _.filter(data, function(x) { return !x.isVirtual });
             blade.isLoading = false;
         });
     };
