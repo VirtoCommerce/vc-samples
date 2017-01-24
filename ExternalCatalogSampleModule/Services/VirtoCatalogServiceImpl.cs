@@ -30,14 +30,9 @@ namespace External.CatalogModule.Web.Services
 {
     public class VirtoCatalogSearchImpl : CatalogServiceBase, ICatalogSearchService, IItemService, ICategoryService, ISearchQueryBuilder
     {
-       private Catalog _demoVirtoCatalog = new Catalog
-       {
-           Id = "4974648a41df4e6ea67ef2ad76d7bbd4",
-           Name = "demo.virtocommerce.com",
-           Languages = new CatalogLanguage[] { new CatalogLanguage() { IsDefault = true, LanguageCode = "en-US" } }.ToList()
-       };
+   
         private readonly ICatalogSearchService _catalogSearchService;
-        private readonly ICatalogModuleApiClient _vcCatalogClient;
+        private readonly Func<string, ICatalogModuleApiClient> _vcCatalogClientFactory;
         private readonly IItemService _productService;
         private readonly ICategoryService _categoryService;
         private readonly ISearchQueryBuilder _luceneQueryBuilder;
@@ -45,24 +40,26 @@ namespace External.CatalogModule.Web.Services
         private readonly IMemberService _memberService;
         private readonly IMemberSearchService _memberSearchService;
         private readonly ISecurityService _securityService;
+        private readonly ICatalogService _catalogService;
 
         public VirtoCatalogSearchImpl(Func<ICatalogRepository> catalogRepositoryFactory, ICacheManager<object> cacheManager,
-                                      ICatalogSearchService catalogSearchService, ICatalogModuleApiClient vcCatalogClient, 
+                                      ICatalogSearchService catalogSearchService, Func<string, ICatalogModuleApiClient> vcCatalogClientFactory, 
                                       IItemService productService, ICategoryService categoryService, IUserNameResolver userNameResolver,
                                       ISearchQueryBuilder luceneQueryBuilder, IMemberService memberService, 
-                                      ISecurityService securityService)
+                                      ISecurityService securityService, ICatalogService catalogService)
             :base(catalogRepositoryFactory, cacheManager)
         {
             _catalogSearchService = catalogSearchService;
-            _vcCatalogClient = vcCatalogClient;
+            _vcCatalogClientFactory = vcCatalogClientFactory;
             _productService = productService;
             _categoryService = categoryService;
             _luceneQueryBuilder = luceneQueryBuilder;
             _userNameResolver = userNameResolver;
             _memberService = memberService;
             _securityService = securityService;
+            _catalogService = catalogService;
         }
-
+                
         #region ISearchQueryBuilder
         public string DocumentType
         {
@@ -104,35 +101,46 @@ namespace External.CatalogModule.Web.Services
 
         public SearchResult Search(SearchCriteria criteria)
         {
-            criteria.WithHidden = false;
             var retVal = _catalogSearchService.Search(criteria);
-         
-            if (criteria.CatalogId.EqualsInvariant(_demoVirtoCatalog.Id) || criteria.CatalogIds.IsNullOrEmpty())
-            {
-                var vcSearchCriteria = new External.CatalogModule.Web.CatalogModuleApi.Models.SearchCriteria();
-                vcSearchCriteria.InjectFrom(criteria);
-                vcSearchCriteria.Skip = criteria.Skip;
-                vcSearchCriteria.Take = criteria.Take;
-                vcSearchCriteria.Sort = criteria.Sort;
-                vcSearchCriteria.WithHidden = false;
-                vcSearchCriteria.SearchInChildren = vcSearchCriteria.CatalogId.IsNullOrEmpty() ? true : criteria.SearchInChildren;
-                vcSearchCriteria.ResponseGroup = criteria.ResponseGroup.ToString();
-                vcSearchCriteria.CatalogId = "4974648a41df4e6ea67ef2ad76d7bbd4";
-                var result = _vcCatalogClient.CatalogModuleSearch.Search(vcSearchCriteria);
-                retVal.ProductsTotalCount += result.ProductsTotalCount.Value;
-                foreach(var dtoCategory in result.Categories)
-                {
-                    var cat = new Category();
-                    cat.InjectFrom(dtoCategory);
-                    retVal.Categories.Add(cat);
-                }
-                foreach(var dtoProduct in result.Products)
-                {
-                    var prod = ConvertToProduct(dtoProduct);
-                     retVal.Products.Add(prod);
-                }                
-            }           
 
+            var extCatalogs = GetExternalCatalogs();
+            if (!string.IsNullOrEmpty(criteria.CatalogId))
+            {
+                extCatalogs = extCatalogs.Where(x => x.Id.EqualsInvariant(criteria.CatalogId));
+            }
+            var vcSearchCriteria = new External.CatalogModule.Web.CatalogModuleApi.Models.SearchCriteria();
+            vcSearchCriteria.InjectFrom(criteria);
+            vcSearchCriteria.Skip = criteria.Skip;
+            vcSearchCriteria.Take = criteria.Take;
+            vcSearchCriteria.Sort = criteria.Sort;
+            vcSearchCriteria.WithHidden = false;
+            vcSearchCriteria.SearchInChildren = vcSearchCriteria.CatalogId.IsNullOrEmpty() ? true : criteria.SearchInChildren;
+            vcSearchCriteria.ResponseGroup = criteria.ResponseGroup.ToString();         
+
+            foreach (var extCatalog in extCatalogs)
+            {
+                var apiUrl = extCatalog.PropertyValues.FirstOrDefault(x => x.PropertyName.EqualsInvariant("apiUrl")).Value.ToString();
+                if (criteria.Take >= 0)
+                {
+                    vcSearchCriteria.CatalogId = extCatalog.Id;
+                    var result = _vcCatalogClientFactory(apiUrl).CatalogModuleSearch.Search(vcSearchCriteria);
+
+                    retVal.ProductsTotalCount += result.ProductsTotalCount.Value;
+                    vcSearchCriteria.Skip = Math.Max(0, criteria.Skip - retVal.ProductsTotalCount);
+                    vcSearchCriteria.Take = Math.Max(0, criteria.Take - retVal.Products.Count());
+                    foreach (var dtoCategory in result.Categories)
+                    {
+                        var cat = new Category();
+                        cat.InjectFrom(dtoCategory);
+                        retVal.Categories.Add(cat);
+                    }
+                    foreach (var dtoProduct in result.Products)
+                    {
+                        var prod = ConvertToProduct(dtoProduct);
+                        retVal.Products.Add(prod);
+                    }                   
+                }
+            }
             return retVal;
         }
 
@@ -145,19 +153,38 @@ namespace External.CatalogModule.Web.Services
         public CatalogProduct[] GetByIds(string[] itemIds, ItemResponseGroup respGroup, string catalogId = null)
         {
             var retVal = _productService.GetByIds(itemIds, respGroup, catalogId).ToList();
-            var externalProducts = _vcCatalogClient.CatalogModuleProducts.GetProductByIds(itemIds, respGroup.ToString());
-            foreach (var externalProduct in externalProducts)
+            var extCatalogs = GetExternalCatalogs();
+            foreach (var extCatalog in extCatalogs)
             {
-                var product = ConvertToProduct(externalProduct);
-                var existProduct = retVal.FirstOrDefault(x => x.Id.EqualsInvariant(externalProduct.Id));
-                if (existProduct != null)
+                var apiUrl = extCatalog.PropertyValues.FirstOrDefault(x => x.PropertyName.EqualsInvariant("apiUrl")).Value.ToString();
+                var chunkSize = 30;
+                for (int i = 0; i < itemIds.Count(); i += chunkSize)
                 {
-                    retVal.Remove(existProduct);
-                    product.Properties = existProduct.Properties;
-                    product.PropertyValues = existProduct.PropertyValues;
+                    var externalProducts = _vcCatalogClientFactory(apiUrl).CatalogModuleProducts.GetProductByIds(itemIds.Skip(i).Take(chunkSize).ToArray(), respGroup.ToString());
+                    foreach (var externalProduct in externalProducts)
+                    {
+                        var product = ConvertToProduct(externalProduct);
+                        var existProduct = retVal.FirstOrDefault(x => x.Id.EqualsInvariant(externalProduct.Id));
+                        if (existProduct != null)
+                        {
+                            retVal.Remove(existProduct);
+                            product.Properties = existProduct.Properties;
+                            product.PropertyValues = existProduct.PropertyValues;
+                            product.Links = existProduct.Links;
+                            if (product.Outlines.IsNullOrEmpty())
+                            {
+                                product.Outlines = existProduct.Outlines;
+                            }
+                            else if (!existProduct.Outlines.IsNullOrEmpty())
+                            {
+                                product.Outlines.AddRange(existProduct.Outlines);
+                            }                       
+                        }
+                        retVal.Add(product);
+                    }
                 }
-                retVal.Add(product);
             }
+           
             return retVal.ToArray();
         }
 
@@ -178,17 +205,18 @@ namespace External.CatalogModule.Web.Services
 
         public void Update(CatalogProduct[] items)
         {
-            var externalProducts = items.Where(x => x.CatalogId.EqualsInvariant(_demoVirtoCatalog.Id));
-            foreach(var externalProduct in externalProducts)
+            var extCatalogs = GetExternalCatalogs();
+            var externalProducts = items.Where(x => extCatalogs.Any(y => y.Id.EqualsInvariant(x.CatalogId)));
+            var externalProductIds = externalProducts.Select(x => x.Id).ToArray();
+            foreach (var externalProduct in externalProducts)
             {
                 externalProduct.CategoryId = null;
                 externalProduct.IsActive = false;
-            }
-            var topItemsIds = items.Where(x => x.CatalogId.EqualsInvariant(_demoVirtoCatalog.Id)).Select(x => x.Id).ToArray();
-            var notExistProducts = topItemsIds.Except(_productService.GetByIds(topItemsIds, ItemResponseGroup.ItemInfo).Select(x => x.Id));
-            if(notExistProducts.Any())
+            }       
+            var notExistProductIds = externalProductIds.Except(_productService.GetByIds(externalProductIds, ItemResponseGroup.ItemInfo).Select(x => x.Id));
+            if(notExistProductIds.Any())
             {
-                _productService.Create(items.Where(x => notExistProducts.Contains(x.Id)).ToArray());
+                _productService.Create(items.Where(x => notExistProductIds.Contains(x.Id)).ToArray());
             }
             _productService.Update(items);
         }
@@ -197,16 +225,22 @@ namespace External.CatalogModule.Web.Services
         #region Category service
         public Category[] GetByIds(string[] categoryIds, CategoryResponseGroup responseGroup, string catalogId = null)
         {
+            var extCatalogs = GetExternalCatalogs();
             var retVal = _categoryService.GetByIds(categoryIds, responseGroup, catalogId).ToList();
-            var categoriesDto = _vcCatalogClient.CatalogModuleCategories.GetCategoriesByIds(categoryIds.ToList(), responseGroup.ToString());
-            foreach(var categoryDto in categoriesDto)
+            foreach(var extCatalog in extCatalogs)
             {
-                var localCategory = retVal.FirstOrDefault(x => x.Id.EqualsInvariant(categoryDto.Id));
-                if(localCategory == null)
+                var apiUrl = extCatalog.PropertyValues.FirstOrDefault(x => x.PropertyName.EqualsInvariant("apiUrl")).Value.ToString();
+                var extCategories = _vcCatalogClientFactory(apiUrl).CatalogModuleCategories.GetCategoriesByIds(categoryIds.ToList(), responseGroup.ToString());
+                foreach (var extCategory in extCategories)
                 {
-                    retVal.Add(ConvertToCategory(categoryDto));
+                    var localCategory = retVal.FirstOrDefault(x => x.Id.EqualsInvariant(extCategory.Id));
+                    if (localCategory == null)
+                    {
+                        retVal.Add(ConvertToCategory(extCategory));
+                    }
                 }
             }
+           
             return retVal.ToArray();
         }
 
@@ -227,6 +261,14 @@ namespace External.CatalogModule.Web.Services
 
         public void Update(Category[] categories)
         {
+            var extCatalogs = GetExternalCatalogs();
+            var externalCategories = categories.Where(x => extCatalogs.Any(y => y.Id.EqualsInvariant(x.CatalogId)));
+            var externalCategoriesIds = externalCategories.Select(x => x.Id).ToArray();          
+            var notExistCategoriesIds = externalCategoriesIds.Except(_categoryService.GetByIds(externalCategoriesIds, CategoryResponseGroup.Info).Select(x => x.Id));
+            if (notExistCategoriesIds.Any())
+            {
+                _categoryService.Create(categories.Where(x => notExistCategoriesIds.Contains(x.Id)).ToArray());
+            }
             _categoryService.Update(categories);
         }
 
@@ -253,7 +295,7 @@ namespace External.CatalogModule.Web.Services
         }
         private CatalogProduct ConvertToProduct(External.CatalogModule.Web.CatalogModuleApi.Models.Product dto)
         {
-            var retVal = new dataModel.Item() { CatalogId = _demoVirtoCatalog.Id }.ToCoreModel(base.AllCachedCatalogs, base.AllCachedCategories);
+            var retVal = new dataModel.Item() { CatalogId = dto.CatalogId }.ToCoreModel(base.AllCachedCatalogs, base.AllCachedCategories);
             retVal.InjectFrom(dto);
             if(!dto.Images.IsNullOrEmpty())
             {
@@ -287,5 +329,9 @@ namespace External.CatalogModule.Web.Services
             return outline;
         }
 
+        private IEnumerable<Catalog> GetExternalCatalogs()
+        {
+             return _catalogService.GetCatalogsList().ToArray().Where(x => x.PropertyValues.Any(y => y.PropertyName.EqualsInvariant("apiUrl")));
+        }
     }
 }

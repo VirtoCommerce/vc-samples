@@ -224,6 +224,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\blades\catalog-add.js" />
+    <Content Include="Scripts\blades\catalog-add.tpl.html" />
+    <Content Include="Scripts\extCatalog.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -232,8 +235,10 @@
     <Compile Include="ApiClient\CatalogModuleApi.cs" />
     <Compile Include="ApiClient\HmacUtility.cs" />
     <Compile Include="ApiClient\VirtoApiSecurityRequest.cs" />
+    <Compile Include="Controllers\Api\ExtCatalogController.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\resources\resources.js" />
     <Compile Include="Services\VirtoCatalogServiceImpl.cs" />
     <Compile Include="Services\TaobaoCatalogSearchImpl.cs" />
   </ItemGroup>

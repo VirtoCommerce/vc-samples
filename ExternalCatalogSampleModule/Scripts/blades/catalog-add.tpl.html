@@ -1,0 +1,30 @@
+﻿<div class="blade-static __bottom">
+    <button class="btn" ng-click="saveChanges()" ng-disabled="!blade.extCatalog.name">{{ 'platform.commands.ok' | translate }}</button>
+</div>
+<div class="blade-content">
+    <div class="blade-inner">
+        <div class="inner-block">
+            <form class="form" name="formScope">
+               
+                <div class="form-group">
+                    <label class="form-label">Enter external catalog url:</label>
+                    <div class="form-input">
+                        <input ng-model="blade.apiUrl" ng-keyup="$event.which === 13 && discover(blade.apiUrl)" placeholder="api url" focus-on="" required>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Enter external catalog url:</label>
+                    <div class="form-input">
+                        <ui-select ng-model="blade.extCatalog">
+                            <ui-select-match placeholder="choose catalog">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="x in blade.extCatalogs">
+                                <span ng-bind-html="x.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
