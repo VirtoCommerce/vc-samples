@@ -7,6 +7,7 @@
         <dependency id="VirtoCommerce.Core" version="2.17.0" />
         <dependency id="VirtoCommerce.Catalog" version="2.16.0" />
         <dependency id="VirtoCommerce.SearchApi" version="1.2.9"/>
+        <dependency id="VirtoCommerce.Customer" version="2.13.0"/>
     </dependencies>
 
     <title>External catalog extension sample module</title>

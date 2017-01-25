@@ -54,17 +54,7 @@ namespace External.CatalogModule.Web
             //    };
             //    catalogService.Create(taobaoCatalog);
             //}
-            var vcDemoCatalog = catalogService.GetById("4974648a41df4e6ea67ef2ad76d7bbd4");
-            if (vcDemoCatalog == null)
-            {
-                vcDemoCatalog = new Catalog
-                {
-                    Id = "4974648a41df4e6ea67ef2ad76d7bbd4",
-                    Name = "demo.virtocommerce.com",
-                    Languages = new CatalogLanguage[] { new CatalogLanguage() { IsDefault = true, LanguageCode = "en-US" } }.ToList()
-                };
-                catalogService.Create(vcDemoCatalog);
-            }
+        
             //_container.RegisterInstance<ITopClient>(topClient);
             Func<string, ICatalogModuleApiClient> virtoApiClientFactory = x => new CatalogModuleApiClient(new Uri(x), new VirtoApiSecurityRequest("27e0d789f12641049bd0e939185b4fd2", "34f0a3c12c9dbb59b63b5fece955b7b2b9a3b20f84370cba1524dd5c53503a2e2cb733536ecf7ea1e77319a47084a3a2c9d94d36069a432ecc73b72aeba6ea78"));
             _container.RegisterInstance<Func<string, ICatalogModuleApiClient>>(virtoApiClientFactory);

@@ -39,7 +39,6 @@ namespace External.CatalogModule.Web.Services
         private readonly ISearchQueryBuilder _luceneQueryBuilder;
         private readonly IUserNameResolver _userNameResolver;
         private readonly IMemberService _memberService;
-        private readonly IMemberSearchService _memberSearchService;
         private readonly ISecurityService _securityService;
         private readonly ICatalogService _catalogService;
 
