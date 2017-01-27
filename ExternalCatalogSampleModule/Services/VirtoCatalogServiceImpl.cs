@@ -72,29 +72,31 @@ namespace External.CatalogModule.Web.Services
         {
             var queryBuilder = _luceneQueryBuilder.BuildQuery<T>(scope, criteria) as QueryBuilder;
 
-            if (criteria is CatalogItemSearchCriteria)
+            if (criteria is CatalogItemSearchCriteria || criteria is CategorySearchCriteria)
             {
+                var query = queryBuilder.Query as BooleanQuery;
+                var innerQuery = new BooleanQuery();
+                innerQuery.Add(new TermQuery(new Term("usergroups", "__null__")), Occur.SHOULD);           
+
                 var userName = _userNameResolver.GetCurrentUserName();
                 var userAccount = _securityService.FindByNameAsync(userName, UserDetails.Reduced).Result;
                 if (userAccount != null && !userAccount.MemberId.IsNullOrEmpty())
                 {
                     var contact = _memberService.GetByIds(new[] { userAccount.MemberId }).FirstOrDefault();
                     if (contact != null)
-                    {
-                        var userExperienceDp = contact.DynamicProperties.FirstOrDefault(x => x.Name.EqualsInvariant("userexperience"));
-                        if (userExperienceDp != null && !userExperienceDp.Values.IsNullOrEmpty())
-                        {
-                            var userExpValue = userExperienceDp.Values.First().Value as DynamicPropertyDictionaryItem;
-                            if (userExpValue != null)
+                    {                       
+                        if (!contact.Groups.IsNullOrEmpty())
+                        {                       
+                            foreach (var userGroup in contact.Groups)
                             {
-                                var catalogSearchCriteria = criteria as CatalogItemSearchCriteria;
-                                var query = queryBuilder.Query as BooleanQuery;
-                                query.Add(new TermQuery(new Term(userExperienceDp.Name, userExpValue.Name)), Occur.MUST);
-                            }
-                        }
+                                innerQuery.Add(new TermQuery(new Term("usergroups", userGroup.ToLowerInvariant())), Occur.SHOULD);
+                            }                          
+                        }                     
                     }
                 }
+                query.Add(innerQuery, Occur.MUST);
             }
+
             return queryBuilder;
         }
         #endregion
@@ -198,16 +200,26 @@ namespace External.CatalogModule.Web.Services
                 }
             }
 
-            foreach(var product in retVal.Where(x=>x.CategoryId != null))
+            foreach (var product in retVal.Where(x => x.CategoryId != null))
             {
                 var dataCategory = base.AllCachedCategories.FirstOrDefault(x => x.Id == product.CategoryId);
-                if(dataCategory != null)
+                if (dataCategory != null)
                 {
-                    var userExpProperty = dataCategory.CategoryPropertyValues.FirstOrDefault(x => x.Name.EqualsInvariant("userexperience"));
-                    if (userExpProperty != null)
+                    foreach(var catPropValue in dataCategory.CategoryPropertyValues)
                     {
-                        product.PropertyValues.Add(userExpProperty.ToCoreModel());
-                    }
+                        var propValue = catPropValue.ToCoreModel();
+                        propValue.Id = null;
+                        product.PropertyValues.Add(propValue);
+                    }                    
+                }
+                if (!product.PropertyValues.Any(x => x.PropertyName.EqualsInvariant("usergroups")))
+                {
+                    product.PropertyValues.Add(new PropertyValue
+                    {
+                        PropertyName = "usergroups",
+                        Value = "__NULL__",
+                        ValueType = PropertyValueType.ShortText
+                    });
                 }
             }
            
@@ -241,7 +253,7 @@ namespace External.CatalogModule.Web.Services
             }       
             var notExistProductIds = externalProductIds.Except(_productService.GetByIds(externalProductIds, ItemResponseGroup.ItemInfo).Select(x => x.Id));
             if(notExistProductIds.Any())
-            {
+            {                
                 _productService.Create(items.Where(x => notExistProductIds.Contains(x.Id)).ToArray());
             }
             _productService.Update(items);
@@ -276,10 +288,22 @@ namespace External.CatalogModule.Web.Services
                             category.Outlines.AddRange(localCategory.Outlines);
                         }                       
                     }
-                    retVal.Add(category);
+                    retVal.Add(category);                  
                 }
             }
-           
+
+            foreach (var category in retVal)
+            {
+                if (!category.PropertyValues.Any(x => x.PropertyName.EqualsInvariant("usergroups")))
+                {
+                    category.PropertyValues.Add(new PropertyValue
+                    {
+                        PropertyName = "usergroups",
+                        Value = "__NULL__",
+                        ValueType = PropertyValueType.ShortText
+                    });
+                }
+            }
             return retVal.ToArray();
         }
 

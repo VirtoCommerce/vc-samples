@@ -56,16 +56,7 @@ namespace External.CatalogModule.Web
             //}
         
             //_container.RegisterInstance<ITopClient>(topClient);
-            Func<string, ICatalogModuleApiClient> virtoApiClientFactory = x => new CatalogModuleApiClient(new Uri(x), new VirtoApiSecurityRequest("27e0d789f12641049bd0e939185b4fd2", "34f0a3c12c9dbb59b63b5fece955b7b2b9a3b20f84370cba1524dd5c53503a2e2cb733536ecf7ea1e77319a47084a3a2c9d94d36069a432ecc73b72aeba6ea78"));
-            _container.RegisterInstance<Func<string, ICatalogModuleApiClient>>(virtoApiClientFactory);
-            var luceneQueryBuilder = _container.Resolve<ISearchQueryBuilder>("lucene");
-            var vcDemoCatalogService = new VirtoCatalogSearchImpl(_container.Resolve<Func<ICatalogRepository>>(), _container.Resolve<ICacheManager<object>>(), _container.Resolve<ICatalogSearchService>(), virtoApiClientFactory, _container.Resolve<IItemService>(), _container.Resolve<ICategoryService>(),
-                                                                  _container.Resolve<IUserNameResolver>(), luceneQueryBuilder, _container.Resolve<IMemberService>(), _container.Resolve<ISecurityService>(), _container.Resolve<ICatalogService>());
-            _container.RegisterInstance<ICatalogSearchService>(vcDemoCatalogService);           
-            _container.RegisterInstance<IItemService>(vcDemoCatalogService);
-            _container.RegisterInstance<ICategoryService>(vcDemoCatalogService);
-            _container.RegisterInstance<ISearchQueryBuilder>("lucene", vcDemoCatalogService);
-
+          
 
 
             //var taobaoCatalogService = new TaobaoCatalogSearchImpl(_container.Resolve<Func<ICatalogRepository>>(), _container.Resolve<ICacheManager<object>>(), _container.Resolve<ICatalogSearchService>(), topClient, _container.Resolve<IItemService>());
@@ -75,6 +66,17 @@ namespace External.CatalogModule.Web
 
         public override void PostInitialize()
         {
+            Func<string, ICatalogModuleApiClient> virtoApiClientFactory = x => new CatalogModuleApiClient(new Uri(x), new VirtoApiSecurityRequest("27e0d789f12641049bd0e939185b4fd2", "34f0a3c12c9dbb59b63b5fece955b7b2b9a3b20f84370cba1524dd5c53503a2e2cb733536ecf7ea1e77319a47084a3a2c9d94d36069a432ecc73b72aeba6ea78"));
+            _container.RegisterInstance<Func<string, ICatalogModuleApiClient>>(virtoApiClientFactory);
+            var luceneQueryBuilder = _container.Resolve<ISearchQueryBuilder>("lucene");
+            var vcDemoCatalogService = new VirtoCatalogSearchImpl(_container.Resolve<Func<ICatalogRepository>>(), _container.Resolve<ICacheManager<object>>(), _container.Resolve<ICatalogSearchService>(), virtoApiClientFactory, _container.Resolve<IItemService>(), _container.Resolve<ICategoryService>(),
+                                                                  _container.Resolve<IUserNameResolver>(), luceneQueryBuilder, _container.Resolve<IMemberService>(), _container.Resolve<ISecurityService>(), _container.Resolve<ICatalogService>());
+            _container.RegisterInstance<ICatalogSearchService>(vcDemoCatalogService);
+            _container.RegisterInstance<IItemService>(vcDemoCatalogService);
+            _container.RegisterInstance<ICategoryService>(vcDemoCatalogService);
+            _container.RegisterInstance<ISearchQueryBuilder>("lucene", vcDemoCatalogService);
+
+
             base.Initialize();
 
         }

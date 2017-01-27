@@ -11,7 +11,7 @@ angular.module(extCatalogsModuleName, [
   ['platformWebApp.toolbarService', 'platformWebApp.bladeNavigationService',
 	function (toolbarService, bladeNavigationService) {
 	    toolbarService.register({
-	        name: "Add foreign catalog", icon: 'fa fa-cloud',
+	        name: "Add external catalog", icon: 'fa fa-cloud',
 	        executeMethod: function (blade) {
 	            var newBlade = {
 	                id: 'ext-catalog-add',
