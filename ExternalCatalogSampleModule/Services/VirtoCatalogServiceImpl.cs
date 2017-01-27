@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using CacheManager.Core;
 using External.CatalogModule.Web.CatalogModuleApi;
@@ -79,7 +80,8 @@ namespace External.CatalogModule.Web.Services
                 innerQuery.Add(new TermQuery(new Term("usergroups", "__null__")), Occur.SHOULD);           
 
                 var userName = _userNameResolver.GetCurrentUserName();
-                var userAccount = _securityService.FindByNameAsync(userName, UserDetails.Reduced).Result;
+                var userAccount = System.Threading.Tasks.Task.Factory.StartNew(s => ((ISecurityService)s).FindByNameAsync(userName, UserDetails.Reduced), _securityService, System.Threading.CancellationToken.None, System.Threading.Tasks.TaskCreationOptions.None, System.Threading.Tasks.TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+
                 if (userAccount != null && !userAccount.MemberId.IsNullOrEmpty())
                 {
                     var contact = _memberService.GetByIds(new[] { userAccount.MemberId }).FirstOrDefault();
