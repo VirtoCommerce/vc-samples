@@ -1,30 +1,29 @@
-namespace CartModule2.Migrations
+﻿namespace CartModule2.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Initial : DbMigration
     {
         public override void Up()
-        {   
+        {
             CreateTable(
                 "dbo.Cart2",
                 c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        CartType = c.String(maxLength: 64),
-                    })
+                {
+                    Id = c.String(nullable: false, maxLength: 128),
+                    CartType = c.String(maxLength: 64),
+                })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Cart", t => t.Id)
                 .Index(t => t.Id);
-            
+
             CreateTable(
                 "dbo.CartLineItem2",
                 c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        OuterId = c.String(maxLength: 64),
-                    })
+                {
+                    Id = c.String(nullable: false, maxLength: 128),
+                    OuterId = c.String(maxLength: 64),
+                })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CartLineItem", t => t.Id)
                 .Index(t => t.Id);
@@ -38,13 +37,13 @@ namespace CartModule2.Migrations
         {
             DropForeignKey("dbo.CartLineItem2", "Id", "dbo.CartLineItem");
             DropForeignKey("dbo.Cart2", "Id", "dbo.Cart");
-     
+
             DropIndex("dbo.CartLineItem2", new[] { "Id" });
             DropIndex("dbo.Cart2", new[] { "Id" });
-          
+
             DropTable("dbo.CartLineItem2");
             DropTable("dbo.Cart2");
-   
+
         }
     }
 }

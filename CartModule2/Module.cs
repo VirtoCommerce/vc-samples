@@ -20,13 +20,14 @@ namespace CartModule2
         {
             _container = container;
         }
-        #region IModule Members
 
         public override void SetupDatabase()
         {
+            base.SetupDatabase();
+
             using (var db = new Cart2Repository(_connectionStringName, _container.Resolve<AuditableInterceptor>()))
             {
-                var initializer = new SetupDatabaseInitializer<Cart2Repository, CartModule2.Migrations.Configuration>();
+                var initializer = new SetupDatabaseInitializer<Cart2Repository, Migrations.Configuration>();
                 initializer.InitializeDatabase(db);
             }
         }
@@ -34,18 +35,18 @@ namespace CartModule2
         public override void Initialize()
         {
             base.Initialize();
+
             _container.RegisterType<ICartRepository>(new InjectionFactory(c => new Cart2Repository(_connectionStringName, _container.Resolve<AuditableInterceptor>(), new EntityPrimaryKeyGeneratorInterceptor())));
         }
 
         public override void PostInitialize()
         {
             base.PostInitialize();
+
             AbstractTypeFactory<ShoppingCart>.OverrideType<ShoppingCart, Cart2>();
             AbstractTypeFactory<ShoppingCartEntity>.OverrideType<ShoppingCartEntity, Cart2Entity>();
             AbstractTypeFactory<LineItem>.OverrideType<LineItem, LineItem2>();
             AbstractTypeFactory<LineItemEntity>.OverrideType<LineItemEntity, LineItem2Entity>();
         }
-
-        #endregion
     }
 }

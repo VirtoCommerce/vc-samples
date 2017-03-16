@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using VirtoCommerce.CartModule.Data.Model;
 using VirtoCommerce.Domain.Cart.Model;
 using VirtoCommerce.Platform.Core.Common;
@@ -18,8 +14,8 @@ namespace CartModule2.Model
         {
             var result = base.ToModel(lineItem);
 
-            var lineItem2 = result as LineItem2;
-            lineItem2.OuterId = this.OuterId;
+            var lineItem2 = (LineItem2)result;
+            lineItem2.OuterId = OuterId;
 
             return lineItem2;
         }
@@ -28,8 +24,8 @@ namespace CartModule2.Model
         {
             base.FromModel(lineItem, pkMap);
 
-            var lineItem2 = lineItem as LineItem2;
-            this.OuterId = lineItem2.OuterId;
+            var lineItem2 = (LineItem2)lineItem;
+            OuterId = lineItem2.OuterId;
 
             return this;
         }
@@ -38,8 +34,8 @@ namespace CartModule2.Model
         {
             base.Patch(target);
 
-            var lineItem2entity = target as LineItem2Entity;
-            lineItem2entity.OuterId = this.OuterId;
+            var lineItem2Entity = (LineItem2Entity)target;
+            lineItem2Entity.OuterId = OuterId;
         }
     }
 }
