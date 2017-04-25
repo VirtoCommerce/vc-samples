@@ -112,11 +112,13 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="VirtoCommerce.CartModule.Data, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VirtoCommerce.CartModule.Data.2.15.0\lib\net461\VirtoCommerce.CartModule.Data.dll</HintPath>
+    <Reference Include="VirtoCommerce.CartModule.Data, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\VirtoCommerce.CartModule.Data.2.16.0\lib\net461\VirtoCommerce.CartModule.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="VirtoCommerce.Domain, Version=2.21.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VirtoCommerce.Domain.2.21.0\lib\net461\VirtoCommerce.Domain.dll</HintPath>
+    <Reference Include="VirtoCommerce.Domain, Version=2.22.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\VirtoCommerce.Domain.2.22.0\lib\net461\VirtoCommerce.Domain.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="VirtoCommerce.Platform.Core, Version=2.12.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\VirtoCommerce.Platform.Core.2.12.6\lib\net461\VirtoCommerce.Platform.Core.dll</HintPath>
@@ -150,6 +152,10 @@
     <Compile Include="Migrations\201703161501455_Initial.Designer.cs">
       <DependentUpon>201703161501455_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704241528105_Cart_TaxPercentRate.cs" />
+    <Compile Include="Migrations\201704241528105_Cart_TaxPercentRate.Designer.cs">
+      <DependentUpon>201704241528105_Cart_TaxPercentRate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\Cart2Repository.cs" />
     <Compile Include="Model\Cart2.cs" />
@@ -163,6 +169,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703161501455_Initial.resx">
       <DependentUpon>201703161501455_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704241528105_Cart_TaxPercentRate.resx">
+      <DependentUpon>201704241528105_Cart_TaxPercentRate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
