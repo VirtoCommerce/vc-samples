@@ -1,0 +1,11 @@
+﻿{
+  "external-pricing": {
+    "blades": {
+      "prices-list": {
+        "labels": {
+          "base-price": "Base price"
+        }
+      }
+    }
+  }
+}
