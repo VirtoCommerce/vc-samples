@@ -1,0 +1,21 @@
+<VSTemplate Version="2.0.0" Type="ProjectGroup"  
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">  
+    <TemplateData>  
+        <Name>Virto Commerce 2.x Module</Name>  
+        <Description>A project template for creating Virto Commerce Module Extension</Description>  
+        <Icon>Icon.ico</Icon>  
+        <ProjectType>CSharp</ProjectType>  
+	<DefaultName>ManagedModule</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+    </TemplateData>  
+    <TemplateContent>  
+        <ProjectCollection>  
+            <ProjectTemplateLink ProjectName="Web">  
+                VirtoCommerce.Module.project\_project.vstemplate  
+            </ProjectTemplateLink>  
+            <ProjectTemplateLink ProjectName="Tests">  
+                VirtoCommerce.Module.Test.project\_project.vstemplate
+            </ProjectTemplateLink>  
+        </ProjectCollection>  
+    </TemplateContent>  
+</VSTemplate> 
