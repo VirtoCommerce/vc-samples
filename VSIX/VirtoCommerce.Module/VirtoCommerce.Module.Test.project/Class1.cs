@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace $safeprojectname$.Test
+namespace $safeprojectname$
 {
     public class Class1
     {

@@ -4,7 +4,7 @@
     blade.title = '$safeprojectname$';
 
     blade.refresh = function () {
-        managedModuleApi.get(function (data) {
+        api.get(function (data) {
             blade.data = data.result;
             blade.isLoading = false;
         });

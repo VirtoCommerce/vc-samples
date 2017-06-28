@@ -7,13 +7,14 @@
         <ProjectType>CSharp</ProjectType>  
 	<DefaultName>ManagedModule</DefaultName>
         <ProvideDefaultName>true</ProvideDefaultName>
+	<CreateNewFolder>false</CreateNewFolder>
     </TemplateData>  
     <TemplateContent>  
         <ProjectCollection>  
-            <ProjectTemplateLink ProjectName="Web">  
+            <ProjectTemplateLink ProjectName="$safeprojectname$">  
                 VirtoCommerce.Module.project\_project.vstemplate  
             </ProjectTemplateLink>  
-            <ProjectTemplateLink ProjectName="Tests">  
+            <ProjectTemplateLink ProjectName="$safeprojectname$.Test">  
                 VirtoCommerce.Module.Test.project\_project.vstemplate
             </ProjectTemplateLink>  
         </ProjectCollection>  
