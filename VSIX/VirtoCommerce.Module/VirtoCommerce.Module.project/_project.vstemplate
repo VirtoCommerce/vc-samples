@@ -17,6 +17,8 @@
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="$safeprojectname$.csproj" File="Module.Web.csproj" ReplaceParameters="true">
+      <ProjectItem TargetFileName="index.html" OpenInWebBrowser="true">index.html</ProjectItem>
+      <ProjectItem TargetFileName="stylesheet.css">stylesheet.css</ProjectItem>
       <Folder Name="Content" TargetFolderName="Content">
         <Folder Name="css" TargetFolderName="css">
           <ProjectItem ReplaceParameters="true" TargetFileName="$safeprojectname$.css">ManagedModule.css</ProjectItem>
