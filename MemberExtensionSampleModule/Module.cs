@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MemberExtensionSampleModule.Web.Model;
 using Microsoft.Practices.Unity;
 using VirtoCommerce.CustomerModule.Data.Model;
@@ -54,9 +54,10 @@ namespace MemberExtensionSampleModule.Web
 
         public override void PostInitialize()
         {
+            AbstractTypeFactory<Contact>.RegisterType<Model.Contact2>();
             AbstractTypeFactory<Member>.OverrideType<Contact, Model.Contact2>().MapToType<Contact2DataEntity>();
             AbstractTypeFactory<Member>.RegisterType<Model.Supplier>().MapToType<SupplierDataEntity>();
-               
+
             AbstractTypeFactory<MemberDataEntity>.RegisterType<SupplierDataEntity>();
             AbstractTypeFactory<MemberDataEntity>.OverrideType<ContactDataEntity, Contact2DataEntity>();
 
@@ -64,7 +65,7 @@ namespace MemberExtensionSampleModule.Web
 
             base.PostInitialize();
         }
-     
+
         #endregion
     }
 }
