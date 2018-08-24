@@ -20,7 +20,7 @@ namespace MemberExtensionSampleModule.Web
 {
     public class Module : ModuleBase
     {
-        //Some changes
+        //Some chANGES
         private const string _connectionStringName = "VirtoCommerce";
         private readonly IUnityContainer _container;
 
