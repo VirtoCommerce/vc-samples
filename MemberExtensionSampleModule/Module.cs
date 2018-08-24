@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using MemberExtensionSampleModule.Web.Model;
 using Microsoft.Practices.Unity;
 using VirtoCommerce.CustomerModule.Data.Model;
+using VirtoCommerce.CustomerModule.Data.Repositories;
 using VirtoCommerce.CustomerModule.Data.Services;
 using VirtoCommerce.Domain.Commerce.Services;
 using VirtoCommerce.Domain.Customer.Events;
@@ -19,6 +20,7 @@ namespace MemberExtensionSampleModule.Web
 {
     public class Module : ModuleBase
     {
+        //Some changes
         private const string _connectionStringName = "VirtoCommerce";
         private readonly IUnityContainer _container;
 
@@ -37,25 +39,34 @@ namespace MemberExtensionSampleModule.Web
             }
         }
 
-        public override void PostInitialize()
+        public override void Initialize()
         {
             Func<SupplierRepository> contact2repositoryFactory = () => new SupplierRepository(_connectionStringName, new EntityPrimaryKeyGeneratorInterceptor(), _container.Resolve<AuditableInterceptor>());
-            var contactExtModuleMemberservice = new SupplierMemberService(contact2repositoryFactory, _container.Resolve<IDynamicPropertyService>(), _container.Resolve<ISecurityService>(), _container.Resolve<IEventPublisher<MemberChangingEvent>>(), _container.Resolve<ICommerceService>());
+            //Replace original repositories and services to own implementations 
+            _container.RegisterInstance<Func<ICustomerRepository>>(contact2repositoryFactory);
+            _container.RegisterInstance<Func<IMemberRepository>>(contact2repositoryFactory);
 
-            AbstractTypeFactory<Member>.OverrideType<Contact, Model.Contact2>()
-                                        .MapToType<Contact2DataEntity>()
-                                        .WithService(contactExtModuleMemberservice);
+            _container.RegisterType<IMemberService, SupplierMemberService>();
+            _container.RegisterType<IMemberSearchService, SupplierMemberService>();
 
-            AbstractTypeFactory<Member>.RegisterType<Model.Supplier>()
-                                       .MapToType<SupplierDataEntity>()
-                                       .WithService(contactExtModuleMemberservice);
-               
+            base.Initialize();
+
+        }
+
+        public override void PostInitialize()
+        {
+            AbstractTypeFactory<Contact>.RegisterType<Model.Contact2>();
+            AbstractTypeFactory<Member>.OverrideType<Contact, Model.Contact2>().MapToType<Contact2DataEntity>();
+            AbstractTypeFactory<Member>.RegisterType<Model.Supplier>().MapToType<SupplierDataEntity>();
+
             AbstractTypeFactory<MemberDataEntity>.RegisterType<SupplierDataEntity>();
             AbstractTypeFactory<MemberDataEntity>.OverrideType<ContactDataEntity, Contact2DataEntity>();
 
             AbstractTypeFactory<MembersSearchCriteria>.RegisterType<Contact2SearchCriteria>();
+
+            base.PostInitialize();
         }
-     
+
         #endregion
     }
 }

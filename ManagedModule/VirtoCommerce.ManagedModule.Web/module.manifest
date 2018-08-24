@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <module>
-    <id>Sample.Managed</id>
+    <id>VirtoCommerce.Samples.Managed</id>
     <version>2.1.0</version>
     <platformVersion>2.10.0</platformVersion>
 

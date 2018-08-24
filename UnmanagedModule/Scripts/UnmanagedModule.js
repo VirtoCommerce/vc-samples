@@ -1,11 +1,11 @@
 ﻿//Call this to register our module to main application
-var moduleTemplateName = "platformWebApp.unmanagedModule";
+var moduleName = "virtoCommerce.samples.unmanaged";
 
 if (AppDependencies != undefined) {
-	AppDependencies.push(moduleTemplateName);
+	AppDependencies.push(moduleName );
 }
 
-angular.module(moduleTemplateName, [
+angular.module(moduleName, [
     'unmanagedModule.blades.blade1'
 ])
 .config(
@@ -20,7 +20,7 @@ angular.module(moduleTemplateName, [
 							var blade = {
 								id: 'blade1',
 								// controller name must be unique in Application. Use prefix like 'um-'.
-								controller: 'um-blade1Controller',
+								controller: 'virtoCommerce.samples.unmanaged.bladeController',
 								template: 'Modules/$(Sample.Unmanaged)/Scripts/blades/blade1.tpl.html',
 								isClosingDisabled: true
 							};

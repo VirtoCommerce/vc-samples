@@ -1,5 +1,5 @@
-﻿angular.module('platformWebApp.managedModule')
-.controller('blade1Controller', ['$scope', 'managedModuleApi', function ($scope, managedModuleApi) {
+﻿angular.module('virtoCommerce.samples.managed')
+.controller('virtoCommerce.samples.managed.blade1Controller', ['$scope', 'managedModuleApi', function ($scope, managedModuleApi) {
     var blade = $scope.blade;
     blade.title = 'Managed API sample';
 

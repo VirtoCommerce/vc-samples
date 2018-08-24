@@ -1,10 +1,13 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
 using OrderModule2.Model;
+using OrderModule2.Web.Model;
+using OrderModule2.Web.Services;
 using VirtoCommerce.Domain.Commerce.Model;
 using VirtoCommerce.Domain.Order.Model;
 using VirtoCommerce.OrderModule.Data.Model;
 using VirtoCommerce.OrderModule.Data.Repositories;
+using VirtoCommerce.OrderModule.Data.Services;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Data.Infrastructure;
@@ -39,8 +42,9 @@ namespace OrderModule2.Web
             base.Initialize();
 
             _container.RegisterType<IOrderRepository>(new InjectionFactory(c => new OrderRepository2(_connectionStringName, _container.Resolve<AuditableInterceptor>(), new EntityPrimaryKeyGeneratorInterceptor())));
+            //Override ICustomerOrderBuilder default implementation
+            _container.RegisterType<ICustomerOrderBuilder, CustomerOrderBuilder2Impl>();
 
-         
         }
 
         public override void PostInitialize()
@@ -50,6 +54,8 @@ namespace OrderModule2.Web
             AbstractTypeFactory<CustomerOrderEntity>.OverrideType<CustomerOrderEntity, CustomerOrder2Entity>();
             AbstractTypeFactory<CustomerOrder>.OverrideType<CustomerOrder, CustomerOrder2>()
                                            .WithFactory(() => new CustomerOrder2 { OperationType = "CustomerOrder" });
+            AbstractTypeFactory<LineItem>.OverrideType<LineItem, LineItem2>();
+            AbstractTypeFactory<LineItemEntity>.OverrideType<LineItemEntity, LineItem2Entity>();
             //Thats need for PolymorphicOperationJsonConverter for API deserialization
             AbstractTypeFactory<IOperation>.RegisterType<Invoice>();
         }

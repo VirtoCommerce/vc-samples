@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using OrderModule2.Model;
+using OrderModule2.Web.Model;
 using VirtoCommerce.Domain.Order.Model;
 using VirtoCommerce.OrderModule.Data.Model;
 using VirtoCommerce.OrderModule.Data.Repositories;
@@ -29,7 +30,14 @@ namespace OrderModule2
                 .Property(x => x.Id);
             modelBuilder.Entity<CustomerOrder2Entity>().ToTable("CustomerOrder2");
             #endregion
-            #region CustomerOrder2
+          
+            #region LineItem2
+            modelBuilder.Entity<LineItem2Entity>().HasKey(x => x.Id)
+                .Property(x => x.Id);
+            modelBuilder.Entity<LineItem2Entity>().ToTable("OrderLineItem2");
+            #endregion
+
+            #region OrderInvoice
             modelBuilder.Entity<InvoiceEntity>().HasKey(x => x.Id)
             .Property(x => x.Id);
             modelBuilder.Entity<InvoiceEntity>().ToTable("OrderInvoice");
