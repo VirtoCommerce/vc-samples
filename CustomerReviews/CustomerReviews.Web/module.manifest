@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>CustomerReviews.Web</id>
+    <version>1.0.0</version>
+    <platformVersion>2.13.9</platformVersion>
+
+    <title>Sample Customer reviews module</title>
+    <description>Sample module demonstrating best practices in a real life example.</description>
+    <authors>
+        <author>Egidijus Mazeika</author>
+    </authors>
+
+    <assemblyFile>CustomerReviews.Web.dll</assemblyFile>
+    <moduleType>CustomerReviews.Web.Module, CustomerReviews.Web</moduleType>
+
+    <!--<styles>
+        <directory virtualPath="$/Content/css" searchPattern="*.css" searchSubdirectories="true" />
+    </styles>-->
+    <scripts>
+        <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
+    </scripts>
+
+    <!--<settings>
+        <group name="General">
+            <setting>
+                <name>CustomerReviews.Web.General.String</name>
+                <valueType>string</valueType>
+                <defaultValue>qwerty</defaultValue>
+                <title>String</title>
+                <description>A text setting</description>
+            </setting>
+            <setting>
+                <name>CustomerReviews.Web.General.Password</name>
+                <valueType>secureString</valueType>
+                <defaultValue>qwerty</defaultValue>
+                <title>Password</title>
+                <description>A secure text setting</description>
+            </setting>
+            <setting>
+                <name>CustomerReviews.Web.General.Integer</name>
+                <valueType>integer</valueType>
+                <defaultValue>123</defaultValue>
+                <title>Integer</title>
+                <description>An integer setting</description>
+            </setting>
+            <setting>
+                <name>CustomerReviews.Web.General.Decimal</name>
+                <valueType>decimal</valueType>
+                <defaultValue>123.45</defaultValue>
+                <title>Decimal</title>
+                <description>A decimal setting</description>
+            </setting>
+        </group>
+        <group name="Advanced">
+            <setting>
+                <name>CustomerReviews.Web.Advanced.Boolean1</name>
+                <valueType>boolean</valueType>
+                <defaultValue>true</defaultValue>
+                <title>Boolean1</title>
+                <description>A boolean setting</description>
+            </setting>
+            <setting>
+                <name>CustomerReviews.Web.Advanced.Boolean2</name>
+                <valueType>boolean</valueType>
+                <defaultValue>false</defaultValue>
+                <title>Boolean2</title>
+                <description>A boolean setting</description>
+            </setting>
+            <setting>
+                <name>CustomerReviews.Web.Advanced.Select</name>
+                <valueType>string</valueType>
+                <allowedValues>
+                    <value>qwerty</value>
+                    <value>asdfgh</value>
+                    <value>zxcvb</value>
+                </allowedValues>
+                <defaultValue>asdfgh</defaultValue>
+                <title>Select</title>
+                <description>Select one of the allowed values</description>
+            </setting>
+        </group>
+    </settings>-->
+
+    <permissions>
+        <group name="Customer Reviews">
+            <permission id="customerReview:read" name="Read Customer Reviews" />
+            <permission id="customerReview:update" name="Update Customer Review" />
+            <permission id="customerReview:delete" name="Delete Customer Review" />
+        </group>
+    </permissions>
+</module>
