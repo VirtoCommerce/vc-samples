@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerReviews.Core", "Cus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerReviews.Data", "CustomerReviews.Data\CustomerReviews.Data.csproj", "{B68BB268-BC9D-4B9E-9914-AE616DB3D1AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerReviews.Test", "CustomerReviews.Test\CustomerReviews.Test.csproj", "{F8BE958B-F428-468E-8C2D-2481E6154B09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B68BB268-BC9D-4B9E-9914-AE616DB3D1AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B68BB268-BC9D-4B9E-9914-AE616DB3D1AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B68BB268-BC9D-4B9E-9914-AE616DB3D1AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BE958B-F428-468E-8C2D-2481E6154B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BE958B-F428-468E-8C2D-2481E6154B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BE958B-F428-468E-8C2D-2481E6154B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BE958B-F428-468E-8C2D-2481E6154B09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
