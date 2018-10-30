@@ -1,0 +1,42 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 100px;
+}
+
+.title {
+    padding-top: 40px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cover-container {
+    height: 400px;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.cover {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+}
+
+.link {
+    padding-top: 40px;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

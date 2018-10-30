@@ -9,6 +9,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * OrderModule2 - sample project demonstrated how to extend  API, UI and Domain types in <a href="https://github.com/VirtoCommerce/vc-module-order" target="_blank">Order module</a>
 
+* ProgressiveWebAppPrototype - sample PWA application to show Service Worker and IndexedDB API features as well as offline mode.
+
 
 # License
 Copyright (c) Virto Solutions LTD.  All rights reserved.

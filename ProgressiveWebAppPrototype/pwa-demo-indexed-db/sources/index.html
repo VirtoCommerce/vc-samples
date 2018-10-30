@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, shrink-to-fit=no">
+    <link type="text/css" rel="shortcut icon" href="images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <title>VirtoCommerce PWA Demo</title>
+</head>
+<body>
+<header class="container">
+    <div class="title">Offline cart storage</div>
+</header>
+<main class="container">
+    <div class="sub-title">Products</div>
+    <hr />
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 product">
+            <div class="product__cover-wrapper">
+                <img class="product__cover" src="images/macbook.png" alt="Image wasn't loaded">
+            </div>
+            <div class="product__description">Apple MacBook 12"</div>
+            <div class="product__price">88 890 &#8381;</div>
+            <button class="product__cart-button js-add-to-cart-button" data-id="1" data-name="Apple MacBook 12&quot;" data-price="88 890 &#8381;">Add to cart</button>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 product">
+            <div class="product__cover-wrapper">
+                <img class="product__cover" src="images/macbook-air.png" alt="Image wasn't loaded">
+            </div>
+            <div class="product__description">Apple MacBook Air 12"</div>
+            <div class="product__price">63 990 &#8381;</div>
+            <button class="product__cart-button js-add-to-cart-button"  data-id="2" data-name="Apple MacBook Air 12&quot;" data-price="63 990 &#8381;">Add to cart</button>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 product">
+            <div class="product__cover-wrapper">
+                <img class="product__cover" src="images/macbook-pro.png" alt="Image wasn't loaded">
+            </div>
+            <div class="product__description">Apple MacBook Pro 12"</div>
+            <div class="product__price">89 990 &#8381;</div>
+            <button class="product__cart-button js-add-to-cart-button"  data-id="3" data-name="Apple MacBook Pro 12&quot;" data-price="89 990 &#8381;">Add to cart</button>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 product">
+            <div class="product__cover-wrapper">
+                <img class="product__cover" src="images/macbook-pro-touchbar.png" alt="Image wasn't loaded">
+            </div>
+            <div class="product__description">Apple MacBook Pro 15"</div>
+            <div class="product__price">195 990 &#8381;</div>
+            <button class="product__cart-button js-add-to-cart-button"  data-id="4" data-name="Apple MacBook Pro 15&quot;" data-price="195 990 &#8381;">Add to cart</button>
+        </div>
+    </div>
+    <div class="sub-title">Shopping cart</div>
+    <hr />
+    <div class="cart">
+        <div class="cart__title">
+            <div class="cart__title-name">Name</div>
+            <div class="cart__title-price">Price</div>
+        </div>
+        <div id="js-cart"></div>
+    </div>
+    <button id="js-clear-cart-button" class="cart__clear-button" >Clear cart</button>
+</main>
+<footer class="container">
+    <div class="row"></div>
+</footer>
+<script src="bundle.js"></script>
+</body>
+</html>

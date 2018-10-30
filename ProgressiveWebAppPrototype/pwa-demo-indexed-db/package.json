@@ -1,0 +1,14 @@
+{
+  "name": "pwa-demo-indexed-db",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.4",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "build": "webpack -p",
+    "watch": "webpack --watch"
+  }
+}
