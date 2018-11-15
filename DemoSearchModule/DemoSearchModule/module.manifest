@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>DemoSearchModule</id>
+    <version>1.0.0</version>
+    <platformVersion>2.13.9</platformVersion>
+    <dependencies>
+        <dependency id="VirtoCommerce.Catalog" version="2.23.10" />
+    </dependencies>
+    
+    <title>DemoSearchModule</title>
+    <description>Demo module to showcase search capabilities</description>
+    <authors>
+        <author>Egidijus Mažeika</author>
+    </authors>
+
+    <assemblyFile>DemoSearchModule.dll</assemblyFile>
+    <moduleType>DemoSearchModule.Module, DemoSearchModule</moduleType>
+
+</module>
