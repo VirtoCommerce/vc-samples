@@ -20,66 +20,17 @@
         <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
     </scripts>
 
-    <!--<settings>
-        <group name="General">
+    <settings>
+        <group name="Store|General">
             <setting>
-                <name>CustomerReviews.Web.General.String</name>
-                <valueType>string</valueType>
-                <defaultValue>qwerty</defaultValue>
-                <title>String</title>
-                <description>A text setting</description>
-            </setting>
-            <setting>
-                <name>CustomerReviews.Web.General.Password</name>
-                <valueType>secureString</valueType>
-                <defaultValue>qwerty</defaultValue>
-                <title>Password</title>
-                <description>A secure text setting</description>
-            </setting>
-            <setting>
-                <name>CustomerReviews.Web.General.Integer</name>
-                <valueType>integer</valueType>
-                <defaultValue>123</defaultValue>
-                <title>Integer</title>
-                <description>An integer setting</description>
-            </setting>
-            <setting>
-                <name>CustomerReviews.Web.General.Decimal</name>
-                <valueType>decimal</valueType>
-                <defaultValue>123.45</defaultValue>
-                <title>Decimal</title>
-                <description>A decimal setting</description>
-            </setting>
-        </group>
-        <group name="Advanced">
-            <setting>
-                <name>CustomerReviews.Web.Advanced.Boolean1</name>
-                <valueType>boolean</valueType>
-                <defaultValue>true</defaultValue>
-                <title>Boolean1</title>
-                <description>A boolean setting</description>
-            </setting>
-            <setting>
-                <name>CustomerReviews.Web.Advanced.Boolean2</name>
+                <name>CustomerReviews.CustomerReviewsEnabled</name>
                 <valueType>boolean</valueType>
                 <defaultValue>false</defaultValue>
-                <title>Boolean2</title>
-                <description>A boolean setting</description>
-            </setting>
-            <setting>
-                <name>CustomerReviews.Web.Advanced.Select</name>
-                <valueType>string</valueType>
-                <allowedValues>
-                    <value>qwerty</value>
-                    <value>asdfgh</value>
-                    <value>zxcvb</value>
-                </allowedValues>
-                <defaultValue>asdfgh</defaultValue>
-                <title>Select</title>
-                <description>Select one of the allowed values</description>
+                <title>Customer Reviews enabled</title>
+                <description>Flag to mark that customer reviews functionality is enabled</description>
             </setting>
         </group>
-    </settings>-->
+    </settings>
 
     <permissions>
         <group name="Customer Reviews">
