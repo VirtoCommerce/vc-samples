@@ -11,6 +11,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * ProgressiveWebAppPrototype - sample PWA application to show Service Worker and IndexedDB API features as well as offline mode.
 
+* IntegrationOrders - sample <a href="https://azure.microsoft.com/en-us/services/logic-apps/" target="_blank">Microsoft Logic Apps</a> application to show how to integrate VirtoCommerce platform with external services and how to handle Logic Apps exeptions
+
 
 # License
 Copyright (c) Virto Solutions LTD.  All rights reserved.
