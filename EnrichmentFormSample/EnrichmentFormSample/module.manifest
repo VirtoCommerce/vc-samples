@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>EnrichmentFormSample</id>
+    <version>1.0.0</version>
+    <platformVersion>2.13.9</platformVersion>
+    <title>EnrichmentFormSample</title>
+    <description>Enter your address information using Google Maps</description>
+    <authors>
+        <author>Kamil Gareev</author>
+    </authors>
+    <moduleType>EnrichmentFormSample.Module, EnrichmentFormSample</moduleType>
+    <styles>
+        <directory virtualPath="$/Content/css" searchPattern="*.css" searchSubdirectories="true" />
+    </styles>
+    <scripts>
+        <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
+    </scripts>
+
+    <settings>
+        <group name="General">
+            <setting>
+                <name>EnrichmentFormSample.General.GoogleMapApiKey</name>
+                <valueType>string</valueType>
+                <defaultValue></defaultValue>
+                <title>Google Map Api Key</title>
+                <description>a google API key - these API should be switched on: Geocoding API, Maps JavaScript API, Places API</description>
+            </setting>
+        </group>
+    </settings>
+</module>

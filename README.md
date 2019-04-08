@@ -14,6 +14,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * UnmanagedModule - source code for "Sample Unmanaged Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
 
+* EnrichmentFormSample - [Sample UI module which allow you edit dynamic address properties using Google Map API](/EnrichmentFormSample/Readme.md)
+
 
 
 # License
