@@ -7,7 +7,6 @@ Instead we use dynamic fields.
 Editor allow to fill all address fields using two possibilities
 1. By enter address in arbitrary way in common address field
 2. By setting marker on the map
-![image](https://user-images.githubusercontent.com/2689494/55794911-38d93580-5acf-11e9-9604-950bd652b218.png)
 
 ![image](https://user-images.githubusercontent.com/2689494/55796030-b4d47d00-5ad1-11e9-95a4-d4b6f4545945.png)
 
