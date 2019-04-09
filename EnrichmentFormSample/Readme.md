@@ -1,4 +1,17 @@
 ### Sample UI module which allow you edit dynamic address properties using Google Map API
+This is the example how to build custom extension to edit fields.
+Editor for address fields was taken as an example. To do not make example more difficult we do not use fields of Product(Item).
+This will require to create a backend part with extension of exist Entity - a lot to do.
+Instead we use dynamic fields.
+
+Editor allow to fill all address fields using two possibilities
+1. By enter address in arbitrary way in common address field
+2. By setting marker on the map
+![image](https://user-images.githubusercontent.com/2689494/55794911-38d93580-5acf-11e9-9604-950bd652b218.png)
+
+![image](https://user-images.githubusercontent.com/2689494/55796030-b4d47d00-5ad1-11e9-95a4-d4b6f4545945.png)
+
+
 ## Prerequisites
 1. Install module
 2. Set Google API key in General Settins (these API should be switched on: Geocoding API, Maps JavaScript API, Places API)
