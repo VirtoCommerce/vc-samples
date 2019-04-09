@@ -1,5 +1,5 @@
-﻿angular.module('EnrichmentFormSample')
-    .controller('EnrichmentFormSample.WidgetController', ['$scope', 'platformWebApp.bladeNavigationService', function ($scope, bladeNavigationService) {
+angular.module('enrichmentFormSample')
+    .controller('enrichmentFormSample.widgetController', ['$scope', 'platformWebApp.bladeNavigationService', function ($scope, bladeNavigationService) {
         var blade = $scope.blade;
         var propertyNames = ['City', 'Country', 'Position', 'State', 'StreetAddress', 'Zip', 'geolocation'];
         $scope.enabled = false;
@@ -26,7 +26,7 @@
                 productId: blade.currentEntity.id,
                 entityType: "product",
                 currentEntity: blade.currentEntity,
-                controller: 'EnrichmentFormSample.EditAddressController',
+                controller: 'enrichmentFormSample.editAddressController',
                 template: 'Modules/$(EnrichmentFormSample)/Scripts/blades/edit-address.tpl.html'
             };
             bladeNavigationService.showBlade(newBlade, blade);

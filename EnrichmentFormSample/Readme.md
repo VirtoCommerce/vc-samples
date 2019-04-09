@@ -21,4 +21,8 @@ Editor allow to fill all address fields using two possibilities
 * State - short text
 * StreetAddress - long text
 * Zip - short text
-## In item's widgets list you'll see widget "Edit Address"
+## Work with
+To edit/view module containts just open folder in Visual Studio
+
+You can easily create nuget package with ***nuget pack***
+

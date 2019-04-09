@@ -1,5 +1,5 @@
-angular.module('EnrichmentFormSample')
-    .controller('EnrichmentFormSample.EditAddressController', ['$scope', 'platformWebApp.settings',
+angular.module('enrichmentFormSample')
+    .controller('enrichmentFormSample.editAddressController', ['$scope', 'platformWebApp.settings',
         function ($scope, settings) {
 
             var blade = $scope.blade;
