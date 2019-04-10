@@ -1,7 +1,7 @@
 //Call this to register our module to main application
 var moduleTemplateName = "enrichmentFormSample";
 
-if (AppDependencies != undefined) {
+if (AppDependencies !== undefined) {
     AppDependencies.push(moduleTemplateName);
 }
 

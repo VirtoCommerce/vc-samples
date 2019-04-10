@@ -1,29 +1,28 @@
 angular.module('enrichmentFormSample')
     .controller('enrichmentFormSample.widgetController', ['$scope', 'platformWebApp.bladeNavigationService', function ($scope, bladeNavigationService) {
         var blade = $scope.blade;
-        var propertyNames = ['City', 'Country', 'Position', 'State', 'StreetAddress', 'Zip', 'geolocation'];
+        var propertyNames = ['City', 'Country', 'Position', 'State', 'StreetAddress', 'Zip'];
         $scope.enabled = false;
 
-        $scope.$watch('blade.item', function (product) {
+        $scope.$watch('blade.currentEntity', function (product) {
             if (product) {
                 let propertiesCount = 0;
-                for (var i = 0; i < product.properties.length; i++) {
-                    var property = product.properties[i];
-                    if (propertyNames.indexOf(property.name) > -1) {
-                        propertiesCount++;
-                    }
-                }
-                $scope.enabled = propertiesCount === 7;
+                _.each(product.properties,
+                    function(property) {
+                        if (propertyNames.indexOf(property.name) > -1) {
+                            propertiesCount++;
+                        }
+                    });
+                $scope.enabled = propertiesCount === propertyNames.length;
             }
         });
 
-        $scope.openItemPropertyBlade = function () {
+        $scope.openAddressEditorBlade = function () {
             if (!$scope.enabled) {
                 return;
             }
             var newBlade = {
-                id: "itemProperty",
-                productId: blade.currentEntity.id,
+                id: "address Editor Sample",
                 entityType: "product",
                 currentEntity: blade.currentEntity,
                 controller: 'enrichmentFormSample.editAddressController',

@@ -10,9 +10,11 @@ angular.module('enrichmentFormSample')
             var geocoder;
             var isInit = false;
 
-            var data = {};
+            var addressFields = {};
 
-            $scope.data = data;
+            $scope.addressFields = addressFields;
+
+            var defaultMapCenter = { lat: -33.8688, lng: 151.2195 };
 
             var componentForm = {
                 street_number: 'short_name',
@@ -48,91 +50,89 @@ angular.module('enrichmentFormSample')
                 blade.title = blade.currentEntity.name;
                 blade.subtitle = 'edit-address.edit-address';
 
-                for (var i = 0; i < blade.currentEntity.properties.length; i++) {
-                    var property = blade.currentEntity.properties[i];
-                    var value = property.values.length ? property.values[0].value : '';
-                    switch (property.name) {
-                        case 'StreetAddress':
-                            data.streetAddress = value;
-                            break;
-                        case 'State':
-                            data.state = value;
-                            break;
-                        case 'Country':
-                            data.country = value;
-                            break;
-                        case 'City':
-                            data.city = value;
-                            break;
-                        case 'Position':
-                            if (value) {
-                                var pos = value.split(',');
-                                data.position = { lat: Number(pos[0]), lng: Number(pos[1]) };
-                            } else {
-                                data.position = null;
-                            }
-                            break;
-                        case 'Zip':
-                            data.zip = value;
-                            break;
-                    }
-                }
+                _.each(blade.currentEntity.properties,
+                    function (property) {
+                        var value = _.any(property.values) ? property.values[0].value : '';
+                        switch (property.name) {
+                            case 'StreetAddress':
+                                addressFields.streetAddress = value;
+                                break;
+                            case 'State':
+                                addressFields.state = value;
+                                break;
+                            case 'Country':
+                                addressFields.country = value;
+                                break;
+                            case 'City':
+                                addressFields.city = value;
+                                break;
+                            case 'Position':
+                                if (value) {
+                                    var pos = value.split(',');
+                                    addressFields.position = { lat: Number(pos[0]), lng: Number(pos[1]) };
+                                } else {
+                                    addressFields.position = null;
+                                }
+                                break;
+                            case 'Zip':
+                                addressFields.zip = value;
+                                break;
+                        }
+                    });
 
-                $scope.blade.isLoading = false;
+                blade.isLoading = false;
                 initAutocomplete();
-                var mapCenter = data.position ? data.position : { lat: -33.8688, lng: 151.2195 };
+                var mapCenter = addressFields.position || defaultMapCenter;
                 map = new google.maps.Map(document.getElementById('address-map'),
                     {
                         center: mapCenter,
                         zoom: 16
                     });
-                if (data.position) {
-                    setMarker(data.position);
+                if (addressFields.position) {
+                    setMarker(addressFields.position);
                 }
                 geocoder = new google.maps.Geocoder();
                 isInit = true;
             }
 
             $scope.init = function () {
-                if (!window.google || !window.google.maps) {
-                    return;
+                if (window.google && window.google.maps) {
+                    init();
                 }
-                init();
             };
 
             $scope.saveChanges = function () {
                 var properties = angular.copy(blade.currentEntity.properties);
-                for (var i = 0; i < properties.length; i++) {
-                    var property = properties[i];
+                _.each(properties, function (property) {
                     var value = '';
                     switch (property.name) {
                         case 'StreetAddress':
-                            value = data.streetAddress;
+                            value = addressFields.streetAddress;
                             break;
                         case 'State':
-                            value = data.state;
+                            value = addressFields.state;
                             break;
                         case 'Country':
-                            value = data.country;
+                            value = addressFields.country;
                             break;
                         case 'City':
-                            value = data.city;
+                            value = addressFields.city;
                             break;
                         case 'Position':
-                            value = data.position ? data.position.lat.toString() + ',' + data.position.lng.toString() : data.position;
+                            value = addressFields.position ? addressFields.position.lat.toString() + ',' + addressFields.position.lng.toString() : addressFields.position;
                             break;
                         case 'Zip':
-                            value = data.zip;
+                            value = addressFields.zip;
                             break;
                         default:
-                            continue;
+                            return;
                     }
                     if (property.values.length) {
                         property.values[0].value = value;
                     } else {
                         property.values.push({ value: value, isInherited: false });
                     }
-                }
+                });
                 blade.currentEntity.properties = properties;
                 $scope.bladeClose();
             };
@@ -159,11 +159,9 @@ angular.module('enrichmentFormSample')
 
             function onMarkerDropped(event) {
                 geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        if (results[0]) {
-                            fillInAddress(results[0]);
-                            document.getElementById('address_autocomplete').value = results[0].formatted_address;
-                        }
+                    if (status === google.maps.GeocoderStatus.OK && results.length) {
+                        fillInAddress(results[0]);
+                        document.getElementById('address_autocomplete').value = results[0].formatted_address;
                     }
                 });
             }
@@ -183,42 +181,40 @@ angular.module('enrichmentFormSample')
 
             function fillInAddress(place) {
                 // clear data
-                data.city = '';
-                data.country = '';
-                data.state = '';
-                data.street = '';
-                data.streetAddress = '';
+                $scope.addressFields = addressFields = {};
 
                 var streetAddress = '';
-                for (var i = 0; i < place.address_components.length; i++) {
-                    var addressType = place.address_components[i].types[0];
-                    var val = place.address_components[i][componentForm[addressType]];
-                    switch (addressType) {
-                        case 'route':
-                            streetAddress = val + streetAddress;
-                            break;
-                        case 'street_number':
-                            streetAddress = streetAddress + ' ' + val;
-                            break;
-                        case 'country':
-                            data.country = val;
-                            break;
-                        case 'locality':
-                            data.city = val;
-                            break;
-                        case 'administrative_area_level_1':
-                            data.state = val;
-                            break;
-                        case 'postal_code':
-                            data.zip = val;
-                            break;
-                    }
-                }
-                data.streetAddress = streetAddress;
+                _.each(place.address_components,
+                    function (addressComponent) {
+
+                        var addressType = addressComponent.types[0];
+                        var val = addressComponent[componentForm[addressType]];
+                        switch (addressType) {
+                            case 'route':
+                                streetAddress = val + streetAddress;
+                                break;
+                            case 'street_number':
+                                streetAddress = streetAddress + ' ' + val;
+                                break;
+                            case 'country':
+                                addressFields.country = val;
+                                break;
+                            case 'locality':
+                                addressFields.city = val;
+                                break;
+                            case 'administrative_area_level_1':
+                                addressFields.state = val;
+                                break;
+                            case 'postal_code':
+                                addressFields.zip = val;
+                                break;
+                        }
+                    });
+                addressFields.streetAddress = streetAddress;
                 var lat = place.geometry.location.lat();
                 var lng = place.geometry.location.lng();
                 var position = { lat: lat, lng: lng };
-                data.position = position;
+                addressFields.position = position;
                 $scope.isValid = true;
                 map.setCenter(position);
                 setMarker(position);
