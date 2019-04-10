@@ -24,5 +24,5 @@ Editor allow to fill all address fields using two possibilities
 ## Work with
 To edit/view module content just open folder in Visual Studio
 
-As it unmanaged module to create package just zip the folder
+As it unmanaged module to create package just zip the folder https://virtocommerce.com/docs/vc2devguide/development-scenarios/creating-module-packages
 

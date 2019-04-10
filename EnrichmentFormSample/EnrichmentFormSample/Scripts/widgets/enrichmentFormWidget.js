@@ -6,14 +6,13 @@ angular.module('enrichmentFormSample')
 
         $scope.$watch('blade.currentEntity', function (product) {
             if (product) {
-                let propertiesCount = 0;
-                _.each(product.properties,
-                    function(property) {
-                        if (propertyNames.indexOf(property.name) > -1) {
-                            propertiesCount++;
-                        }
+                $scope.enabled = _.every(propertyNames,
+                    function(name) {
+                        return _.any(product.properties,
+                            function(property) {
+                                return property.name === name;
+                            });
                     });
-                $scope.enabled = propertiesCount === propertyNames.length;
             }
         });
 
@@ -23,7 +22,6 @@ angular.module('enrichmentFormSample')
             }
             var newBlade = {
                 id: "address Editor Sample",
-                entityType: "product",
                 currentEntity: blade.currentEntity,
                 controller: 'enrichmentFormSample.editAddressController',
                 template: 'Modules/$(EnrichmentFormSample)/Scripts/blades/edit-address.tpl.html'
