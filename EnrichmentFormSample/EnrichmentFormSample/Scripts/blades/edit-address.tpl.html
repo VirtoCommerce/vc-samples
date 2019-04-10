@@ -1,11 +1,4 @@
-<div class="blade-static __bottom">
-    <button class="btn" ng-click="bladeClose()">
-        <span>{{ 'platform.commands.cancel' | translate }}</span>
-    </button>
-    <button class="btn" ng-click="saveChanges()" ng-disabled="!isValid">
-        <span>{{ 'platform.commands.ok' | translate }}</span>
-    </button>
-</div>
+<div class="blade-static __bottom"  ng-include="'$(Platform)/Scripts/common/templates/ok-cancel.tpl.html'"></div>
 <div class="blade-content">
     <div class="blade-inner">
         <div class="inner-block">
@@ -21,31 +14,31 @@
                 <div class="form-group">
                     <div class="form-input">
                         <label class="form-label">Country</label>
-                        <input ng-keypress="isValid=true" type="text" ng-model="addressFields.country" />
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.country" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-input">
                         <label class="form-label">State</label>
-                        <input ng-keypress="isValid=true" type="text" ng-model="addressFields.state" />
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.state" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-input">
                         <label class="form-label">City</label>
-                        <input ng-keypress="isValid=true" type="text" ng-model="addressFields.city" />
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.city" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-input">
                         <label class="form-label">Zip</label>
-                        <input ng-keypress="isValid=true" type="text" ng-model="addressFields.zip" />
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.zip" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-input">
                         <label class="form-label">Street Address</label>
-                        <input ng-keypress="isValid=true" type="text" ng-model="addressFields.streetAddress" />
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.streetAddress" />
                     </div>
                 </div>
             </div>

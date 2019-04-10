@@ -137,7 +137,19 @@ angular.module('enrichmentFormSample')
                 $scope.bladeClose();
             };
 
-            $scope.isValid = false;
+            $scope.cancelChanges = function() {
+                $scope.bladeClose();
+            };
+
+            $scope.isValid = function() {
+                return $scope.isChanged;
+            };
+
+            $scope.setChanged = function() {
+                $scope.isChanged = true;
+            };
+
+            $scope.isChanged = false;
 
             function initAutocomplete() {
                 // Create the autocomplete object, restricting the search predictions to
@@ -215,7 +227,7 @@ angular.module('enrichmentFormSample')
                 var lng = place.geometry.location.lng();
                 var position = { lat: lat, lng: lng };
                 addressFields.position = position;
-                $scope.isValid = true;
+                $scope.isChanged = true;
                 map.setCenter(position);
                 setMarker(position);
                 $scope.$apply();
