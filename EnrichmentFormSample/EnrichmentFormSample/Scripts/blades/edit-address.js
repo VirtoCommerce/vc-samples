@@ -30,8 +30,7 @@ angular.module('enrichmentFormSample')
                         $scope.bladeClose();
                         return;
                     }
-                    $.getScript("https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places&callback=MapApiLoaded",
-                        function () { });
+                    $.getScript("https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places&callback=MapApiLoaded");
                     window.MapApiLoaded = function () {
                         init();
                     };
