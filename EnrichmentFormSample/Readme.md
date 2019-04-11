@@ -8,13 +8,13 @@ Editor allow to fill all address fields using two possibilities
 1. By enter address in arbitrary way in common address field
 2. By setting marker on the map
 
-![image](https://user-images.githubusercontent.com/2689494/55796030-b4d47d00-5ad1-11e9-95a4-d4b6f4545945.png)
+![image](https://user-images.githubusercontent.com/2689494/55940404-b8d6db00-5c48-11e9-833f-fbbc2f29ff2a.png)
 
 
 ## Prerequisites
 1. Install module
 2. Set Google API key in General Settins (these API should be switched on: Geocoding API, Maps JavaScript API, Places API)
-3. Add Dynamic Properties (for items which would not have all these properties the feature would not work)
+3. Add Product Properties (for items which would not have all these properties the feature would not work)
 * City - short text
 * Country - short text
 * Position - geo-point
