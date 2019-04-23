@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <module>
     <id>VirtoCommerce.Samples.ExternalPrice</id>
-    <version>1.0.0</version>
-    <platformVersion>2.12.6</platformVersion>
+    <version>1.1.0</version>
+    <platformVersion>2.13.43</platformVersion>
     <dependencies>
-        <dependency id="VirtoCommerce.Core" version="2.17.0" />
-        <dependency id="VirtoCommerce.Pricing" version="2.16.0" />
+        <dependency id="VirtoCommerce.Core" version="2.25.19" />
+        <dependency id="VirtoCommerce.Pricing" version="2.18.3" />
     </dependencies>
 
     <title>External price extension sample module</title>

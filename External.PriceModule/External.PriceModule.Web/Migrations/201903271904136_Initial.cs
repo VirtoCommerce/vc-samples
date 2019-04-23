@@ -14,7 +14,7 @@ namespace External.PriceModule.Web.Migrations
                     BasePrice = c.Decimal(precision: 18, scale: 2),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Price", t => t.Id)
+                .ForeignKey("dbo.Price", t => t.Id, cascadeDelete: true)
                 .Index(t => t.Id);
 
             //Convert  all exist Price records to Price2
