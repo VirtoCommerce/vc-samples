@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen">
+    <title>Getting Started</title>
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+            <h1>Getting Started</h1>
+            <h2>Virto Commerce Extension Modules</h2>
+        </div>
+        <div id="main_content">
+            <div id="lpanel">
+                <h1>Creating a Virto Commerce Extension Module</h1>
+                <p>This project allows developers to create an extension module for standard modules from Virto Commerce, integrated by default, price. The solution contains a web project that can be installed on the Virto Commerce administration platform, as well as projects - business models and data access logic.</p>
+                <p>For example, the project has the following functionality:</p>
+                <ul>
+                    <li>base price, based on the price module.</li>
+                </ul>
+                <h2>Installation</h2>
+                <ol>
+                    <li>Compile the solution.</li>
+                    <li>Configure platform in accordance to the guide available <a href="https://virtocommerce.com/docs/vc2devguide/deployment/platform-deployment/source-code-getting-started" target="_blank">here</a>.</li>
+                    <li>
+                        Run the following command as administrator from the Commerce Manager "~/Modules" directory:
+                        <pre>mklink /d External.PriceModule.Web {solution-path}/External.PriceModule.Web</pre>
+                    </li>
+                </ol>
+                <h2>Debug</h2>
+                <p>To debug your new module, click debug-&gt;attach to the process and select w3wp.exe process (if you don&#39;t see it, try opening VC platform in the browser and select &quot;show all processes&quot;).</p>
+                <h2>Solution architecture</h2>
+                <p>In the solution, each project has its own responsibilities. Thus, certain types belong to each project, and you can always find the folders corresponding to these types in the corresponding project.</p>
+                <p>The figure below shows a representation of the layers of architecture. Notice that the solid arrows correspond to the compile-time dependencies, and the dashed arrows to the dependencies that exist only at run time. As part of the current architecture, a Web project works with interfaces that are defined in the Core project at compile time, and ideally should not know anything about the implementation types defined in the Data project. But at run time, these types of implementations are necessary to run the application, so they must exist and be tied to the interfaces of the Core project through dependency injection.</p>
+                <p>
+                    <img src="arch_scheme.png" />
+                </p>
+                <h3>.Core <small>Business/Application Model</small></h3>
+                <p>The project must contain a business model, services and interfaces. These interfaces should include abstractions for operations that will be performed using infrastructure, such as data access, file system access, network calls, etc. In addition, services or interfaces defined at this level can work with non-object types. that are independent of the user. interface or infrastructure and are defined as simple data transfer objects (DTO).</p>
+                <h3>.Data <small>Data Access Logic</small></h3>
+                <p>The project includes the implementation of data access. Namely, the data access implementation classes (Repositories), any EF Migration objects that have been defined, and EF Entities models. In addition to the data access implementations, the project must contain service implementations that must interact with infrastructure problems. These services must implement the interfaces defined in Core, and therefore the project must have a reference to the Core project.</p>
+                <h3>.Web <small>Presentation Logic and Entry Point</small></h3>
+                <p>The user interface level in an ASP.NET MVC application is the entry point for the application. This project must refer to the Core project, and its types must interact with the data layer strictly through the interfaces defined in Core. Direct creation or static calls for user-level data types are not allowed at the user interface level.</p>
+                <p>The Startup class is responsible for setting up the application and connecting the implementation types to the interfaces, which allows you to correctly inject dependencies at runtime. And to enable dependency injection in ConfigureServices in the Startup.cs file of the user interface project, it refers to data projects.</p>
+                <h2>Problems and fixs</h2>
+                <p><b>Migrations</b></p>
+                <p>The migration context may become obsolete. In particular, if the state of the database has changed since the generation of the existing migration. Because of this, there will be problems with migration and errors in the integration of the module.</p>
+                <p>You must recreate the migration or add a new one in order to get the current state of the models. It is also necessary to remove changes to entities that have already been made. Only what we did in the extension should remain.</p>
+                <p>For migration, use the following commands, indicating the type of migration configuration, for multiple migrations in one project: </p>
+                <pre class="indent">Add-Migration {MigrateName} 
+    -ConfigurationTypeName {MigrateConfiguration} 
+    -ConnectionString "Data Source=(local);Initial Catalog=VirtoCommerce2_Samples;
+        Persist Security Info=True;User ID=virto;Password=virto;
+        MultipleActiveResultSets=True;Connect Timeout=420" 
+    -ConnectionProviderName "System.Data.SqlClient"</pre>
+                <p>Where {MigrateName} is the name of the migration, in the current case it is Initial. And the configuration {MigrateConfiguration} is equal to External.PriceModule.Web.Migrations.Cart.Configuration or External.PriceModule.Web.Migrations.Order.Configuration.</p>
+                <p>Converting existing records from the source table to the extension table is necessary manually. For example: </p>
+                <pre class="indent">Sql("INSERT INTO dbo.{TableNameEx} (Id) SELECT Id FROM dbo.{TableName}")</pre>
+                <p>Where {TableNameEx} is the name of the table with the extension, in the current case CustomerOrderEx. And {TableName} is a table that is expanded, in the current case CustomerOrder.</p>
+            </div>
+            <div id="rpanel">
+                <div>
+                    <h1>Virto Commerce Resources</h1>
+
+                    <ol>
+                        <li><a target="_blank" href="https://virtocommerce.com/docs/vc2devguide">Developer documentation</a><br />Detailed documentation and API reference material for building extensions.</li>
+                        <li><a target="_blank" href="https://github.com/VirtoCommerce/vc-samples">Extension samples on GitHub</a><br />Use a sample project to kickstart your development.</li>
+                        <li><a target="_blank" href="https://gitter.im/VirtoCommerce/vc-community">Extensibility chat room on Gitter</a><br />Meet other extension developers and exchange tips and tricks for extension development.</li>
+                        <li><a target="_blank" href="https://admin-demo.virtocommerce.com/docs/ui/index">API Reference</a><br />Explore Virto Commerce API.</li>
+                    </ol>
+                    <h1>Give us feedback</h1>
+                    <ul>
+                        <li><a target="_blank" href="https://virtocommerce.uservoice.com">Submit a new feature idea or suggestion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
