@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -50,7 +50,8 @@
                 <p>For migration, use the following commands, indicating the type of migration configuration, for multiple migrations in one project: </p>
                 <pre class="indent">Add-Migration {MigrateName} 
     -ConfigurationTypeName {MigrateConfiguration} 
-    -ConnectionString "Data Source=(local);Initial Catalog=VirtoCommerce2_Samples;
+    -ConnectionString "Data Source=(local);
+        Initial Catalog=VirtoCommerce2_Samples;
         Persist Security Info=True;User ID=virto;Password=virto;
         MultipleActiveResultSets=True;Connect Timeout=420" 
     -ConnectionProviderName "System.Data.SqlClient"</pre>
