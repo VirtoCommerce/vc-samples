@@ -1,8 +1,7 @@
 namespace MemberExtensionSampleModule.Web.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Initial : DbMigration
     {
         public override void Up()
@@ -47,20 +46,6 @@ namespace MemberExtensionSampleModule.Web.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Supplier", t => t.SupplierId)
                 .Index(t => t.SupplierId);
-            
-            CreateTable(
-                "dbo.Organization",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        OrgType = c.Int(nullable: false),
-                        Description = c.String(maxLength: 256),
-                        BusinessCategory = c.String(maxLength: 64),
-                        OwnerId = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Member", t => t.Id)
-                .Index(t => t.Id);
         }
         
         public override void Down()
