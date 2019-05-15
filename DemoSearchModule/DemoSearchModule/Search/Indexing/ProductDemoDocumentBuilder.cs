@@ -1,4 +1,4 @@
-﻿using VirtoCommerce.CatalogModule.Data.Search.Indexing;
+using VirtoCommerce.CatalogModule.Data.Search.Indexing;
 using VirtoCommerce.Domain.Catalog.Model;
 using VirtoCommerce.Domain.Catalog.Services;
 using VirtoCommerce.Domain.Search;
@@ -7,7 +7,7 @@ using VirtoCommerce.Platform.Core.Settings;
 
 namespace DemoSearchModule.Search.Indexing
 {
-    public class ProductDemoDocumentBuilder : ProductDocumentBuilder, IIndexDocumentBuilder
+    public class ProductDemoDocumentBuilder : ProductDocumentBuilder
     {
         public ProductDemoDocumentBuilder(ISettingsManager settingsManager, IItemService itemService, IBlobUrlResolver blobUrlResolver) : base(settingsManager, itemService, blobUrlResolver)
         {
