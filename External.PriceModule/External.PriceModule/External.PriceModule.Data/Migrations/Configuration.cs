@@ -1,8 +1,9 @@
-namespace MemberExtensionSampleModule.Web.Migrations
-{
-    using System.Data.Entity.Migrations;
+using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SupplierRepository>
+namespace External.PriceModule.Data.Migrations
+{
+
+    public sealed class Configuration : DbMigrationsConfiguration<Repositories.PriceExRepository>
     {
         public Configuration()
         {
@@ -10,7 +11,7 @@ namespace MemberExtensionSampleModule.Web.Migrations
             MigrationsDirectory = @"Migrations";
         }
 
-        protected override void Seed(SupplierRepository context)
+        protected override void Seed(Repositories.PriceExRepository context)
         {
             //  This method will be called after migrating to the latest version.
 
