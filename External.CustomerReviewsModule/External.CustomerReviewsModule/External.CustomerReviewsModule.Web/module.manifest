@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>External.CustomerReviewsModule</id>
+    <version>1.0.0</version>
+    <platformVersion>2.13.44</platformVersion>
+    <dependencies>
+        <dependency id="VirtoCommerce.Core" version="2.25.21" />
+    </dependencies>
+
+    <title>Customer Reviews Module</title>
+    <description>Enter your module description here.</description>
+    <authors>
+        <author>Evan Butler</author>
+    </authors>
+    <owners>
+      <owner>Virto Commerce</owner>
+    </owners>
+
+    <releaseNotes>First version.</releaseNotes>
+    <copyright>Copyright © 2019. All rights reserved</copyright>
+    <tags>extension module</tags>
+  
+    <assemblyFile>External.CustomerReviewsModule.Web.dll</assemblyFile>
+    <moduleType>External.CustomerReviewsModule.Web.Module, External.CustomerReviewsModule.Web</moduleType>
+
+    <scripts>
+        <directory virtualPath="$/Scripts" searchPattern="*.js" searchSubdirectories="true" />
+    </scripts>
+
+    <settings>
+        <group name="Store|General">
+            <setting>
+                <name>External.CustomerReviewsModule.CustomerReviewsEnabled</name>
+                <valueType>boolean</valueType>
+                <defaultValue>false</defaultValue>
+                <title>Customer Reviews enabled</title>
+                <description>Flag to mark that customer reviews functionality is enabled</description>
+            </setting>
+        </group>
+    </settings>
+  
+    <permissions>
+        <group name="Customer Reviews Module">
+            <permission id="External.CustomerReviewsModule:read" name="Read" />
+            <permission id="External.CustomerReviewsModule:update" name="Update" />
+            <permission id="External.CustomerReviewsModule:delete" name="Delete" />
+        </group>
+    </permissions>
+</module>
