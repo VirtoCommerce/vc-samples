@@ -85,6 +85,6 @@ angular.module('external.customerReviewsModule')
                 uiGridHelper.initialize($scope, gridOptions, function (gridApi) {
                     uiGridHelper.bindRefreshOnSortChanged($scope);
                 });
-                bladeUtils.initializePagination($scope);
+                utils.initializePagination($scope);
             };
     }]);
