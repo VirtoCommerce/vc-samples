@@ -14,6 +14,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * UnmanagedModule - source code for "Sample Unmanaged Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
 
+* External.PricingModule - an example of expansion is the price module. The example added an additional field "BasePrice" for the entity PriceEntity. The repository has also been updated and the migration has been added. This sample was generated using "Virto Commerce 2.x Pricing Module extension" template in Visual Studio. The template can be obtained with "<a href="https://marketplace.visualstudio.com/items?itemName=Virto-Commerce.VirtoCommerceModuleTemplates" target="_blank">Virto Commerce 2.x Module Templates</a>" extension. 
 
 
 # License
