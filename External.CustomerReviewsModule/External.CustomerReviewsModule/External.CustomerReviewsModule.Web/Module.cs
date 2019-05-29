@@ -23,11 +23,11 @@ namespace External.CustomerReviewsModule.Web
 
         public override void SetupDatabase()
         {
-            //using (var db = new CustomerReviewRepository(_connectionString, _container.Resolve<AuditableInterceptor>()))
-            //{
-            //    var initializer = new SetupDatabaseInitializer<CustomerReviewRepository, Data.Migrations.Configuration>();
-            //    initializer.InitializeDatabase(db);
-            //}
+            using (var db = new CustomerReviewRepository(_connectionString, _container.Resolve<AuditableInterceptor>()))
+            {
+                var initializer = new SetupDatabaseInitializer<CustomerReviewRepository, Data.Migrations.Configuration>();
+                initializer.InitializeDatabase(db);
+            }
         }
 
         public override void Initialize()
@@ -39,7 +39,7 @@ namespace External.CustomerReviewsModule.Web
             // Register implementations:
             _container.RegisterType<ICustomerReviewRepository>(new InjectionFactory(c => new CustomerReviewRepository(_connectionString, new EntityPrimaryKeyGeneratorInterceptor(), _container.Resolve<AuditableInterceptor>())));
             _container.RegisterType<ICustomerReviewSearchService, CustomerReviewSearchService>();
-            // _container.RegisterType<ICustomerReviewService, CustomerReviewService>();
+            _container.RegisterType<ICustomerReviewService, CustomerReviewService>();
 
             // Try to avoid calling _container.Resolve<>();
         }

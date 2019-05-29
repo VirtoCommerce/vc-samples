@@ -1,8 +1,5 @@
-using External.CustomerReviewsModule.Core.Models.Common;
-using External.CustomerReviewsModule.Core.Models.Create;
-using External.CustomerReviewsModule.Core.Models.Read;
+using External.CustomerReviewsModule.Core.Models;
 using External.CustomerReviewsModule.Core.Models.Search;
-using External.CustomerReviewsModule.Core.Models.Update;
 
 namespace External.CustomerReviewsModule.Core.Services
 {
@@ -12,7 +9,7 @@ namespace External.CustomerReviewsModule.Core.Services
 
         IdentifierModel CreateCustomerReview(CustomerReviewCreateModel customerReviewCreateModel);
 
-        void UpdateCustomerReview(CustomerReviewUpdateModel customerReviewUpdateModel);
+        void UpdateCustomerReview(string id, CustomerReviewUpdateModel customerReviewUpdateModel);
 
         void DeleteCustomerReviews(string id);
 

@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
+using External.CustomerReviewsModule.Core.Models;
 using External.CustomerReviewsModule.Core.Models.Search;
+using External.CustomerReviewsModule.Core.Services;
+using External.CustomerReviewsModule.Data.Converters;
 using External.CustomerReviewsModule.Data.Model;
 using External.CustomerReviewsModule.Data.Repositories;
 using VirtoCommerce.Platform.Core.Common;
@@ -8,7 +11,7 @@ using VirtoCommerce.Platform.Data.Infrastructure;
 
 namespace External.CustomerReviewsModule.Data.Services
 {
-    public class CustomerReviewService : ServiceBase
+    public class CustomerReviewService : ServiceBase, ICustomerReviewService
     {
         private readonly Func<ICustomerReviewRepository> _repositoryFactory;
 
@@ -64,6 +67,38 @@ namespace External.CustomerReviewsModule.Data.Services
                 repository.DeleteCustomerReviews(ids);
                 CommitChanges(repository);
             }
+        }
+
+        public IdentifierModel CreateCustomerReview(CustomerReviewCreateModel customerReviewCreateModel)
+        {
+            var review = ClientModel.FromCreateModel(customerReviewCreateModel);
+            SaveCustomerReviews(new[] { review });
+
+            var result = ClientModel.ToIdentifierModel(review);
+            return result;
+        }
+
+        public void UpdateCustomerReview(string id, CustomerReviewUpdateModel customerReviewUpdateModel)
+        {
+            var review = GetByIds(new[] { id }).FirstOrDefault();
+            review = ClientModel.FromUpdateModel(customerReviewUpdateModel, review);
+            SaveCustomerReviews(new[] { review });
+        }
+
+        public void DeleteCustomerReviews(string id)
+        {
+            DeleteCustomerReviews(new[] { id });
+        }
+
+        public CustomerReviewResponseModel GetCustomerReviewById(string id)
+        {
+            var reviews = GetByIds(new[] { id });
+
+            if (!reviews.Any())
+                return null;
+
+            var result = ClientModel.ToResponseModel(reviews.FirstOrDefault());
+            return result;
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace External.CustomerReviewsModule.Core.Models.Create
+namespace External.CustomerReviewsModule.Core.Models
 {
     public class CustomerReviewCreateModel
     {

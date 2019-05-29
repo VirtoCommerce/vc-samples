@@ -50,12 +50,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Common\IdentifierModel.cs" />
-    <Compile Include="Models\Create\CustomerReviewCreateModel.cs" />
-    <Compile Include="Models\Read\CustomerReviewResponseModel.cs" />
+    <Compile Include="Models\IdentifierModel.cs" />
+    <Compile Include="Models\CustomerReviewCreateModel.cs" />
+    <Compile Include="Models\CustomerReviewResponseModel.cs" />
     <Compile Include="Models\Search\CustomerReview.cs" />
     <Compile Include="Models\Search\CustomerReviewSearchCriteria.cs" />
-    <Compile Include="Models\Update\CustomerReviewUpdateModel.cs" />
+    <Compile Include="Models\CustomerReviewUpdateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICustomerReviewSearchService.cs" />
     <Compile Include="Services\ICustomerReviewService.cs" />

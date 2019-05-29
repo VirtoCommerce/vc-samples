@@ -1,6 +1,6 @@
 using System;
 
-namespace External.CustomerReviewsModule.Core.Models.Read
+namespace External.CustomerReviewsModule.Core.Models
 {
     public class CustomerReviewResponseModel
     {

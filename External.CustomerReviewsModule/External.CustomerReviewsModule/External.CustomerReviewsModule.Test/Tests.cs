@@ -91,12 +91,12 @@ namespace External.CustomerReviewsModule.Test
                 return new CustomerReviewSearchService(GetRepository, CustomerReviewService);
             }
         }
+
         private ICustomerReviewService CustomerReviewService
         {
             get
             {
-                // return new CustomerReviewService(GetRepository);
-                throw new NotImplementedException();
+                return new CustomerReviewService(GetRepository);
             }
         }
 

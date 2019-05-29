@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ClientModel.cs" />
     <Compile Include="Migrations\201905272310237_Initial.cs" />
     <Compile Include="Migrations\201905272310237_Initial.Designer.cs">
       <DependentUpon>201905272310237_Initial.cs</DependentUpon>

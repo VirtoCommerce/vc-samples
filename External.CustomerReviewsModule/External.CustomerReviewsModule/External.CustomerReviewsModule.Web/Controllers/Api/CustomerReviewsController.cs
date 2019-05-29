@@ -1,14 +1,12 @@
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using External.CustomerReviewsModule.Core.Models.Common;
-using External.CustomerReviewsModule.Core.Models.Create;
-using External.CustomerReviewsModule.Core.Models.Read;
+using External.CustomerReviewsModule.Core.Models;
 using External.CustomerReviewsModule.Core.Models.Search;
-using External.CustomerReviewsModule.Core.Models.Update;
 using External.CustomerReviewsModule.Core.Services;
 using External.CustomerReviewsModule.Web.Security;
 using VirtoCommerce.Domain.Commerce.Model.Search;
+using VirtoCommerce.Platform.Core.Web.Security;
 
 namespace External.CustomerReviewsModule.Web.Controllers.Api
 {
@@ -34,7 +32,7 @@ namespace External.CustomerReviewsModule.Web.Controllers.Api
         [HttpPost]
         [Route("search")]
         [ResponseType(typeof(GenericSearchResult<CustomerReview>))]
-        //[CheckPermission(Permission = PredefinedPermissions.CustomerReviewRead)]
+        [CheckPermission(Permission = PredefinedPermissions.CustomerReviewRead)]
         public IHttpActionResult SearchCustomerReviews(CustomerReviewSearchCriteria criteria)
         {
             var result = _customerReviewSearchService.SearchCustomerReviews(criteria);
@@ -49,7 +47,7 @@ namespace External.CustomerReviewsModule.Web.Controllers.Api
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(IdentifierModel))]
-        //[CheckPermission(Permission = PredefinedPermissions.CustomerReviewUpdate)]
+        [CheckPermission(Permission = PredefinedPermissions.CustomerReviewUpdate)]
         public IHttpActionResult Create(CustomerReviewCreateModel model)
         {
             var result = _customerReviewService.CreateCustomerReview(model);
@@ -65,10 +63,10 @@ namespace External.CustomerReviewsModule.Web.Controllers.Api
         [HttpPut]
         [Route("{id}")]
         [ResponseType(typeof(void))]
-        //[CheckPermission(Permission = PredefinedPermissions.CustomerReviewUpdate)]
+        [CheckPermission(Permission = PredefinedPermissions.CustomerReviewUpdate)]
         public IHttpActionResult Update(string id, CustomerReviewUpdateModel model)
         {
-            _customerReviewService.UpdateCustomerReview(model);
+            _customerReviewService.UpdateCustomerReview(id, model);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -80,7 +78,7 @@ namespace External.CustomerReviewsModule.Web.Controllers.Api
         [HttpDelete]
         [Route("{id}")]
         [ResponseType(typeof(void))]
-        //[CheckPermission(Permission = PredefinedPermissions.CustomerReviewDelete)]
+        [CheckPermission(Permission = PredefinedPermissions.CustomerReviewDelete)]
         public IHttpActionResult Delete(string id)
         {
             _customerReviewService.DeleteCustomerReviews(id);
@@ -95,7 +93,7 @@ namespace External.CustomerReviewsModule.Web.Controllers.Api
         [HttpGet]
         [Route("{id}")]
         [ResponseType(typeof(CustomerReviewResponseModel))]
-        //[CheckPermission(Permission = PredefinedPermissions.CustomerReviewRead)]
+        [CheckPermission(Permission = PredefinedPermissions.CustomerReviewRead)]
         public IHttpActionResult Get(string id)
         {
             var result = _customerReviewService.GetCustomerReviewById(id);

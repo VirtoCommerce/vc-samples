@@ -1,4 +1,4 @@
-namespace External.CustomerReviewsModule.Core.Models.Common
+namespace External.CustomerReviewsModule.Core.Models
 {
     public class IdentifierModel
     {

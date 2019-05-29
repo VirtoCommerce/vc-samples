@@ -1,4 +1,4 @@
-namespace External.CustomerReviewsModule.Core.Models.Update
+namespace External.CustomerReviewsModule.Core.Models
 {
     public class CustomerReviewUpdateModel
     {
