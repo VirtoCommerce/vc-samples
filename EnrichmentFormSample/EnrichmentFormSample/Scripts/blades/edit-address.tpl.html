@@ -1,0 +1,49 @@
+<div class="blade-static __bottom" ng-include="'$(Platform)/Scripts/common/templates/ok-cancel.tpl.html'"></div>
+<div class="blade-content">
+    <div class="blade-inner">
+        <div class="inner-block">
+            <div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <input id="address_autocomplete"
+                               placeholder="{{ 'edit-address.enter-address' | translate }}"
+                               ng-focus="geolocate()"
+                               type="text" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <label class="form-label">Country</label>
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.country" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <label class="form-label">State</label>
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.state" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <label class="form-label">City</label>
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.city" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <label class="form-label">Zip</label>
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.zip" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-input">
+                        <label class="form-label">Street Address</label>
+                        <input ng-keypress="setChanged()" type="text" ng-model="addressFields.streetAddress" />
+                    </div>
+                </div>
+            </div>
+            <div id="address-map"></div>
+            <div ng-init="init()"></div>
+        </div>
+    </div>
+</div>
