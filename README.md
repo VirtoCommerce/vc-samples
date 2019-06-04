@@ -6,7 +6,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 * IntegrationOrders - sample <a href="https://azure.microsoft.com/en-us/services/logic-apps/" target="_blank">Microsoft Logic Apps</a> application to show how to integrate VirtoCommerce platform with external services and how to handle Logic Apps exeptions
 * ManagedModule - source code for "Sample Managed Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
 
-* MemberExtensionSampleModule - source code for <a href="https://virtocommerce.com/docs/vc2devguide/extending-commerce/extending-members-domain-types" target="_blank">Extending Members domain types</a> tutorial
+* MemberExtensionSampleModule - source code for <a href="https://virtocommerce.com/docs/vc2devguide/extending-commerce/extending-members-domain-types" target="_blank">Extending Members domain types</a> tutorial. Expansion of members / contacts. Namely: the "JobTitle" field is added to the contacts and the search criteria are expanded accordingly; added new member type - "Supplier". As well as a review for suppliers.
 
 * OrderModule2 - sample project demonstrated how to extend  API, UI and Domain types in <a href="https://github.com/VirtoCommerce/vc-module-order" target="_blank">Order module</a>
 
@@ -18,6 +18,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * External.PricingModule - an example of expansion is the price module. The example added an additional field "BasePrice" for the entity PriceEntity. The repository has also been updated and the migration has been added. This sample was generated using "Virto Commerce 2.x Pricing Module extension" template in Visual Studio. The template can be obtained with "<a href="https://marketplace.visualstudio.com/items?itemName=Virto-Commerce.VirtoCommerceModuleTemplates" target="_blank">Virto Commerce 2.x Module Templates</a>" extension. 
 
+* External.CustomerReviewsModule - An example of the implementation of the customer feedback module, with the correct restful api. From a functional point of view, nothing has changed from the customerReviews module.v
 
 # License
 Copyright (c) Virto Solutions LTD.  All rights reserved.
