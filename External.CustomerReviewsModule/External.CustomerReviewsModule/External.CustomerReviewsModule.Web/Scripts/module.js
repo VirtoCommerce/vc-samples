@@ -41,7 +41,7 @@ angular.module(moduleName, [])
 
             // Register reviews widget inside product blade
             var itemReviewsWidget = {
-                controller: 'external.customerReviewsModule.reviewWidgetController',
+                controller: 'external.customerReviewsModule.reviewsWidgetController',
                 template: 'Modules/$(external.customerReviewsModule)/Scripts/widgets/reviews-widget.html'
             };
             widgetService.registerWidget(itemReviewsWidget, 'itemDetail');
