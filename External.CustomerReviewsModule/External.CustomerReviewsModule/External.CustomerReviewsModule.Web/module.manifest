@@ -30,7 +30,7 @@
     <settings>
         <group name="Store|General">
             <setting>
-                <name>External.CustomerReviewsModule.CustomerReviewsEnabled</name>
+                <name>CustomerReviews.CustomerReviewsEnabled</name>
                 <valueType>boolean</valueType>
                 <defaultValue>false</defaultValue>
                 <title>Customer Reviews enabled</title>
