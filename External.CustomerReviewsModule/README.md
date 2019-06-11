@@ -5,10 +5,9 @@ From a functional point of view, the module is similar to the CustomerReviews mo
 * <b>POST</b> api/customerReviews - Create new or update existing customer review
 * <b>DELETE</b> api/customerReviews - Customer Reviews by IDs
 
-#### New module implement APIs in this way:
+New module implement APIs in this way:
 * <b>POST</b> api/customerReviews/search Return product Customer review search results
 * <b>POST</b> api/customerReviews Create new review
-* <b>GET</b> api/customerReviews Get All Customer Reviews
 * <b>GET</b> api/customerReviews/{id} Get Customer Review by id
 * <b>PUT</b> api/customerReviews/{id} Update existing customer review
 * <b>DELETE</b> api/customerReviews/{id} Delete Customer Reviews by Id
