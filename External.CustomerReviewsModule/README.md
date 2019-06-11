@@ -1,8 +1,8 @@
 # Customer Reviews Module RESTful
-Functionally, this module is similar to the original CustomerReviews module. The main goal when creating a module is to show the implementation of the best RESTful practices. CustomerReviews module implements the following API:
+Functionally, this module is similar to the original CustomerReviews module. Module creation main goal is to show the implementation of the best RESTful practices. CustomerReviews module implements the following API:
 
 * <b>POST</b> api/customerReviews/search - returns the search result of Customer Reviews;
-* <b>POST</b> api/customerReviews - creates a new or updates existing Customer Review;
+* <b>POST</b> api/customerReviews - creates new or updates existing Customer Reviews;
 * <b>DELETE</b> api/customerReviews - deletes Customer Reviews by Ids.
 
 The new module implements the API as follows:
