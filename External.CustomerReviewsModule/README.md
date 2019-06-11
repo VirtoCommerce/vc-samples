@@ -1,22 +1,22 @@
-# Customer Reviews Module RESTfull
-From a functional point of view, the module is similar to the CustomerReviews module. The main purpose what for this module is created is to show the RESTfull approach best practices implementation. In the CustomerReviews module implemented following API:
+# Customer Reviews Module RESTful
+Functionally, this module is similar to the original CustomerReviews module. The main goal, which is to show the introduction of the best RESTful practices. The CustomerReviews module implements the following API:
 
-* <b>POST</b> api/customerReviews/search - Return product Customer review search results
-* <b>POST</b> api/customerReviews - Create new or update existing customer review
-* <b>DELETE</b> api/customerReviews - Customer Reviews by IDs
+* <b>POST</b> api/customerReviews/search - returns the search result of Customer Reviews;
+* <b>POST</b> api/customerReviews - creates a new or updates existing Customer Review;
+* <b>DELETE</b> api/customerReviews - deletes Customer Reviews by Id.
 
-New module implement APIs in this way:
-* <b>POST</b> api/customerReviews/search Return product Customer review search results
-* <b>POST</b> api/customerReviews Create new review
-* <b>GET</b> api/customerReviews/{id} Get Customer Review by id
-* <b>PUT</b> api/customerReviews/{id} Update existing customer review
-* <b>DELETE</b> api/customerReviews/{id} Delete Customer Reviews by Id
+The new module implements the API as follows:
+* <b>POST</b> api/customerReviews/search - returns the search result of Customer Reviews;
+* <b>POST</b> api/customerReviews - creates a new Customer Review;
+* <b>GET</b> api/customerReviews/{id} - returns Customer Review by Id;
+* <b>PUT</b> api/customerReviews/{id} - updates an existing Customer Review;
+* <b>DELETE</b> api/customerReviews/{id} - deletes Customer Review by Id.
 
-The new module may be used as an example of the correct implementation of the API.
+The new module can be used as an example of the correct implementation of the API.
 
-#### Why we should use RESTful API?
-RESTfull approach is no fixed API above and beyond what REST itself defines. The client needs only know the initial URI, and subsequently chooses from server-supplied choices to navigate or perform actions. It allows for rapid evolution of servers and allows a number of applications to interact freely on an ad hoc basis (e.g. the whole Internet). A REST is a valid design choice when evolution and scalability is more important.
+#### Why should we use RESTful API?
+RESTful approach does not have strict implementation rules, it defines a set of constraints. The client only needs to know the initial URI, and subsequently it chooses from the parameters provided by the server to navigate or perform actions. This approach enables rapid evolution of servers and allows a number of applications to interact freely on an ad hoc basis (e.g. the whole Internet). A REST is a valid design choice when evolution and scalability are important. For more information, https://en.wikipedia.org/wiki/Representational_state_transfer
 
-#### Read more about RESTfull best practice
+#### Learn more about RESTful best practices:
 * https://code-maze.com/top-rest-api-best-practices/
 * https://github.com/WhiteHouse/api-standards
