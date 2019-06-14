@@ -80,14 +80,22 @@
     <Compile Include="Migrations\201904300818457_Initial.Designer.cs">
       <DependentUpon>201904300818457_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906141137543_AddPricelistEx.cs" />
+    <Compile Include="Migrations\201906141137543_AddPricelistEx.Designer.cs">
+      <DependentUpon>201906141137543_AddPricelistEx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PriceExEntity.cs" />
+    <Compile Include="Models\PricelistExEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PriceExRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904300818457_Initial.resx">
       <DependentUpon>201904300818457_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906141137543_AddPricelistEx.resx">
+      <DependentUpon>201906141137543_AddPricelistEx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

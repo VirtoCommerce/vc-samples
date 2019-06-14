@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.Practices.Unity;
+using System;
 using External.PricingModule.Core.Models;
 using External.PricingModule.Data.Models;
 using External.PricingModule.Data.Repositories;
+using Microsoft.Practices.Unity;
 using VirtoCommerce.Domain.Pricing.Model;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Modularity;
@@ -41,7 +41,7 @@ namespace External.PricingModule.Web
 
             Func<IPricingRepository> repFactory = () =>
                    new PriceExRepository(_connectionString, new EntityPrimaryKeyGeneratorInterceptor(), _container.Resolve<AuditableInterceptor>(),
-                       new ChangeLogInterceptor(_container.Resolve<Func<IPlatformRepository>>(), ChangeLogPolicy.Cumulative, new[] { nameof(PriceExEntity) }));
+                       new ChangeLogInterceptor(_container.Resolve<Func<IPlatformRepository>>(), ChangeLogPolicy.Cumulative, new[] { nameof(PriceExEntity), nameof(PricelistExEntity) }));
             _container.RegisterInstance(instance: repFactory);
 
             _container.RegisterType<IPricingRepository>(new InjectionFactory(c => new PriceExRepository(_connectionString, _container.Resolve<AuditableInterceptor>(),
@@ -54,6 +54,9 @@ namespace External.PricingModule.Web
 
             AbstractTypeFactory<Price>.OverrideType<Price, PriceEx>();
             AbstractTypeFactory<PriceEntity>.OverrideType<PriceEntity, PriceExEntity>();
+
+            AbstractTypeFactory<Pricelist>.OverrideType<Pricelist, PricelistEx>();
+            AbstractTypeFactory<PricelistEntity>.OverrideType<PricelistEntity, PricelistExEntity>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+using System.Data.Entity;
 using External.PricingModule.Data.Models;
 using VirtoCommerce.Platform.Data.Infrastructure.Interceptors;
 using VirtoCommerce.PricingModule.Data.Repositories;
@@ -20,6 +20,8 @@ namespace External.PricingModule.Data.Repositories
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PriceExEntity>().ToTable("PriceEx").HasKey(x => x.Id).Property(x => x.Id);
+
+            modelBuilder.Entity<PricelistExEntity>().ToTable("PricelistEx").HasKey(x => x.Id).Property(x => x.Id);
 
             base.OnModelCreating(modelBuilder);
         }

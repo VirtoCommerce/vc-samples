@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\PricelistEx.cs" />
     <Compile Include="Models\PriceEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
