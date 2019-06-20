@@ -34,7 +34,7 @@ namespace MemberExtensionSampleModule.Web
         {
             using (var db = new SupplierRepository(_connectionStringName, _container.Resolve<AuditableInterceptor>()))
             {
-                var initializer = new SetupDatabaseInitializer<SupplierRepository, MemberExtensionSampleModule.Web.Migrations.Configuration>();
+                var initializer = new SetupDatabaseInitializer<SupplierRepository, Migrations.Configuration>();
                 initializer.InitializeDatabase(db);
             }
         }
