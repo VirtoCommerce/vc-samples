@@ -15,9 +15,9 @@ namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 
         public void SendMessage(string recipient, string message)
         {
-            var license = _settingsManager.GetValue("VirtoCommerce.WhatsApp.License", default(string));
-            var domain = _settingsManager.GetValue("VirtoCommerce.WhatsApp.Domain", default(string));
-            var apiEndpoint = _settingsManager.GetValue("VirtoCommerce.WhatsApp.APIEndpoint", default(string));
+            var license = _settingsManager.GetValue("VirtoCommerce.WhatsApp.WooWa.License", default(string));
+            var domain = _settingsManager.GetValue("VirtoCommerce.WhatsApp.WooWa.Domain", default(string));
+            var apiEndpoint = _settingsManager.GetValue("VirtoCommerce.WhatsApp.WooWa.APIEndpoint", default(string));
 
             if (!string.IsNullOrEmpty(license) && !string.IsNullOrEmpty(domain) && !string.IsNullOrEmpty(apiEndpoint))
             {

@@ -23,17 +23,17 @@
   <settings>
       <group name="Platform|Notifications|WhatsApp|WooWa">
           <setting>
-              <name>VirtoCommerce.WhatsApp.License</name>
+              <name>VirtoCommerce.WhatsApp.WooWa.License</name>
               <title>WooWa license</title>
               <valueType>string</valueType>
           </setting>
           <setting>
-              <name>VirtoCommerce.WhatsApp.Domain</name>
+              <name>VirtoCommerce.WhatsApp.WooWa.Domain</name>
               <title>WooWa account domain</title>
               <valueType>string</valueType>
           </setting>
           <setting>
-              <name>VirtoCommerce.WhatsApp.APIEndpoint</name>
+              <name>VirtoCommerce.WhatsApp.WooWa.APIEndpoint</name>
               <title>WooWa API endpoint</title>
               <valueType>string</valueType>
               <defaultValue>https://api.woo-wa.com/v2.0</defaultValue>
