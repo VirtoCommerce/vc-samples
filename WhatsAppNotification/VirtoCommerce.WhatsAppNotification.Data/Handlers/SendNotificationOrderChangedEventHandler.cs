@@ -8,15 +8,15 @@ using VirtoCommerce.Platform.Core.Notifications;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.WhatsAppNotification.Core.Notifications;
 
-namespace VirtoCommerce.WhatsAppNotification.Web.Handlers
+namespace VirtoCommerce.WhatsAppNotification.Data.Handlers
 {
-    public class OrderChangedEventHandler : IEventHandler<OrderChangedEvent>
+    public class SendNotificationOrderChangedEventHandler : IEventHandler<OrderChangedEvent>
     {
         private readonly INotificationManager _notificationManager;
         private readonly ISecurityService _securityService;
         private readonly IMemberService _memberService;
 
-        public OrderChangedEventHandler(INotificationManager notificationManager, ISecurityService securityService, IMemberService memberService)
+        public SendNotificationOrderChangedEventHandler(INotificationManager notificationManager, ISecurityService securityService, IMemberService memberService)
         {
             _notificationManager = notificationManager;
             _securityService = securityService;

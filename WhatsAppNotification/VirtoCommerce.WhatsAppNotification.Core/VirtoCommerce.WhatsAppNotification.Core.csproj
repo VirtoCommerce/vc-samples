@@ -56,7 +56,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Gateway\IWhatsAppNotificationSendingGateway.cs" />
+    <Compile Include="Gateways\IWhatsAppNotificationSendingGateway.cs" />
     <Compile Include="Notifications\OrderWhatsAppNotification.cs" />
     <Compile Include="Notifications\WhatsAppNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

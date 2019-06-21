@@ -1,4 +1,4 @@
-namespace VirtoCommerce.WhatsAppNotification.Data.WhatsAppClient
+namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 {
     public interface IWhatsAppClient
     {

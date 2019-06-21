@@ -93,15 +93,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NotificationTemplates\OrderWhatsAppNotification_body.htm" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Gateway\WhatsAppNotificationSendingGateway.cs" />
-    <Compile Include="Handlers\OrderChangedEventHandler.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

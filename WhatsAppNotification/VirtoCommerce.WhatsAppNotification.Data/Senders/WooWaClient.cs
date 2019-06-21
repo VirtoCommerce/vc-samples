@@ -2,7 +2,7 @@ using System.Net;
 using System.Text;
 using VirtoCommerce.Platform.Core.Settings;
 
-namespace VirtoCommerce.WhatsAppNotification.Data.WhatsAppClient
+namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 {
     public class WooWaClient : IWhatsAppClient
     {

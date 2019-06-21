@@ -3,7 +3,7 @@ using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using VirtoCommerce.Platform.Core.Settings;
 
-namespace VirtoCommerce.WhatsAppNotification.Data.WhatsAppClient
+namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 {
     public class TwilioWhatsApp : IWhatsAppClient
     {

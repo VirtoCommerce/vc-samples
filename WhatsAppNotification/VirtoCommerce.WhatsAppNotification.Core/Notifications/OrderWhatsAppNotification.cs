@@ -1,6 +1,6 @@
 using VirtoCommerce.Domain.Order.Model;
 using VirtoCommerce.Platform.Core.Notifications;
-using VirtoCommerce.WhatsAppNotification.Core.Gateway;
+using VirtoCommerce.WhatsAppNotification.Core.Gateways;
 
 namespace VirtoCommerce.WhatsAppNotification.Core.Notifications
 {
