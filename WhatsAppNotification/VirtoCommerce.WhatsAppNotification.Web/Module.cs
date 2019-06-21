@@ -1,8 +1,8 @@
-using System.IO;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 using VirtoCommerce.Domain.Order.Events;
 using VirtoCommerce.Platform.Core.Bus;
+using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Notifications;
 using VirtoCommerce.WhatsAppNotification.Core.Gateways;
@@ -24,37 +24,26 @@ namespace VirtoCommerce.WhatsAppNotification.Web
 
         public override void Initialize()
         {
-
             _container.RegisterType<IWhatsAppNotificationSendingGateway, WhatsAppNotificationSendingGateway>();
-            _container.RegisterType<IWhatsAppClient, TwilioWhatsApp>();
+            _container.RegisterType<IWhatsAppClient, TwilioWhatsAppClient>();
+        }
 
+        public override void PostInitialize()
+        {
             var notificationManager = _container.Resolve<INotificationManager>();
+            var assembly = Assembly.GetAssembly(typeof(IWhatsAppClient));
 
             notificationManager.RegisterNotificationType(() => new OrderWhatsAppNotification(_container.Resolve<IWhatsAppNotificationSendingGateway>())
             {
                 NotificationTemplate = new NotificationTemplate()
                 {
-                    Body = ReadFile($"{typeof(OrderWhatsAppNotification).Name}_body.htm")
+                    Body = assembly.GetManifestResourceStream($"VirtoCommerce.WhatsAppNotification.Data.Templates.{typeof(OrderWhatsAppNotification).Name}_body.htm").ReadToString()
                 }
             });
 
             var eventHandlerRegistrar = _container.Resolve<IHandlerRegistrar>();
 
             eventHandlerRegistrar.RegisterHandler<OrderChangedEvent>(async (message, token) => await _container.Resolve<SendNotificationOrderChangedEventHandler>().Handle(message));
-        }
-
-        private static string ReadFile(string fileName)
-        {
-            var assembly = Assembly.GetAssembly(typeof(IWhatsAppClient));
-            string result;
-
-            using (var stream = assembly.GetManifestResourceStream($"VirtoCommerce.WhatsAppNotification.Data.Templates.{fileName}"))
-            using (var reader = new StreamReader(stream))
-            {
-                result = reader.ReadToEnd();
-            }
-
-            return result;
         }
     }
 }

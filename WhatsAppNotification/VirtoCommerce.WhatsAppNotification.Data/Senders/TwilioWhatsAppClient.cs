@@ -5,11 +5,11 @@ using VirtoCommerce.Platform.Core.Settings;
 
 namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 {
-    public class TwilioWhatsApp : IWhatsAppClient
+    public class TwilioWhatsAppClient : IWhatsAppClient
     {
         private readonly ISettingsManager _settingsManager;
 
-        public TwilioWhatsApp(ISettingsManager settingsManager)
+        public TwilioWhatsAppClient(ISettingsManager settingsManager)
         {
             _settingsManager = settingsManager;
         }

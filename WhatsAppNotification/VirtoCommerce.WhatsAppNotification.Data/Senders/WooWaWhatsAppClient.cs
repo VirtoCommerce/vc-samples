@@ -4,11 +4,11 @@ using VirtoCommerce.Platform.Core.Settings;
 
 namespace VirtoCommerce.WhatsAppNotification.Data.Senders
 {
-    public class WooWaClient : IWhatsAppClient
+    public class WooWaWhatsAppClient : IWhatsAppClient
     {
         private readonly ISettingsManager _settingsManager;
 
-        public WooWaClient(ISettingsManager settingsManager)
+        public WooWaWhatsAppClient(ISettingsManager settingsManager)
         {
             _settingsManager = settingsManager;
         }
