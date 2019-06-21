@@ -39,7 +39,11 @@ namespace VirtoCommerce.WhatsAppNotification.Data.Handlers
 
                     notification.Recipient = contact?.Phones?.FirstOrDefault(x => !string.IsNullOrEmpty(x)) ?? user?.PhoneNumber;
                     notification.Order = changedEntry.NewEntry;
-                    _notificationManager.ScheduleSendNotification(notification);
+
+                    if (!string.IsNullOrEmpty(notification.Recipient))
+                    {
+                        _notificationManager.ScheduleSendNotification(notification);
+                    }
                 }
             }
         }
