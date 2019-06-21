@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
   <id>VirtoCommerce.WhatsAppNotification</id>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 
   <platformVersion>2.13.47</platformVersion>
   <dependencies>
   </dependencies>
 
   <title>WhatsApp notification module</title>
-  <description>This module provide WhatsApp notification gateway</description>
+  <description>Sample sending Order change notifications to WhatsApp via Twilio or Woowa gateways</description>
 
   <authors>
     <author>Virto Commerce</author>
