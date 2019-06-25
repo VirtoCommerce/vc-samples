@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <id>VirtoCommerce.WhatsAppNotification</id>
+  <version>1.0.3</version>
+
+  <platformVersion>2.13.47</platformVersion>
+  <dependencies>
+  </dependencies>
+
+  <title>WhatsApp notification module</title>
+  <description>Sample sending Order change notifications to WhatsApp via Twilio or Woowa gateways</description>
+
+  <authors>
+    <author>Virto Commerce</author>
+  </authors>
+  <owners>
+    <owner>Virto Commerce</owner>
+  </owners>
+
+  <assemblyFile>VirtoCommerce.WhatsAppNotification.Web.dll</assemblyFile>
+  <moduleType>VirtoCommerce.WhatsAppNotification.Web.Module, VirtoCommerce.WhatsAppNotification.Web</moduleType>
+
+  <settings>
+      <group name="Platform|Notifications|WhatsApp|WooWa">
+          <setting>
+              <name>VirtoCommerce.WhatsApp.WooWa.License</name>
+              <title>WooWa license</title>
+              <valueType>string</valueType>
+          </setting>
+          <setting>
+              <name>VirtoCommerce.WhatsApp.WooWa.Domain</name>
+              <title>WooWa account domain</title>
+              <valueType>string</valueType>
+          </setting>
+          <setting>
+              <name>VirtoCommerce.WhatsApp.WooWa.APIEndpoint</name>
+              <title>WooWa API endpoint</title>
+              <valueType>string</valueType>
+              <defaultValue>https://api.woo-wa.com/v2.0</defaultValue>
+          </setting>
+      </group>
+      <group name="Platform|Notifications|WhatsApp|Twilio">
+          <setting>
+              <name>VirtoCommerce.WhatsApp.Twilio.FromAcc</name>
+              <title>Twilio account to send messages</title>
+              <valueType>string</valueType>
+          </setting>
+          <setting>
+              <name>VirtoCommerce.WhatsApp.Twilio.AuthToken</name>
+              <title>Twilio auth token</title>
+              <valueType>string</valueType>
+          </setting>
+          <setting>
+              <name>VirtoCommerce.WhatsApp.Twilio.AccountSid</name>
+              <title>Twilio account sid</title>
+              <valueType>string</valueType>
+          </setting>
+      </group>
+  </settings>
+</module>
