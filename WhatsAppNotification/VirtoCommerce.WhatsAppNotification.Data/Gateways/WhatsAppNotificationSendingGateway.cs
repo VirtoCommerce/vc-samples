@@ -3,7 +3,7 @@ using VirtoCommerce.Platform.Core.Notifications;
 using VirtoCommerce.WhatsAppNotification.Core.Gateways;
 using VirtoCommerce.WhatsAppNotification.Data.Senders;
 
-namespace VirtoCommerce.WhatsAppNotification.Data.Gateway
+namespace VirtoCommerce.WhatsAppNotification.Data.Gateways
 {
     public class WhatsAppNotificationSendingGateway : IWhatsAppNotificationSendingGateway
     {

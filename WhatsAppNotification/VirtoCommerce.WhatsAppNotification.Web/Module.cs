@@ -7,7 +7,7 @@ using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Notifications;
 using VirtoCommerce.WhatsAppNotification.Core.Gateways;
 using VirtoCommerce.WhatsAppNotification.Core.Notifications;
-using VirtoCommerce.WhatsAppNotification.Data.Gateway;
+using VirtoCommerce.WhatsAppNotification.Data.Gateways;
 using VirtoCommerce.WhatsAppNotification.Data.Handlers;
 using VirtoCommerce.WhatsAppNotification.Data.Senders;
 

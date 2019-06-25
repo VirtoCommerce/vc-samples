@@ -29,19 +29,21 @@ namespace VirtoCommerce.WhatsAppNotification.Data.Handlers
             {
                 if (changedEntry.EntryState == EntryState.Modified || changedEntry.EntryState == EntryState.Added)
                 {
-                    var notification = _notificationManager.GetNewNotification<OrderWhatsAppNotification>();
-
                     var user = await _securityService.FindByIdAsync(changedEntry.OldEntry.CustomerId, UserDetails.Reduced);
 
                     var contact = user != null
                         ? _memberService.GetByIds(new[] { user.MemberId }).FirstOrDefault()
                         : _memberService.GetByIds(new[] { changedEntry.OldEntry.CustomerId }).FirstOrDefault();
 
-                    notification.Recipient = contact?.Phones?.FirstOrDefault(x => !string.IsNullOrEmpty(x)) ?? user?.PhoneNumber;
-                    notification.Order = changedEntry.NewEntry;
+                    var phoneNumber = contact?.Phones?.FirstOrDefault(x => !string.IsNullOrEmpty(x)) ?? user?.PhoneNumber;
 
-                    if (!string.IsNullOrEmpty(notification.Recipient))
+                    if (!string.IsNullOrEmpty(phoneNumber))
                     {
+                        var notification = _notificationManager.GetNewNotification<OrderWhatsAppNotification>();
+
+                        notification.Recipient = phoneNumber;
+                        notification.Order = changedEntry.NewEntry;
+
                         _notificationManager.ScheduleSendNotification(notification);
                     }
                 }
