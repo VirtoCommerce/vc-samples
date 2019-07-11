@@ -18,7 +18,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * UnmanagedModule - source code for "Sample Unmanaged Module" in [Creating new module](https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module) tutorial
 
-* VcSapIntegration - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to integrate VirtoCommerce platform with SAP. In this Integration module example:
+* VcSapIntegration - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to integrate VirtoCommerce platform with SAP. In this Integration solution example:
 
     1. Receives new orders from VC
     1. For each order creates 2 objects that will be sent to SAP: Sales_item_in and SALES_PARTNERS
