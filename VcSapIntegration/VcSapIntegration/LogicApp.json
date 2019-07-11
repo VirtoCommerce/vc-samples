@@ -1,0 +1,308 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "metadata": {
+        "description": "Name of the Logic App."
+      }
+    },
+    "logicAppLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [
+        "[resourceGroup().location]",
+        "eastasia",
+        "southeastasia",
+        "centralus",
+        "eastus",
+        "eastus2",
+        "westus",
+        "northcentralus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "japanwest",
+        "japaneast",
+        "brazilsouth",
+        "australiaeast",
+        "australiasoutheast",
+        "southindia",
+        "centralindia",
+        "westindia",
+        "canadacentral",
+        "canadaeast",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westus2"
+      ],
+      "metadata": {
+        "description": "Location of the Logic App."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "name": "[parameters('logicAppName')]",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[parameters('logicAppLocation')]",
+      "tags": {
+        "displayName": "LogicApp"
+      },
+      "apiVersion": "2016-06-01",
+      "properties": {
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Initialize_variable_Sales_item_in": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "Sales_item_in",
+                    "type": "Object",
+                    "value": {
+                      "ItemNumber": "",
+                      "Material": "",
+                      "Plant": "",
+                      "Qty": ""
+                    }
+                  }
+                ]
+              },
+              "runAfter": {}
+            },
+            "Initialize_variable_Sales_Partners": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "Sales_Partners",
+                    "type": "Object",
+                    "value": {
+                      "PartnerNumber": "",
+                      "PartnerRole": ""
+                    }
+                  }
+                ]
+              },
+              "runAfter": {
+                "Initialize_variable_Sales_item_in": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Get_Orders_from_VirtoCommerce": {
+              "type": "Http",
+              "inputs": {
+                "method": "post",
+                "body": {
+                  "number": "CO180503-00004"
+                },
+                "headers": {
+                  "api_key": "4b6e11ba1a7a4afea4738f2aca416189"
+                },
+                "uri": "https://vc-platform-vt.azurewebsites.net/api/order/customerOrders/search"
+              },
+              "runAfter": {
+                "Initialize_variable_Sales_Partners": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "apiDefinitionUrl": "https://vc-platform-vt.azurewebsites.net/docs/virtocommerce.orders/v1",
+                "swaggerSource": "custom"
+              }
+            },
+            "For_each": {
+              "type": "Foreach",
+              "foreach": "@body('Get_Orders_from_VirtoCommerce')?['customerOrders']",
+              "actions": {
+                "Compose_PartnerNumber": {
+                  "type": "Compose",
+                  "inputs": "@setProperty(variables('Sales_Partners'), 'PartnerNumber', items('For_each')['customerName'])",
+                  "runAfter": {}
+                },
+                "Set_variable_Sales_Partners": {
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Sales_Partners",
+                    "value": "@outputs('Compose_PartnerNumber')"
+                  },
+                  "runAfter": {
+                    "Compose_PartnerNumber": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Condition": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@items('For_each')['isPrototype']",
+                          true
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Compose_AG": {
+                      "type": "Compose",
+                      "inputs": "@setProperty(variables('Sales_Partners'), 'PartnerRole' ,'AG')",
+                      "runAfter": {}
+                    },
+                    "Set_variable_3": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "Sales_Partners",
+                        "value": "@outputs('Compose_AG')"
+                      },
+                      "runAfter": {
+                        "Compose_AG": [
+                          "Succeeded"
+                        ]
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Set_variable_Sales_Partners": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Compose_WE": {
+                        "type": "Compose",
+                        "inputs": "@setProperty(variables('Sales_Partners'), 'PartnerRole' ,'WE')",
+                        "runAfter": {}
+                      },
+                      "Set_variable_4": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "Sales_Partners",
+                          "value": "@outputs('Compose_WE')"
+                        },
+                        "runAfter": {
+                          "Compose_WE": [
+                            "Succeeded"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "For_each_Items": {
+                  "actions": {
+                    "Compose_Item_number": {
+                      "inputs": "@setProperty(variables('Sales_item_in'), 'ItemNumber' ,items('For_each_Items')['sku'])",
+                      "runAfter": {},
+                      "type": "Compose"
+                    },
+                    "Compose_Material": {
+                      "inputs": "@setProperty(outputs('Compose_Item_number'), 'Material' ,'Material')",
+                      "runAfter": {
+                        "Compose_Item_number": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose"
+                    },
+                    "Compose_Plant": {
+                      "inputs": "@setProperty(outputs('Compose_Qty'), 'Plant' ,'Plant')",
+                      "runAfter": {
+                        "Compose_Qty": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose"
+                    },
+                    "Compose_Qty": {
+                      "inputs": "@setProperty(outputs('Compose_Material'), 'Qty' ,items('For_each_Items')['quantity'])",
+                      "runAfter": {
+                        "Compose_Material": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose"
+                    },
+                    "HTTP_Send_partners": {
+                      "inputs": {
+                        "body": "@variables('Sales_Partners')",
+                        "method": "POST",
+                        "uri": "http://sap.demo/send"
+                      },
+                      "runAfter": {
+                        "HTTP_send_Sales_item_in": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Http"
+                    },
+                    "HTTP_send_Sales_item_in": {
+                      "inputs": {
+                        "body": "@variables('Sales_item_in')",
+                        "method": "POST",
+                        "uri": "http://sap.demo/send"
+                      },
+                      "runAfter": {
+                        "Set_variable": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Http"
+                    },
+                    "Set_variable": {
+                      "inputs": {
+                        "name": "Sales_item_in",
+                        "value": "@outputs('Compose_Plant')"
+                      },
+                      "runAfter": {
+                        "Compose_Plant": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "SetVariable"
+                    }
+                  },
+                  "foreach": "@items('For_each')['items']",
+                  "runAfter": {
+                    "Condition": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Foreach"
+                }
+              },
+              "runAfter": {
+                "Get_Orders_from_VirtoCommerce": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "parameters": {},
+          "triggers": {
+            "Recurrence": {
+              "type": "Recurrence",
+              "recurrence": {
+                "frequency": "Month",
+                "interval": 125
+              }
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": {}
+        },
+        "parameters": {}
+      }
+    }
+  ],
+  "outputs": {}
+}
