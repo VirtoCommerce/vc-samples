@@ -10,7 +10,9 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * External.PricingModule - an example of expansion is the price module. The example added an additional field "BasePrice" for the entity PriceEntity. The repository has also been updated and the migration has been added. This sample was generated using "Virto Commerce 2.x Pricing Module extension" template in Visual Studio. The template can be obtained with [Virto Commerce 2.x Module Templates](https://marketplace.visualstudio.com/items?itemName=Virto-Commerce.VirtoCommerceModuleTemplates) extension
 
-* IntegrationOrders - sample [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application to show how to integrate VirtoCommerce platform with external services and how to handle Logic Apps exeptions
+* FtpIntegrationSample - sample [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application to show how to export orders to CSV file and save it in FTP folder
+
+* IntegrationOrders - sample [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application to show how to integrate VirtoCommerce platform with external services and how to handle Logic Apps exceptions
 
 * ManagedModule - source code for "Sample Managed Module" in [Creating new module](https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module) tutorial
 
