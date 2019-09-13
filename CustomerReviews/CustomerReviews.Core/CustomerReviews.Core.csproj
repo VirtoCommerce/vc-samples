@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Model\CustomerReview.cs" />
     <Compile Include="Model\CustomerReviewSearchCriteria.cs" />
+    <Compile Include="ModuleConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ICustomerReviewSearchService.cs" />
     <Compile Include="Services\ICustomerReviewService.cs" />
