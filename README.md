@@ -4,7 +4,11 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 ## Current samples
 
-* CustomerReviews - an example of a custom module with best coding practices, recommended code structure and styleguides applied. Includes DAL, web API and custom Platform web UI  
+* CartModule2 - sample extending VC cart and line item with new fields
+
+* CustomerReviews - an example of a custom module with best coding practices, recommended code structure and styleguides applied. Includes DAL, web API and custom Platform web UI
+
+* CustomerReviews.Export - [Generic export](https://github.com/VirtoCommerce/vc-module-export) implementation for CustomerReviews sample module
 
 * EnrichmentFormSample - [Sample UI module which allow you edit dynamic address properties using Google Map API](/EnrichmentFormSample/Readme.md)
 

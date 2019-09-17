@@ -1,0 +1,20 @@
+{
+    "customerReviews.blades.exporter": {
+        "reviewsTitle": "Customer Reviews export",
+        "reviewsSubtitle": "Export Customer Reviews to selected format"
+    },
+    "export": {
+        "types": {
+            "CustomerReviews.Export.Data.ExportImport.ExportableCustomerReview": {
+                "name": "Customer Review",
+                "description": "Description for Customer Reviews export"
+            }
+        },
+        "groups": {
+            "CustomerReviews.Export.Data.ExportImport": {
+                "name": "Customer Reviews data",
+                "description": "Customer Reviews with product names"
+            }
+        }
+    }
+}
