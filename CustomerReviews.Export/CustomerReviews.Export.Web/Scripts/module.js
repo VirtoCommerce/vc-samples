@@ -20,7 +20,6 @@ angular.module(moduleName, [])
                     var selectedRows = blade.$scope.gridApi.selection.getSelectedRows();
                     var exportDataRequest = {
                         exportTypeName: 'CustomerReviews.Export.Data.ExportImport.ExportableCustomerReview',
-                        isTabularExportSupported: true,
                         dataQuery: {
                             exportTypeName: 'CustomerReviewExportDataQuery',
                             isAllSelected: !_.any(selectedRows),
