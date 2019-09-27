@@ -88,6 +88,9 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -104,8 +107,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="VirtoCommerce.Domain, Version=2.25.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\VirtoCommerce.Domain.2.25.21\lib\net461\VirtoCommerce.Domain.dll</HintPath>
+    <Reference Include="VirtoCommerce.Domain, Version=2.25.27.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VirtoCommerce.Domain.2.25.27\lib\net461\VirtoCommerce.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="VirtoCommerce.ExportModule.Core, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VirtoCommerce.ExportModule.Core.2.2.2\lib\net461\VirtoCommerce.ExportModule.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VirtoCommerce.ExportModule.Data, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VirtoCommerce.ExportModule.Data.2.2.2\lib\net461\VirtoCommerce.ExportModule.Data.dll</HintPath>
     </Reference>
     <Reference Include="VirtoCommerce.Platform.Core, Version=2.13.44.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\VirtoCommerce.Platform.Core.2.13.44\lib\net461\VirtoCommerce.Platform.Core.dll</HintPath>
@@ -113,8 +122,8 @@
     <Reference Include="VirtoCommerce.Platform.Data, Version=2.13.44.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\VirtoCommerce.Platform.Data.2.13.44\lib\net461\VirtoCommerce.Platform.Data.dll</HintPath>
     </Reference>
-    <Reference Include="VirtoCommerce.PricingModule.Data, Version=2.18.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\VirtoCommerce.PricingModule.Data.2.18.6\lib\net461\VirtoCommerce.PricingModule.Data.dll</HintPath>
+    <Reference Include="VirtoCommerce.PricingModule.Data, Version=2.18.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VirtoCommerce.PricingModule.Data.2.18.8\lib\net461\VirtoCommerce.PricingModule.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
