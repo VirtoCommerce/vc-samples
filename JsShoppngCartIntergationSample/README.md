@@ -5,3 +5,6 @@ Integration code example:
  - Index.cshml - "Buy" and "Checkout" buttons.
 
 Sample allows to add items to the cart using "Buy" buttons and go through whole checkout process after pressing "Checkout".
+
+Notes:
+- To use vc-shopping-cart scripts you need to add its references, like [here](https://github.com/VirtoCommerce/vc-samples/blob/js-shopping-cart-integration-sample/JsShoppngCartIntergationSample/VirtoCommerce.JavaScriptShoppingCart.IntegrationSample/Views/Shared/_Layout.cshtml#L10-L18).
