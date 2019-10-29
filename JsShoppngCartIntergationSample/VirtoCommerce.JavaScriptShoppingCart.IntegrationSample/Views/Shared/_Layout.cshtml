@@ -17,11 +17,11 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="~/Scripts/deps/angular-credit-cards-3.0.1.js"></script>
 
-	<link href="http://localhost/admin/styles/vc-shopping-cart" rel="stylesheet">
-	<script type="text/javascript" src="http://localhost/admin/scripts/vc-shopping-cart"></script>
+	<link href="http://localhost/adminOrigin/styles/vc-shopping-cart" rel="stylesheet">
+	<script type="text/javascript" src="http://localhost/adminOrigin/scripts/vc-shopping-cart"></script>
 </head>
 <body ng-controller="virtoCommerce.cartModule.cartController">
-    <vc-cart name="default" api-key="1fd1d5826f3749c78703cc268eae233d" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
+    <vc-cart name="default" api-key="872ed097bbfb454a8663b808ed92e43c" store-id="Clothing" api-url="http://localhost/adminOrigin/" currency-code="USD" culture="en-us" />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -30,13 +30,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Clothing shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li><a ng-click="openCart();">Cart</a></li>
+                    <li><a ng-click="openCheckout();">Checkout</a></li>
+                    
                 </ul>
             </div>
         </div>

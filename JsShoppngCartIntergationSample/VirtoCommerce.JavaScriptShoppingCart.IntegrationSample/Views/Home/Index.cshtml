@@ -2,18 +2,29 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="row" style="padding-top: 50px">
+    <div class="col-lg-6">
+        <img src="https://demovc1.blob.core.windows.net/catalog/355792584/355792584D1_.jpg" width="300" height="300" />
+        <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="addLineItem({name: 'Neon Coral Tropical Floral Print Bandeau Pleated Dress'
+                , quantity: 1
+                , listPrice: '25.00'
+                , currency: 'USD'
+                , productId: '61a553f315b0478aa7eb6295dad6cbb5'
+                , sku: '344394719'
+                , catalogId: 'b61aa9d1d0024bc4be12d79bf5786e9f'
+                , imageUrl: 'https://demovc1.blob.core.windows.net/catalog/344394719/344394719_.jpg'});">Buy</button>
+    </div>
+    
+    <div class="col-lg-6">
+        <img src="https://demovc1.blob.core.windows.net/catalog/344394719/344394719_.jpg" width="300" height="300" />
+        <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="addLineItem({name: 'Neon Coral Tropical Floral Print Bandeau Pleated Dress', quantity: 1, listPrice: '25.00', currency: 'USD', productId: '61a553f315b0478aa7eb6295dad6cbb5', sku: '344394719', catalogId: 'b61aa9d1d0024bc4be12d79bf5786e9f', imageUrl: 'https://demovc1.blob.core.windows.net/catalog/344394719/344394719_.jpg'});">Buy</button>
+    </div>
+    
 </div>
 
-<div class="row">
-    <img src="https://demovc1.blob.core.windows.net/catalog/355792584/355792584D1_.jpg" width="300" height="300" />
-    <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="carts.default.addLineItem({name: 'Pussycat Peach Colour Block Sleeveless Dress', quantity: 1, listPrice: '30.00', currency: 'USD', productId: '31bb21bf0b144b68a9d731374c1a95e8', sku: '355792584', catalogId: 'b61aa9d1d0024bc4be12d79bf5786e9f', imageUrl: 'https://demovc1.blob.core.windows.net/catalog/355792584/355792584D1_.jpg'});">Buy</button>
-    <img src="https://demovc1.blob.core.windows.net/catalog/344394719/344394719_.jpg" width="300" height="300" />
-    <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="carts.default.addLineItem({name: 'Neon Coral Tropical Floral Print Bandeau Pleated Dress', quantity: 1, listPrice: '25.00', currency: 'USD', productId: '61a553f315b0478aa7eb6295dad6cbb5', sku: '344394719', catalogId: 'b61aa9d1d0024bc4be12d79bf5786e9f', imageUrl: 'https://demovc1.blob.core.windows.net/catalog/344394719/344394719_.jpg'});">Buy</button>
-</div>
-<div class="row" style="margin: 20px 0">
+<div class="row btn-group-sm" style="margin: 20px 0">
+    <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="openCart();">Open Cart</button>
     <button type="button" class="javascript-shoppingcart-add-item btn" ng-click="openCheckout();">Checkout</button>
 </div>
+
+
