@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="virtoCommerce.cartModule">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewBag.Title - My ASP.NET Application</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js"></script>
-	<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.18.1/angular-translate.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-	<script src="~/Scripts/deps/angular-credit-cards-3.0.1.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.18.1/angular-translate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="~/Scripts/deps/angular-credit-cards-3.0.1.js"></script>
 
-	<link href="http://localhost/admin/styles/vc-shopping-cart" rel="stylesheet">
-	<script type="text/javascript" src="http://localhost/admin/scripts/vc-shopping-cart"></script>
+    <link href="http://localhost/admin/styles/vc-shopping-cart" rel="stylesheet">
+    <script type="text/javascript" src="http://localhost/admin/scripts/vc-shopping-cart"></script>
 </head>
 <body ng-controller="virtoCommerce.cartModule.cartController">
-    <vc-cart name="default" api-key="872ed097bbfb454a8663b808ed92e43c" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -33,11 +32,9 @@
                 @Html.ActionLink("Clothing shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a ng-click="openCart();">Cart</a></li>
-                    <li><a ng-click="openCheckout();">Checkout</a></li>
-                    
-                </ul>
+                <div class="pull-right">
+                    <vc-cart name="default" api-key="1fd1d5826f3749c78703cc268eae233d" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
+                </div>
             </div>
         </div>
     </div>
