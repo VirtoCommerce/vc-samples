@@ -60,9 +60,11 @@ namespace CustomerReviews.Data.Services
 
         public void DeleteCustomerReviews(string[] ids)
         {
+            var items = GetByIds(ids);
+
             using (var repository = _repositoryFactory())
             {
-                repository.DeleteCustomerReviews(ids);
+                repository.RemoveByIds(items.Select(x => x.Id).ToArray());
                 CommitChanges(repository);
             }
         }

@@ -9,6 +9,6 @@ namespace CustomerReviews.Data.Repositories
         IQueryable<CustomerReviewEntity> CustomerReviews { get; }
 
         CustomerReviewEntity[] GetByIds(string[] ids);
-        void DeleteCustomerReviews(string[] ids);
+        void RemoveByIds(string[] ids);
     }
 }

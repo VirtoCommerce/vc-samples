@@ -25,7 +25,7 @@ namespace CustomerReviews.Data.Repositories
             return CustomerReviews.Where(x => ids.Contains(x.Id)).ToArray();
         }
 
-        public void DeleteCustomerReviews(string[] ids)
+        public void RemoveByIds(string[] ids)
         {
             var items = GetByIds(ids);
             foreach (var item in items)
