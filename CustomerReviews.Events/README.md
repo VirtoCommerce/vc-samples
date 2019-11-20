@@ -4,4 +4,4 @@ Sample on adding events to CustomerReviews sample, based on (Extending using eve
 * event handler created and subscribed to CustomerReviewChangedEvent;
 * Http POST request is sent to dummy URL address for each changed CustomerReview.
 
-Maintenence note: dont't merge this brach to master. Just keep it separated.
+Maintenance note: don't merge this branch to master. Just keep it separated.

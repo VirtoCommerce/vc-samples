@@ -8,6 +8,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * CustomerReviews - an example of a custom module with best coding practices, recommended code structure and styleguides applied. Includes DAL, web API and custom Platform web UI
 
+* CustomerReviews.Events - (Extending using events)[https://virtocommerce.com/docs/vc2devguide/extending-commerce/extending-using-events] implementation for CustomerReviews sample module
+
 * CustomerReviews.Export - [Generic export](https://github.com/VirtoCommerce/vc-module-export) implementation for CustomerReviews sample module
 
 * EnrichmentFormSample - [Sample UI module which allow you edit dynamic address properties using Google Map API](/EnrichmentFormSample/Readme.md)
