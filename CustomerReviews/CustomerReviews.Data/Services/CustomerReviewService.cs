@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
+using CustomerReviews.Core.Events;
 using CustomerReviews.Core.Model;
 using CustomerReviews.Core.Services;
 using CustomerReviews.Data.Model;
 using CustomerReviews.Data.Repositories;
 using VirtoCommerce.Platform.Core.Common;
+using VirtoCommerce.Platform.Core.Events;
 using VirtoCommerce.Platform.Data.Infrastructure;
 
 namespace CustomerReviews.Data.Services
@@ -13,9 +15,13 @@ namespace CustomerReviews.Data.Services
     {
         private readonly Func<ICustomerReviewRepository> _repositoryFactory;
 
-        public CustomerReviewService(Func<ICustomerReviewRepository> repositoryFactory)
+        protected IEventPublisher EventPublisher { get; }
+
+
+        public CustomerReviewService(Func<ICustomerReviewRepository> repositoryFactory, IEventPublisher eventPublisher)
         {
             _repositoryFactory = repositoryFactory;
+            EventPublisher = eventPublisher;
         }
 
         public CustomerReview[] GetByIds(string[] ids)
@@ -52,8 +58,13 @@ namespace CustomerReviews.Data.Services
                         }
                     }
 
+                    //Raise domain events
+                    EventPublisher.Publish(new CustomerReviewChangingEvent { CustomerReviews = items });
+
                     CommitChanges(repository);
                     pkMap.ResolvePrimaryKeys();
+
+                    EventPublisher.Publish(new CustomerReviewChangedEvent { CustomerReviews = items });
                 }
             }
         }

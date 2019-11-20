@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>CustomerReviews.Events</id>
+    <version>1.0.1</version>
+    <platformVersion>2.13.52</platformVersion>
+    <dependencies>
+        <dependency id="VirtoCommerce.Core" version="2.25.29" />
+    </dependencies>
+
+    <title>Events for CustomerReviews</title>
+    <description>Events handler for CustomerReviews sample.</description>
+    <authors>
+        <author>Egidijus Mazeika</author>
+    </authors>
+
+    <releaseNotes>First version.</releaseNotes>
+    <copyright>Copyright © 2019. All rights reserved</copyright>
+    <tags>sample extension module</tags>
+  
+    <assemblyFile>CustomerReviews.Events.Web.dll</assemblyFile>
+    <moduleType>CustomerReviews.Events.Web.Module, CustomerReviews.Events.Web</moduleType>
+
+</module>

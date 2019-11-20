@@ -1,0 +1,9 @@
+{
+  "customerReviews.events": {
+    "blades": {
+      "hello-world": {
+        "title": "Hello world blade"
+      }
+    }
+  }
+}

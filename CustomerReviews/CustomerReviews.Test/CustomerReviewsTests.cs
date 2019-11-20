@@ -5,6 +5,8 @@ using CustomerReviews.Core.Services;
 using CustomerReviews.Data.Migrations;
 using CustomerReviews.Data.Repositories;
 using CustomerReviews.Data.Services;
+using Moq;
+using VirtoCommerce.Platform.Core.Events;
 using VirtoCommerce.Platform.Data.Infrastructure;
 using VirtoCommerce.Platform.Data.Infrastructure.Interceptors;
 using VirtoCommerce.Platform.Testing.Bases;
@@ -96,7 +98,7 @@ namespace CustomerReviews.Test
         {
             get
             {
-                return new CustomerReviewService(GetRepository);
+                return new CustomerReviewService(GetRepository, Mock.Of<IEventPublisher>());
             }
         }
 
