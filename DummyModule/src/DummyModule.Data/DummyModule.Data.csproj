@@ -8,4 +8,8 @@
     <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.0.0-rc1-update0001" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DummyModule.Core\DummyModule.Core.csproj" />
+  </ItemGroup>
+
 </Project>

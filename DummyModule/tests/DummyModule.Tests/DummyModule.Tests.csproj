@@ -13,4 +13,10 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DummyModule.Core\DummyModule.Core.csproj" />
+    <ProjectReference Include="..\..\src\DummyModule.Data\DummyModule.Data.csproj" />
+    <ProjectReference Include="..\..\src\DummyModule.Web\DummyModule.Web.csproj" />
+  </ItemGroup>
+
 </Project>
