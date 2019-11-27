@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+    <id>VirtoCommerce.Dummy</id>
+    <version>1.0.0</version>
+    <version-tag>v1</version-tag>
+    <platformVersion>3.0.0</platformVersion>
+    <dependencies>
+        <dependency id="VirtoCommerce.Core" version="3.0.0" />
+    </dependencies>
+
+    <title>Dummy module</title>
+    <description>Sample module for training purposes.</description>
+    <authors>
+        <author>Andrei Kostyrin</author>
+        <author>Egidijus Mazeika</author>
+    </authors>
+    <owners>
+        <owner>Virto Commerce</owner>
+    </owners>
+    <groups>
+        <group>samples</group>
+    </groups>
+    <projectUrl>https://github.com/VirtoCommerce/vc-samples</projectUrl>
+    <iconUrl></iconUrl>
+    <releaseNotes>First version.</releaseNotes>
+    <copyright>Copyright © 2011-2019 Virto Commerce. All rights reserved</copyright>
+    <tags>sample</tags>
+
+    <assemblyFile>DummyModule.Web.dll</assemblyFile>
+    <moduleType>DummyModule.Web.Module, DummyModule.Web</moduleType>
+</module>

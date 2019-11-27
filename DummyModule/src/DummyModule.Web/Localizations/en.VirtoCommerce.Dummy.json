@@ -1,0 +1,25 @@
+{
+    "permissions": {
+        "dummy:access": "Open Dummy menu",
+        "dummy:create": "Create Dummy related data",
+        "dummy:read": "View Dummy related data",
+        "dummy:update": "Update Dummy related data",
+        "dummy:delete": "Delete Dummy related data"
+    },
+    "settings": {
+        "Dummy": {
+            "ShortText": {
+                "title": "Dummy dictionary",
+                "description": "ShortText dummy dictionary setting"
+            },
+            "Integer": {
+                "title": "Dummy integer",
+                "description": "Dummy integer setting"
+            },
+            "DateTime": {
+                "title": "Dummy DateTime",
+                "description": "Dummy DateTime setting"
+            }
+        }
+    }
+}
