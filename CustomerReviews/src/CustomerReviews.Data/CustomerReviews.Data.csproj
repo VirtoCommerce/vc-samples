@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.2</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.0.0-rc1-update0001" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\CustomerReviews.Core\CustomerReviews.Core.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.2</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\CustomerReviews.Core\CustomerReviews.Core.csproj" />
+	  <ProjectReference Include="..\..\src\CustomerReviews.Data\CustomerReviews.Data.csproj" />
+	  <ProjectReference Include="..\..\src\CustomerReviews.Web\CustomerReviews.Web.csproj" />
+	</ItemGroup>
+</Project>
