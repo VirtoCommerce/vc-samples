@@ -1,13 +1,14 @@
+using System.Threading.Tasks;
 using CustomerReviews.Core.Model;
 
 namespace CustomerReviews.Core.Services
 {
     public interface ICustomerReviewService
     {
-        CustomerReview[] GetByIds(string[] ids);
+        Task<CustomerReview[]> GetByIdsAsync(string[] ids);
 
-        void SaveCustomerReviews(CustomerReview[] items);
+        Task SaveCustomerReviewsAsync(CustomerReview[] items);
 
-        void DeleteCustomerReviews(string[] ids);
+        Task DeleteCustomerReviewsAsync(string[] ids);
     }
 }

@@ -1,6 +1,6 @@
-using VirtoCommerce.Domain.Commerce.Model.Search;
+using VirtoCommerce.Platform.Core.Common;
 
-namespace CustomerReviews.Core.Model
+namespace CustomerReviews.Core.Model.Search
 {
     public class CustomerReviewSearchCriteria : SearchCriteriaBase
     {

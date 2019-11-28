@@ -1,10 +1,10 @@
-using CustomerReviews.Core.Model;
-using VirtoCommerce.Domain.Commerce.Model.Search;
+using System.Threading.Tasks;
+using CustomerReviews.Core.Model.Search;
 
 namespace CustomerReviews.Core.Services
 {
     public interface ICustomerReviewSearchService
     {
-        GenericSearchResult<CustomerReview> SearchCustomerReviews(CustomerReviewSearchCriteria criteria);
+        Task<CustomerReviewSearchResult> SearchCustomerReviewsAsync(CustomerReviewSearchCriteria criteria);
     }
 }
