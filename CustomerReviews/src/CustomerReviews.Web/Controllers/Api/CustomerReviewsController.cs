@@ -48,7 +48,7 @@ namespace CustomerReviews.Web.Controllers.Api
         [CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.CustomerReviewUpdate)]
         public IHttpActionResult Update(CustomerReview[] customerReviews)
         {
-            _customerReviewService.SaveCustomerReviews(customerReviews);
+            _customerReviewService.SaveCustomerReviewsAsync(customerReviews);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -63,7 +63,7 @@ namespace CustomerReviews.Web.Controllers.Api
         [CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.CustomerReviewDelete)]
         public IHttpActionResult Delete([FromUri] string[] ids)
         {
-            _customerReviewService.DeleteCustomerReviews(ids);
+            _customerReviewService.DeleteCustomerReviewsAsync(ids);
             return StatusCode(HttpStatusCode.NoContent);
         }
     }

@@ -1,71 +1,96 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using CustomerReviews.Core.Model;
+using System.Threading.Tasks;
+using CustomerReviews.Core.Model.Search;
 using CustomerReviews.Core.Services;
+using CustomerReviews.Data.Caching;
+using CustomerReviews.Data.Model;
 using CustomerReviews.Data.Repositories;
-using VirtoCommerce.Domain.Commerce.Model.Search;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using VirtoCommerce.Platform.Core.Caching;
 using VirtoCommerce.Platform.Core.Common;
-using VirtoCommerce.Platform.Data.Infrastructure;
 
 namespace CustomerReviews.Data.Services
 {
-    public class CustomerReviewSearchService : ServiceBase, ICustomerReviewSearchService
+    public class CustomerReviewSearchService : ICustomerReviewSearchService
     {
         private readonly Func<ICustomerReviewRepository> _repositoryFactory;
+        private readonly IPlatformMemoryCache _platformMemoryCache;
         private readonly ICustomerReviewService _customerReviewService;
 
-        public CustomerReviewSearchService(Func<ICustomerReviewRepository> repositoryFactory, ICustomerReviewService customerReviewService)
+        public CustomerReviewSearchService(Func<ICustomerReviewRepository> repositoryFactory, IPlatformMemoryCache platformMemoryCache, ICustomerReviewService customerReviewService)
         {
             _repositoryFactory = repositoryFactory;
+            _platformMemoryCache = platformMemoryCache;
             _customerReviewService = customerReviewService;
         }
 
-        public GenericSearchResult<CustomerReview> SearchCustomerReviews(CustomerReviewSearchCriteria criteria)
+        public async Task<CustomerReviewSearchResult> SearchCustomerReviewsAsync(CustomerReviewSearchCriteria criteria)
         {
-            if (criteria == null)
+            var cacheKey = CacheKey.With(GetType(), nameof(SearchCustomerReviewsAsync), criteria.GetCacheKey());
+            return await _platformMemoryCache.GetOrCreateExclusiveAsync(cacheKey, async (cacheEntry) =>
             {
-                throw new ArgumentNullException($"{ nameof(criteria) } must be set");
+                cacheEntry.AddExpirationToken(CustomerReviewCacheRegion.CreateChangeToken());
+                var result = AbstractTypeFactory<CustomerReviewSearchResult>.TryCreateInstance();
+                using (var repository = _repositoryFactory())
+                {
+                    var query = BuildQuery(repository, criteria);
+                    var sortInfos = BuildSortExpression(criteria);
+
+                    result.TotalCount = await query.CountAsync();
+                    if (criteria.Take > 0)
+                    {
+                        var customerReviewIds = await query.OrderBySortInfos(sortInfos).ThenBy(x => x.Id)
+                                                  .Select(x => x.Id)
+                                                  .Skip(criteria.Skip).Take(criteria.Take)
+                                                  .ToArrayAsync();
+
+                        var unorderedResults = await _customerReviewService.GetByIdsAsync(customerReviewIds);
+                        result.Results = unorderedResults.OrderBy(x => Array.IndexOf(customerReviewIds, x.Id)).ToArray();
+                    }
+                }
+                return result;
+            });
+        }
+
+        protected virtual IQueryable<CustomerReviewEntity> BuildQuery(ICustomerReviewRepository repository, CustomerReviewSearchCriteria criteria)
+        {
+            var query = repository.CustomerReviews;
+
+            if (!criteria.ProductIds.IsNullOrEmpty())
+            {
+                query = query.Where(x => criteria.ProductIds.Contains(x.ProductId));
             }
 
-            var retVal = new GenericSearchResult<CustomerReview>();
-
-            using (var repository = _repositoryFactory())
+            if (criteria.IsActive.HasValue)
             {
-                var query = repository.CustomerReviews;
-
-                if (!criteria.ProductIds.IsNullOrEmpty())
-                {
-                    query = query.Where(x => criteria.ProductIds.Contains(x.ProductId));
-                }
-
-                if (criteria.IsActive.HasValue)
-                {
-                    query = query.Where(x => x.IsActive == criteria.IsActive);
-                }
-
-                if (!criteria.SearchPhrase.IsNullOrEmpty())
-                {
-                    query = query.Where(x => x.Content.Contains(criteria.SearchPhrase));
-                }
-
-                var sortInfos = criteria.SortInfos;
-                if (sortInfos.IsNullOrEmpty())
-                {
-                    sortInfos = new[] { new SortInfo { SortColumn = "CreatedDate", SortDirection = SortDirection.Descending } };
-                }
-                query = query.OrderBySortInfos(sortInfos);
-
-                retVal.TotalCount = query.Count();
-
-                var customerReviewIds = query.Skip(criteria.Skip)
-                                 .Take(criteria.Take)
-                                 .Select(x => x.Id)
-                                 .ToList();
-
-                retVal.Results = _customerReviewService.GetByIds(customerReviewIds.ToArray())
-                                                       .OrderBy(x => customerReviewIds.IndexOf(x.Id)).ToList();
-                return retVal;
+                query = query.Where(x => x.IsActive == criteria.IsActive);
             }
+
+            if (!criteria.SearchPhrase.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.Content.Contains(criteria.SearchPhrase));
+            }
+
+            return query;
+        }
+
+        protected virtual IList<SortInfo> BuildSortExpression(CustomerReviewSearchCriteria criteria)
+        {
+            var sortInfos = criteria.SortInfos;
+            if (sortInfos.IsNullOrEmpty())
+            {
+                sortInfos = new[]
+                {
+                    new SortInfo
+                    {
+                        SortColumn = nameof(CustomerReviewEntity.CreatedDate), SortDirection = SortDirection.Descending
+                    }
+                };
+            }
+            return sortInfos;
         }
     }
 }

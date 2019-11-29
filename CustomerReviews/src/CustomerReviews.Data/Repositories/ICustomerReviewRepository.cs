@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using CustomerReviews.Data.Model;
 using VirtoCommerce.Platform.Core.Common;
 
@@ -8,7 +9,6 @@ namespace CustomerReviews.Data.Repositories
     {
         IQueryable<CustomerReviewEntity> CustomerReviews { get; }
 
-        CustomerReviewEntity[] GetByIds(string[] ids);
-        void RemoveByIds(string[] ids);
+        Task<CustomerReviewEntity[]> GetByIdsAsync(string[] ids);
     }
 }

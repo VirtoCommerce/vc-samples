@@ -1,44 +1,22 @@
-using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using CustomerReviews.Data.Model;
+using Microsoft.EntityFrameworkCore;
 using VirtoCommerce.Platform.Data.Infrastructure;
-using VirtoCommerce.Platform.Data.Infrastructure.Interceptors;
 
 namespace CustomerReviews.Data.Repositories
 {
-    public class CustomerReviewRepository : EFRepositoryBase, ICustomerReviewRepository
+    public class CustomerReviewRepository : DbContextRepositoryBase<CustomerReviewsDbContext>, ICustomerReviewRepository
     {
-        public CustomerReviewRepository()
+        public CustomerReviewRepository(CustomerReviewsDbContext dbContext) : base(dbContext)
         {
         }
 
-        public CustomerReviewRepository(string nameOrConnectionString, params IInterceptor[] interceptors)
-            : base(nameOrConnectionString, null, interceptors)
-        {
-            Configuration.LazyLoadingEnabled = false;
-        }
+        public IQueryable<CustomerReviewEntity> CustomerReviews => DbContext.Set<CustomerReviewEntity>();
 
-        public IQueryable<CustomerReviewEntity> CustomerReviews => GetAsQueryable<CustomerReviewEntity>();
-        
-        public CustomerReviewEntity[] GetByIds(string[] ids)
+        public async Task<CustomerReviewEntity[]> GetByIdsAsync(string[] ids)
         {
-            return CustomerReviews.Where(x => ids.Contains(x.Id)).ToArray();
-        }
-
-        public void RemoveByIds(string[] ids)
-        {
-            var items = GetByIds(ids);
-            foreach (var item in items)
-            {
-                Remove(item);
-            }
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CustomerReviewEntity>().ToTable("CustomerReview").HasKey(x => x.Id).Property(x => x.Id);
-
-            base.OnModelCreating(modelBuilder);
+            return await CustomerReviews.Where(x => ids.Contains(x.Id)).ToArrayAsync();
         }
     }
 }

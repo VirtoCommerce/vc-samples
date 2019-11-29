@@ -26,7 +26,7 @@ namespace CustomerReviews.Test
         public void CanDoCRUDandSearch()
         {
             // Read non-existing item
-            var getByIdsResult = CustomerReviewService.GetByIds(new[] { CustomerReviewId });
+            var getByIdsResult = CustomerReviewService.GetByIdsAsync(new[] { CustomerReviewId });
             Assert.NotNull(getByIdsResult);
             Assert.Empty(getByIdsResult);
 
@@ -41,9 +41,9 @@ namespace CustomerReviews.Test
                 Content = "Liked that"
             };
 
-            CustomerReviewService.SaveCustomerReviews(new[] { item });
+            CustomerReviewService.SaveCustomerReviewsAsync(new[] { item });
 
-            getByIdsResult = CustomerReviewService.GetByIds(new[] { CustomerReviewId });
+            getByIdsResult = CustomerReviewService.GetByIdsAsync(new[] { CustomerReviewId });
             Assert.Single(getByIdsResult);
 
             item = getByIdsResult[0];
@@ -54,15 +54,15 @@ namespace CustomerReviews.Test
             Assert.NotEqual(updatedContent, item.Content);
 
             item.Content = updatedContent;
-            CustomerReviewService.SaveCustomerReviews(new[] { item });
-            getByIdsResult = CustomerReviewService.GetByIds(new[] { CustomerReviewId });
+            CustomerReviewService.SaveCustomerReviewsAsync(new[] { item });
+            getByIdsResult = CustomerReviewService.GetByIdsAsync(new[] { CustomerReviewId });
             Assert.Single(getByIdsResult);
 
             item = getByIdsResult[0];
             Assert.Equal(updatedContent, item.Content);
 
             // Search
-            Assert.Throws<ArgumentNullException>(() => CustomerReviewSearchService.SearchCustomerReviews(null));
+            Assert.Throws<ArgumentNullException>(() => CustomerReviewSearchService.SearchCustomerReviewsAsync(null));
 
             var criteria = new CustomerReviewSearchCriteria { ProductIds = new[] { ProductId } };
             var searchResult = CustomerReviewSearchService.SearchCustomerReviews(criteria);
@@ -78,9 +78,9 @@ namespace CustomerReviews.Test
         [Fact]
         public void CanDeleteCustomerReviews()
         {
-            CustomerReviewService.DeleteCustomerReviews(new[] { CustomerReviewId });
+            CustomerReviewService.DeleteCustomerReviewsAsync(new[] { CustomerReviewId });
 
-            var getByIdsResult = CustomerReviewService.GetByIds(new[] { CustomerReviewId });
+            var getByIdsResult = CustomerReviewService.GetByIdsAsync(new[] { CustomerReviewId });
             Assert.NotNull(getByIdsResult);
             Assert.Empty(getByIdsResult);
         }
