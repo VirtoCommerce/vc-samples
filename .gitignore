@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 .vscode/
 dist/
 node_modules/
+artifacts/
