@@ -1,7 +1,7 @@
 //Call this to register our module to main application
-var moduleTemplateName = "CustomerReviews.Web";
+var moduleTemplateName = "CustomerReviews";
 
-if (AppDependencies != undefined) {
+if (AppDependencies !== undefined) {
     AppDependencies.push(moduleTemplateName);
 }
 
@@ -16,8 +16,8 @@ angular.module(moduleTemplateName, [])
                     '$scope', 'platformWebApp.bladeNavigationService', function ($scope, bladeNavigationService) {
                         var newBlade = {
                             id: 'reviewsList',
-                            controller: 'CustomerReviews.Web.reviewsListController',
-                            template: 'Modules/$(CustomerReviews.Web)/Scripts/blades/reviews-list.tpl.html',
+                            controller: 'CustomerReviews.reviewsListController',
+                            template: 'Modules/$(CustomerReviews)/Scripts/blades/reviews-list.tpl.html',
                             isClosingDisabled: true
                         };
                         bladeNavigationService.showBlade(newBlade);
@@ -41,8 +41,8 @@ angular.module(moduleTemplateName, [])
 
         //Register reviews widget inside product blade
         var itemReviewsWidget = {
-            controller: 'CustomerReviews.Web.customerReviewWidgetController',
-            template: 'Modules/$(CustomerReviews.Web)/Scripts/widgets/customerReviewWidget.tpl.html'
+            controller: 'CustomerReviews.customerReviewWidgetController',
+            template: 'Modules/$(CustomerReviews)/Scripts/widgets/customerReviewWidget.tpl.html'
         };
         widgetService.registerWidget(itemReviewsWidget, 'itemDetail');
     }

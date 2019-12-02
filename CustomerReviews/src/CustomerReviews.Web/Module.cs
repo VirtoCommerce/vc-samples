@@ -1,58 +1,65 @@
+using System;
 using System.Linq;
+using CustomerReviews.Core;
 using CustomerReviews.Core.Services;
 using CustomerReviews.Data.Repositories;
 using CustomerReviews.Data.Services;
-using Microsoft.Practices.Unity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Modularity;
+using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
-using VirtoCommerce.Platform.Data.Infrastructure;
-using VirtoCommerce.Platform.Data.Infrastructure.Interceptors;
+using VirtoCommerce.Platform.Data.Extensions;
 
 namespace CustomerReviews.Web
 {
-    public class Module : ModuleBase
+    public class Module : IModule
     {
-        private readonly string _connectionString = ConfigurationHelper.GetConnectionStringValue("VirtoCommerce.CustomerReviews") ?? ConfigurationHelper.GetConnectionStringValue("VirtoCommerce");
-        private readonly IUnityContainer _container;
+        public ManifestModuleInfo ModuleInfo { get; set; }
 
-        public Module(IUnityContainer container)
+        public void Initialize(IServiceCollection serviceCollection)
         {
-            _container = container;
+            var configuration = serviceCollection.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            serviceCollection.AddTransient<ICustomerReviewRepository, CustomerReviewRepository>();
+            var connectionString = configuration.GetConnectionString("VirtoCommerce.CustomerReviews") ?? configuration.GetConnectionString("VirtoCommerce");
+            serviceCollection.AddDbContext<CustomerReviewsDbContext>(options => options.UseSqlServer(connectionString));
+            serviceCollection.AddSingleton<Func<ICustomerReviewRepository>>(provider => () => provider.CreateScope().ServiceProvider.GetRequiredService<ICustomerReviewRepository>());
+
+            serviceCollection.AddTransient<ICustomerReviewSearchService, CustomerReviewSearchService>();
+            serviceCollection.AddTransient<ICustomerReviewService, CustomerReviewService>();
         }
 
-        public override void SetupDatabase()
+        public void PostInitialize(IApplicationBuilder appBuilder)
         {
-            using (var db = new CustomerReviewRepository(_connectionString, _container.Resolve<AuditableInterceptor>()))
+            var settingsRegistrar = appBuilder.ApplicationServices.GetRequiredService<ISettingsRegistrar>();
+            settingsRegistrar.RegisterSettings(ModuleConstants.Settings.AllSettings, ModuleInfo.Id);
+            //Register settings for type Store
+            settingsRegistrar.RegisterSettingsForType(ModuleConstants.Settings.AllSettings, "Store");
+
+            var permissionsProvider = appBuilder.ApplicationServices.GetRequiredService<IPermissionsRegistrar>();
+            permissionsProvider.RegisterPermissions(ModuleConstants.Security.Permissions.AllPermissions.Select(x =>
+                new Permission()
+                {
+                    GroupName = "CustomerReview",
+                    ModuleId = ModuleInfo.Id,
+                    Name = x
+                }).ToArray());
+
+
+            using (var serviceScope = appBuilder.ApplicationServices.CreateScope())
             {
-                var initializer = new SetupDatabaseInitializer<CustomerReviewRepository, Data.Migrations.Configuration>();
-                initializer.InitializeDatabase(db);
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<CustomerReviewsDbContext>();
+                dbContext.Database.MigrateIfNotApplied(MigrationName.GetUpdateV2MigrationName(ModuleInfo.Id));
+                dbContext.Database.EnsureCreated();
+                dbContext.Database.Migrate();
             }
         }
 
-        public override void Initialize()
+        public void Uninstall()
         {
-            base.Initialize();
-
-            // This method is called for each installed module on the first stage of initialization.
-
-            // Register implementations:
-            _container.RegisterType<ICustomerReviewRepository>(new InjectionFactory(c => new CustomerReviewRepository(_connectionString, new EntityPrimaryKeyGeneratorInterceptor(), _container.Resolve<AuditableInterceptor>())));
-            _container.RegisterType<ICustomerReviewSearchService, CustomerReviewSearchService>();
-            _container.RegisterType<ICustomerReviewService, CustomerReviewService>();
-
-            // Try to avoid calling _container.Resolve<>();
-        }
-
-        public override void PostInitialize()
-        {
-            base.PostInitialize();
-
-            //Registering settings to store module allows to use individual values in each store
-            var settingManager = _container.Resolve<ISettingsManager>();
-            var storeSettingsNames = new[] { "CustomerReviews.CustomerReviewsEnabled" };
-            var storeSettings = settingManager.GetModuleSettings("CustomerReviews.Web").Where(x => storeSettingsNames.Contains(x.Name)).ToArray();
-            settingManager.RegisterModuleSettings("VirtoCommerce.Store", storeSettings);
         }
     }
 }

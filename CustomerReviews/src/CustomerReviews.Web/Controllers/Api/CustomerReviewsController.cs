@@ -1,22 +1,18 @@
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Threading.Tasks;
+using CustomerReviews.Core;
 using CustomerReviews.Core.Model;
+using CustomerReviews.Core.Model.Search;
 using CustomerReviews.Core.Services;
-using VirtoCommerce.Domain.Commerce.Model.Search;
-using VirtoCommerce.Platform.Core.Web.Security;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerReviews.Web.Controllers.Api
 {
-    [RoutePrefix("api/customerReviews")]
-    public class CustomerReviewsController : ApiController
+    [Route("api/customerReviews")]
+    public class CustomerReviewsController : Controller
     {
         private readonly ICustomerReviewSearchService _customerReviewSearchService;
         private readonly ICustomerReviewService _customerReviewService;
-
-        public CustomerReviewsController()
-        {
-        }
 
         public CustomerReviewsController(ICustomerReviewSearchService customerReviewSearchService, ICustomerReviewService customerReviewService)
         {
@@ -29,12 +25,11 @@ namespace CustomerReviews.Web.Controllers.Api
         /// </summary>
         [HttpPost]
         [Route("search")]
-        [ResponseType(typeof(GenericSearchResult<CustomerReview>))]
-        [CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.CustomerReviewRead)]
-        public IHttpActionResult SearchCustomerReviews(CustomerReviewSearchCriteria criteria)
+        [Authorize(ModuleConstants.Security.Permissions.Read)]
+        public async Task<ActionResult<CustomerReviewSearchResult>> SearchCustomerReviews([FromBody]CustomerReviewSearchCriteria criteria)
         {
-            var result = _customerReviewSearchService.SearchCustomerReviews(criteria);
-            return Ok(result);
+            var result = await _customerReviewSearchService.SearchCustomerReviewsAsync(criteria);
+            return result;
         }
 
         /// <summary>
@@ -44,12 +39,11 @@ namespace CustomerReviews.Web.Controllers.Api
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        [ResponseType(typeof(void))]
-        [CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.CustomerReviewUpdate)]
-        public IHttpActionResult Update(CustomerReview[] customerReviews)
+        [Authorize(ModuleConstants.Security.Permissions.Update)]
+        public async Task<ActionResult> Update([FromBody]CustomerReview[] customerReviews)
         {
-            _customerReviewService.SaveCustomerReviewsAsync(customerReviews);
-            return StatusCode(HttpStatusCode.NoContent);
+            await _customerReviewService.SaveCustomerReviewsAsync(customerReviews);
+            return NoContent();
         }
 
         /// <summary>
@@ -59,12 +53,11 @@ namespace CustomerReviews.Web.Controllers.Api
         /// <returns></returns>
         [HttpDelete]
         [Route("")]
-        [ResponseType(typeof(void))]
-        [CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.CustomerReviewDelete)]
-        public IHttpActionResult Delete([FromUri] string[] ids)
+        [Authorize(ModuleConstants.Security.Permissions.Delete)]
+        public async Task<ActionResult> Delete([FromQuery] string[] ids)
         {
-            _customerReviewService.DeleteCustomerReviewsAsync(ids);
-            return StatusCode(HttpStatusCode.NoContent);
+            await _customerReviewService.DeleteCustomerReviewsAsync(ids);
+            return NoContent();
         }
     }
 }

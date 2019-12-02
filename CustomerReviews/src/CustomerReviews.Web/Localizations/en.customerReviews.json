@@ -14,5 +14,18 @@
                 "title": "Customer reviews"
             }
         }
+    },
+    "permissions": {
+        "customerReview:read": "Read Customer Reviews",
+        "customerReview:update": "Update Customer Reviews",
+        "customerReview:delete": "Delete Customer Reviews"
+    },
+    "settings": {
+        "CustomerReviews": {
+            "CustomerReviewsEnabled": {
+                "title": "Customer Reviews enabled",
+                "description": "Flag to mark that customer reviews functionality is enabled"
+            }
+        }
     }
 }
