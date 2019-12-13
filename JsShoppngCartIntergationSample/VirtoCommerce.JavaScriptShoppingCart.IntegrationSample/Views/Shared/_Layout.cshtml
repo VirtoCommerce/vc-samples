@@ -24,17 +24,10 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 @Html.ActionLink("Clothing shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <div class="pull-right">
-                    <vc-cart name="default" api-key="1fd1d5826f3749c78703cc268eae233d" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
-                </div>
+            <div class="pull-right">
+                <vc-cart name="default" api-key="1fd1d5826f3749c78703cc268eae233d" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
             </div>
         </div>
     </div>
