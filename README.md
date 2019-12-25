@@ -1,5 +1,8 @@
 # VirtoCommerce Samples
 
+Test Jira<=>GitHub integration
+
+
 This repository is the official storage for VirtoCommerce samples source code. Each folder represents an individual sample.
 
 ## Current samples
