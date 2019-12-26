@@ -1,6 +1,6 @@
 # VirtoCommerce Samples
 
-Test Jira<=>GitHub integration
+Test Jira<=>GitHub integration link to KP-1 KP-2 KP-3 KP-4
 
 
 This repository is the official storage for VirtoCommerce samples source code. Each folder represents an individual sample.
