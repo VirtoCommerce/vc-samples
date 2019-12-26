@@ -2,6 +2,7 @@
 
 Test Jira<=>GitHub US KP-7
 Test Jira<=>GitHub task KP-8
+Test Jira<=>GitHub bug KP-9
 
 
 This repository is the official storage for VirtoCommerce samples source code. Each folder represents an individual sample.
