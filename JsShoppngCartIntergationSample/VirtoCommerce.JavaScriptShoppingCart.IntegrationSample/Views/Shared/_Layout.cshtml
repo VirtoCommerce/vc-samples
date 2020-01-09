@@ -1,3 +1,12 @@
+@using System.Configuration
+
+@{
+    var apiKey = @ConfigurationManager.AppSettings["VirtoCommerce:ApiKey"];
+    var platformUrl = @ConfigurationManager.AppSettings["VirtoCommerce:PlatformUrl"];
+    var scriptBundleUrl = $"{platformUrl}scripts/vc-shopping-cart";
+    var styleBundleUrl = $"{platformUrl}styles/vc-shopping-cart";
+}
+
 <!DOCTYPE html>
 <html ng-app="virtoCommerce.cartModule">
 <head>
@@ -18,8 +27,8 @@
     <script src="~/Scripts/deps/angular-credit-cards-3.0.1.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.7.1/angular-local-storage.min.js"></script>
 
-    <link href="http://localhost/admin/styles/vc-shopping-cart" rel="stylesheet">
-    <script type="text/javascript" src="http://localhost/admin/scripts/vc-shopping-cart"></script>
+    <link href="@styleBundleUrl" rel="stylesheet">
+    <script type="text/javascript" src="@scriptBundleUrl"></script>
 </head>
 <body ng-controller="virtoCommerce.cartModule.cartController">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,7 +37,7 @@
                 @Html.ActionLink("Clothing shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="pull-right">
-                <vc-cart name="default" api-key="1fd1d5826f3749c78703cc268eae233d" store-id="Clothing" api-url="http://localhost/admin/" currency-code="USD" culture="en-us" />
+                <vc-cart name="default" api-key="@apiKey" store-id="Clothing" api-url="@platformUrl" currency-code="USD" culture="en-us" />
             </div>
         </div>
     </div>
