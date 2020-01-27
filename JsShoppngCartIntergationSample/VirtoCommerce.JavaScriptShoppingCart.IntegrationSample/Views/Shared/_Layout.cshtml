@@ -1,7 +1,6 @@
 @using System.Configuration
 
-@{
-    var apiKey = @ConfigurationManager.AppSettings["VirtoCommerce:ApiKey"];
+@{    
     var platformUrl = @ConfigurationManager.AppSettings["VirtoCommerce:PlatformUrl"];
     var scriptBundleUrl = $"{platformUrl}scripts/vc-shopping-cart";
     var styleBundleUrl = $"{platformUrl}styles/vc-shopping-cart";
@@ -14,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js"></script>
@@ -24,7 +23,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.18.1/angular-translate.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="~/Scripts/deps/angular-credit-cards-3.0.1.js"></script>
+    <script src="//rawgit.com/bendrucker/angular-credit-cards/v3.0.1/release/angular-credit-cards.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.7.1/angular-local-storage.min.js"></script>
 
     <link href="@styleBundleUrl" rel="stylesheet">
@@ -37,7 +36,7 @@
                 @Html.ActionLink("Clothing shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="pull-right">
-                <vc-cart name="default" api-key="@apiKey" store-id="Clothing" api-url="@platformUrl" currency-code="USD" culture="en-us" />
+                <vc-cart name="default" store-id="Clothing" api-url="@platformUrl" currency-code="USD" culture="en-us" />
             </div>
         </div>
     </div>
@@ -49,8 +48,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
