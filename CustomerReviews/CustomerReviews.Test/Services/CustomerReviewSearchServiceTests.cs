@@ -15,17 +15,17 @@ namespace CustomerReviews.Tests.Services
 {
     public class CustomerReviewSearchServiceTests
     {
-        private readonly Fixture randomizer;
-        private readonly Mock<ICustomerReviewRepository> repository;
-        private readonly Mock<ICustomerReviewService> customerReviewService;
-        private readonly CustomerReviewSearchService service;
+        private readonly Fixture _randomizer;
+        private readonly Mock<ICustomerReviewRepository> _repository;
+        private readonly Mock<ICustomerReviewService> _customerReviewService;
+        private readonly CustomerReviewSearchService _service;
 
         public CustomerReviewSearchServiceTests()
         {
-            randomizer = new Fixture();
-            repository = new Mock<ICustomerReviewRepository>();
-            customerReviewService = new Mock<ICustomerReviewService>();
-            service = new CustomerReviewSearchService(() => repository.Object, customerReviewService.Object);
+            _randomizer = new Fixture();
+            _repository = new Mock<ICustomerReviewRepository>();
+            _customerReviewService = new Mock<ICustomerReviewService>();
+            _service = new CustomerReviewSearchService(() => _repository.Object, _customerReviewService.Object);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace CustomerReviews.Tests.Services
             CustomerReviewSearchCriteria criteria = null;
 
             //act
-            Action act = () => service.SearchCustomerReviews(criteria);
+            Action act = () => _service.SearchCustomerReviews(criteria);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
@@ -45,25 +45,25 @@ namespace CustomerReviews.Tests.Services
         public void SearchCustomerReviews_ShouldReturnProductsByIds_IfProductIdsIsSet()
         {
             //arrange
-            var productIds = randomizer.CreateMany<string>(2).ToArray();
+            var productIds = _randomizer.CreateMany<string>(2).ToArray();
             var criteria = new CustomerReviewSearchCriteria
             {
                 ProductIds = productIds,
                 Take = 2
             };
 
-            var customerReviewEntities = randomizer.CreateMany<CustomerReviewEntity>(2);
+            var customerReviewEntities = _randomizer.CreateMany<CustomerReviewEntity>(2);
             customerReviewEntities.ElementAt(0).ProductId = productIds[0];
-            repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
+            _repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
 
-            var customerReviews = randomizer.CreateMany<CustomerReview>(1);
+            var customerReviews = _randomizer.CreateMany<CustomerReview>(1);
             customerReviews.ElementAt(0).Id = customerReviewEntities.ElementAt(0).Id;
-            customerReviewService
+            _customerReviewService
                 .Setup(p => p.GetByIds(It.IsAny<string[]>()))
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = service.SearchCustomerReviews(criteria);
+            var result = _service.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>
@@ -91,28 +91,28 @@ namespace CustomerReviews.Tests.Services
         public void SearchCustomerReviews_ShouldReturnActiveProducts_IfIsActiveIsSet()
         {
             //arrange
-            var isActive = randomizer.Create<bool>();
+            var isActive = _randomizer.Create<bool>();
             var criteria = new CustomerReviewSearchCriteria
             {
                 Take = 2,
                 IsActive = isActive
             };
 
-            var customerReviewEntities = randomizer
+            var customerReviewEntities = _randomizer
                 .Build<CustomerReviewEntity>()
                 .Without(p => p.IsActive)
                 .CreateMany(2);
             customerReviewEntities.ElementAt(0).IsActive = isActive;
-            repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
+            _repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
 
-            var customerReviews = randomizer.CreateMany<CustomerReview>(1);
+            var customerReviews = _randomizer.CreateMany<CustomerReview>(1);
             customerReviews.ElementAt(0).Id = customerReviewEntities.ElementAt(0).Id;
-            customerReviewService
+            _customerReviewService
                 .Setup(p => p.GetByIds(It.IsAny<string[]>()))
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = service.SearchCustomerReviews(criteria);
+            var result = _service.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>
@@ -140,25 +140,25 @@ namespace CustomerReviews.Tests.Services
         public void SearchCustomerReviews_ShouldReturnProductsWithPhraseInContent_IfSearchPhraseIsSet()
         {
             //arrange
-            var searchPhrase = randomizer.Create<string>();
+            var searchPhrase = _randomizer.Create<string>();
             var criteria = new CustomerReviewSearchCriteria
             {
                 Take = 2,
                 SearchPhrase = searchPhrase
             };
 
-            var customerReviewEntities = randomizer.CreateMany<CustomerReviewEntity>(2);
+            var customerReviewEntities = _randomizer.CreateMany<CustomerReviewEntity>(2);
             customerReviewEntities.ElementAt(0).Content = searchPhrase;
-            repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
+            _repository.Setup(p => p.CustomerReviews).Returns(customerReviewEntities.AsQueryable());
 
-            var customerReviews = randomizer.CreateMany<CustomerReview>(1);
+            var customerReviews = _randomizer.CreateMany<CustomerReview>(1);
             customerReviews.ElementAt(0).Id = customerReviewEntities.ElementAt(0).Id;
-            customerReviewService
+            _customerReviewService
                 .Setup(p => p.GetByIds(It.IsAny<string[]>()))
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = service.SearchCustomerReviews(criteria);
+            var result = _service.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>

@@ -14,31 +14,31 @@ namespace CustomerReviews.Tests.Services
 {
     public class CustomerReviewServiceTests
     {
-        private readonly Fixture randomizer;
-        private readonly Mock<IUnitOfWork> unitOfWork;
-        private readonly Mock<ICustomerReviewRepository> repository;
-        private readonly CustomerReviewService service;
+        private readonly Fixture _randomizer;
+        private readonly Mock<IUnitOfWork> _unitOfWork;
+        private readonly Mock<ICustomerReviewRepository> _repository;
+        private readonly CustomerReviewService _service;
 
         public CustomerReviewServiceTests()
         {
-            randomizer = new Fixture();
-            unitOfWork = new Mock<IUnitOfWork>();
-            repository = new Mock<ICustomerReviewRepository>();
-            repository.SetupGet(m => m.UnitOfWork).Returns(unitOfWork.Object);
-            service = new CustomerReviewService(() => repository.Object);
+            _randomizer = new Fixture();
+            _unitOfWork = new Mock<IUnitOfWork>();
+            _repository = new Mock<ICustomerReviewRepository>();
+            _repository.SetupGet(m => m.UnitOfWork).Returns(_unitOfWork.Object);
+            _service = new CustomerReviewService(() => _repository.Object);
         }
 
         [Fact]
         public void GetByIds_ShouldReturnItemsByIds()
         {
             //arrange
-            var ids = randomizer.CreateMany<string>(2).ToArray();
-            var customerReviewEntities = randomizer.CreateMany<CustomerReviewEntity>(2).ToArray();
+            var ids = _randomizer.CreateMany<string>(2).ToArray();
+            var customerReviewEntities = _randomizer.CreateMany<CustomerReviewEntity>(2).ToArray();
 
-            repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(customerReviewEntities);
+            _repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(customerReviewEntities);
 
             //act
-            var result = service.GetByIds(ids);
+            var result = _service.GetByIds(ids);
 
             //assert
             result.Should().BeEquivalentTo(new[]
@@ -77,7 +77,7 @@ namespace CustomerReviews.Tests.Services
             CustomerReview[] items = null;
 
             //act
-            Action act = () => service.SaveCustomerReviews(items);
+            Action act = () => _service.SaveCustomerReviews(items);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
@@ -87,33 +87,33 @@ namespace CustomerReviews.Tests.Services
         public void SaveCustomerReviews_ShouldUpdateEntities_IfItsAlreadyExist()
         {
             //arrange
-            var items = randomizer.CreateMany<CustomerReview>(1).ToArray();
+            var items = _randomizer.CreateMany<CustomerReview>(1).ToArray();
 
-            var existingEntities = randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
+            var existingEntities = _randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
             existingEntities[0].Id = items[0].Id;
-            repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(existingEntities);
+            _repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(existingEntities);
 
             //act
-            service.SaveCustomerReviews(items);
+            _service.SaveCustomerReviews(items);
 
             //assert
-            repository.Verify(m => m.Add(It.IsAny<object>()), Times.Never);
+            _repository.Verify(m => m.Add(It.IsAny<object>()), Times.Never);
         }
 
         [Fact]
         public void SaveCustomerReviews_ShouldInsertEntities_IfItsNotAlreadyExist()
         {
             //arrange
-            var items = randomizer.CreateMany<CustomerReview>(1).ToArray();
+            var items = _randomizer.CreateMany<CustomerReview>(1).ToArray();
 
-            var existingEntities = randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
-            repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(existingEntities);
+            var existingEntities = _randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
+            _repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(existingEntities);
 
             //act
-            service.SaveCustomerReviews(items);
+            _service.SaveCustomerReviews(items);
 
             //assert
-            repository.Verify(m =>
+            _repository.Verify(m =>
                 m.Add(It.Is<CustomerReviewEntity>(e =>
                     e.Id == items[0].Id
                     && e.ProductId == items[0].ProductId
@@ -126,16 +126,16 @@ namespace CustomerReviews.Tests.Services
         public void DeleteCustomerReviews_ShouldPerformRemoveByIds_IfIdsIsNotNull()
         {
             //arrange
-            var ids = randomizer.CreateMany<string>(1).ToArray();
-            var customerReviewEntities = randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
+            var ids = _randomizer.CreateMany<string>(1).ToArray();
+            var customerReviewEntities = _randomizer.CreateMany<CustomerReviewEntity>(1).ToArray();
 
-            repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(customerReviewEntities);
+            _repository.Setup(m => m.GetByIds(It.IsAny<string[]>())).Returns(customerReviewEntities);
 
             //act
-            service.DeleteCustomerReviews(ids);
+            _service.DeleteCustomerReviews(ids);
 
             //assert
-            repository.Verify(m =>
+            _repository.Verify(m =>
                 m.RemoveByIds(It.Is<string[]>(r =>
                     r.Count() == 1
                     && r.Contains(customerReviewEntities[0].Id))),
