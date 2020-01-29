@@ -18,14 +18,14 @@ namespace CustomerReviews.Tests.Services
         private readonly Fixture _randomizer;
         private readonly Mock<ICustomerReviewRepository> _repository;
         private readonly Mock<ICustomerReviewService> _customerReviewService;
-        private readonly CustomerReviewSearchService _service;
+        private readonly CustomerReviewSearchService _searchService;
 
         public CustomerReviewSearchServiceTests()
         {
             _randomizer = new Fixture();
             _repository = new Mock<ICustomerReviewRepository>();
             _customerReviewService = new Mock<ICustomerReviewService>();
-            _service = new CustomerReviewSearchService(() => _repository.Object, _customerReviewService.Object);
+            _searchService = new CustomerReviewSearchService(() => _repository.Object, _customerReviewService.Object);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace CustomerReviews.Tests.Services
             CustomerReviewSearchCriteria criteria = null;
 
             //act
-            Action act = () => _service.SearchCustomerReviews(criteria);
+            Action act = () => _searchService.SearchCustomerReviews(criteria);
 
             //assert
             act.Should().Throw<ArgumentNullException>();
@@ -63,7 +63,7 @@ namespace CustomerReviews.Tests.Services
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = _service.SearchCustomerReviews(criteria);
+            var result = _searchService.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>
@@ -112,7 +112,7 @@ namespace CustomerReviews.Tests.Services
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = _service.SearchCustomerReviews(criteria);
+            var result = _searchService.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>
@@ -158,7 +158,7 @@ namespace CustomerReviews.Tests.Services
                 .Returns(customerReviews.ToArray());
 
             //act
-            var result = _service.SearchCustomerReviews(criteria);
+            var result = _searchService.SearchCustomerReviews(criteria);
 
             //assert
             result.Should().BeEquivalentTo(new GenericSearchResult<CustomerReview>
