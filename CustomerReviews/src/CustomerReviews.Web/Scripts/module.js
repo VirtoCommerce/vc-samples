@@ -26,8 +26,8 @@ angular.module(moduleTemplateName, [])
             });
     }
 ])
-.run(['$rootScope', 'platformWebApp.mainMenuService', 'platformWebApp.widgetService', '$state',
-    function ($rootScope, mainMenuService, widgetService, $state) {
+.run(['platformWebApp.mainMenuService', 'platformWebApp.widgetService', '$state',
+    function (mainMenuService, widgetService, $state) {
         //Register module in main menu
         var menuItem = {
             path: 'browse/customerReviews',

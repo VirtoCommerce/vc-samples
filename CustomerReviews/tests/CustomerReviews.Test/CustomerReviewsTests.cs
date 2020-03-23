@@ -10,6 +10,7 @@ using CustomerReviews.Data.Repositories;
 using CustomerReviews.Data.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
+using MockQueryable.Moq;
 using Moq;
 using VirtoCommerce.Platform.Core.Caching;
 using VirtoCommerce.Platform.Core.Common;
@@ -84,11 +85,11 @@ namespace CustomerReviews.Test
             Assert.Equal(updatedContent, item.Content);
 
             // Search
-            var mockReviews = new Common.TestAsyncEnumerable<CustomerReviewEntity>(new[] { new CustomerReviewEntity().FromModel(item, new PrimaryKeyResolvingMap()) });
-            _mockCustomerReviewRepository.SetupGet(x => x.CustomerReviews).Returns(mockReviews.AsQueryable());
+            var mockReviews = new[] { new CustomerReviewEntity().FromModel(item, new PrimaryKeyResolvingMap()) }.AsQueryable().BuildMock();
+            _mockCustomerReviewRepository.SetupGet(x => x.CustomerReviews).Returns(mockReviews.Object);
 
             var criteria = new CustomerReviewSearchCriteria { ProductIds = new[] { ProductId } };
-            var cacheKey = CacheKey.With(CustomerReviewSearchService.GetType(), "SearchCustomerReviewsAsync", criteria.GetCacheKey());
+            var cacheKey = CacheKey.With(CustomerReviewSearchService.GetType(), nameof(CustomerReviewSearchService.SearchCustomerReviewsAsync), criteria.GetCacheKey());
             _platformMemoryCacheMock.Setup(pmc => pmc.CreateEntry(cacheKey)).Returns(_cacheEntryMock.Object);
 
             var searchResult = await CustomerReviewSearchService.SearchCustomerReviewsAsync(criteria);

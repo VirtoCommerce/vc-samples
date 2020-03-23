@@ -5,7 +5,7 @@
     <version-tag></version-tag>
     <platformVersion>3.0.0</platformVersion>
 
-    <title>Sample Customer reviews module</title>
+    <title>Sample Customer reviews</title>
     <description>Sample module demonstrating best practices in a real life example.</description>
     <authors>
         <author>Egidijus Mazeika</author>
