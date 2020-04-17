@@ -34,6 +34,15 @@ namespace DummyModule.Web
             permissionsProvider.RegisterPermissions(ModuleConstants.Security.Permissions.AllPermissions.Select(x =>
                 new Permission() { GroupName = "Dummy", Name = x }).ToArray());
 
+            // Ensure that any pending migrations are applied
+            using (var serviceScope = appBuilder.ApplicationServices.CreateScope())
+            {
+                using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<DummyDbContext>())
+                {
+                    dbContext.Database.EnsureCreated();
+                    dbContext.Database.Migrate();
+                }
+            }
         }
 
         public void Uninstall()
