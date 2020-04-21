@@ -72,10 +72,11 @@ namespace CustomerReviews.Data.Services
 
         public virtual async Task DeleteCustomerReviewsAsync(string[] ids)
         {
-            var items = await GetByIdsAsync(ids);
 
             using (var repository = _repositoryFactory())
             {
+                var items = await repository.GetByIdsAsync(ids);
+
                 foreach (var item in items)
                 {
                     repository.Remove(item);
