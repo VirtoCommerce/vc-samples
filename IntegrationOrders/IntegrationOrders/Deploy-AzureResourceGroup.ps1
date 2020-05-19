@@ -6,8 +6,8 @@ Param(
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-stageartifacts',
-    [string] $TemplateFile = 'LogicApp.json',
-    [string] $TemplateParametersFile = 'LogicApp.parameters.json',
+    [string] $TemplateFile = 'LogicApp-IntegrationOrders.json',
+    [string] $TemplateParametersFile = 'LogicApp-IntegrationOrders.parameters.json',
     [string] $ArtifactStagingDirectory = '.',
     [string] $DSCSourceFolder = 'DSC',
     [switch] $ValidateOnly
