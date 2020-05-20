@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "value": "IntegrationTest"
+    },
+    "sendgrid_1_Connection_Name": {
+      "value": "sendgrid1"
+    },
+    "sendgrid_1_Connection_DisplayName": {
+      "value": "SendGridTestConnection"
+    },
+    "endpointUrl": {
+      "value": "https://qa-demovc3-admin.azurewebsites.net/"
+    },
+    "sendgrid_1_apiKey": {
+      "value": "klk"
+    },
+    "sendgrid_2_apiKey": {
+      "value": "klk"
+    },
+    "endpointUsername": {
+      "value": "admin"
+    },
+    "endpointPassword": {
+      "value": "store"
+    },
+    "sendgrid_2_Connection_Name": {
+      "value": "sendgrid2"
+    }
+  }
+}

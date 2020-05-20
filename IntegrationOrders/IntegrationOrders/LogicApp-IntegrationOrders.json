@@ -38,11 +38,27 @@
         "uksouth",
         "ukwest",
         "westcentralus",
-        "westus2"
+        "westus2",
+        "koreacentral",
+        "koreasouth",
+        "francecentral",
+        "francesouth",
+        "uaecentral",
+        "southafricanorth",
+        "southafricawest"
       ],
       "metadata": {
         "description": "Location of the Logic App."
       }
+    },
+    "endpointUrl": {
+      "type": "string"
+    },
+    "endpointUsername": {
+      "type": "securestring"
+    },
+    "endpointPassword": {
+      "type": "securestring"
     },
     "sendgrid_1_Connection_Name": {
       "type": "string",
@@ -132,27 +148,70 @@
                 ]
               }
             },
-            "OrderModule_Search": {
+            "GetToken": {
               "type": "Http",
               "inputs": {
-                "method": "post",
-                "body": {
-                  "status": "New",
-                  "responseGroup": "Full",
-                  "take": 10
-                },
+                "method": "POST",
+                "uri": "@{concat(parameters('endpointUrl'),'connect/token')}",
                 "headers": {
-                  "api_key": "230911f491ae41d7955811a1584352cc"
+                  "Content-Type": "application/x-www-form-urlencoded"
                 },
-                "uri": "https://vc-platformbc7d.azurewebsites.net/api/order/customerOrders/search"
+                "body": "@concat('grant_type=password&password=', encodeUriComponent(parameters('endpointPassword')), '&username=', encodeUriComponent(parameters('endpointUsername')))"
               },
               "runAfter": {
                 "InitServedOrdersArray": [
                   "Succeeded"
                 ]
+              }
+            },
+            "ParseToken": {
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('GetToken')",
+                "schema": {
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    },
+                    "token_type": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "runAfter": {
+                "GetToken": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "OrderModule_Search": {
+              "type": "Http",
+              "inputs": {
+                "method": "post",
+                "headers": {
+                  "Authorization": "Bearer @{body('ParseToken')?['access_token']}",
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "status": "New",
+                  "responseGroup": "Full",
+                  "skip": 0,
+                  "take": 20
+                },
+                "uri": "@{concat(parameters('endpointUrl'), '/api/order/customerOrders/search')}"
+              },
+              "runAfter": {
+                "ParseToken": [
+                  "Succeeded"
+                ]
               },
               "metadata": {
-                "apiDefinitionUrl": "https://vc-platformbc7d.azurewebsites.net/docs/virtocommerce.orders/v1",
+                "apiDefinitionUrl": "@{concat(parameters('endpointUrl'), '/docs/VirtoCommerce.Orders/swagger.json')}",
                 "swaggerSource": "custom"
               }
             },
@@ -169,23 +228,25 @@
                   "runAfter": {}
                 },
                 "OrderModule_GetById": {
-                  "type": "Http",
-                  "inputs": {
-                    "method": "get",
-                    "headers": {
-                      "api_key": "230911f491ae41d7955811a1584352cc"
+                    "type": "Http",
+                    "inputs": {
+                        "method": "get",
+                        "headers": {
+                            "Authorization": "Bearer @{body('ParseToken')?['access_token']}",
+                            "Content-Type": "application/json"
+                        },
+                        "uri": "@{concat(parameters('endpointUrl'), 'api/order/customerOrders/', variables('orderId'))}"
+                            
                     },
-                    "uri": "https://vc-platformbc7d.azurewebsites.net/api/order/customerOrders/@{encodeURIComponent(variables('orderId'))}"
-                  },
-                  "runAfter": {
-                    "Set_variable": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "apiDefinitionUrl": "https://vc-platformbc7d.azurewebsites.net/docs/virtocommerce.orders/v1",
-                    "swaggerSource": "custom"
-                  }
+                    "runAfter": {
+                        "Set_variable": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "apiDefinitionUrl": "@{concat(parameters('endpointUrl'), '/docs/VirtoCommerce.Orders/swagger.json')}",
+                        "swaggerSource": "custom"
+                    }
                 },
                 "Compose": {
                   "type": "Compose",
@@ -198,14 +259,15 @@
                 },
                 "HTTP": {
                   "type": "Http",
-                  "inputs": {
-                    "method": "PUT",
-                    "uri": "https://vc-platformbc7d.azurewebsites.net/api/order/customerOrders",
-                    "headers": {
-                      "api_key": "230911f491ae41d7955811a1584352cc"
+                    "inputs": {
+                        "method": "PUT",
+                        "uri": "@{concat(parameters('endpointUrl'), '/api/order/customerOrders')}",
+                        "headers": {
+                            "Authorization": "Bearer @{body('ParseToken')?['access_token']}",
+                            "Content-Type": "application/json"
+                        },
+                        "body": "@outputs('Compose')"
                     },
-                    "body": "@outputs('Compose')"
-                  },
                   "runAfter": {
                     "Compose": [
                       "Succeeded"
@@ -277,6 +339,15 @@
             "$connections": {
               "defaultValue": {},
               "type": "Object"
+            },
+            "endpointUrl": {
+              "type": "string"
+            },
+            "endpointUsername": {
+              "type": "securestring"
+            },
+            "endpointPassword": {
+              "type": "securestring"
             }
           },
           "triggers": {
@@ -300,6 +371,15 @@
                 "connectionName": "[parameters('sendgrid_2_Connection_Name')]"
               }
             }
+          },
+          "endpointUrl": {
+            "value": "[parameters('endpointUrl')]"
+          },
+          "endpointUsername": {
+            "value": "[parameters('endpointUsername')]"
+          },
+          "endpointPassword": {
+            "value": "[parameters('endpointPassword')]"
           }
         }
       },
