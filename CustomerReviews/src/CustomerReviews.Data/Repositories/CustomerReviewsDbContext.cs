@@ -19,7 +19,7 @@ namespace CustomerReviews.Data.Repositories
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerReviewEntity>().ToTable("CustomerReview").HasKey(x => x.Id);
-            modelBuilder.Entity<CustomerReviewEntity>().Property(x => x.Id).HasMaxLength(128);
+            modelBuilder.Entity<CustomerReviewEntity>().Property(x => x.Id).HasMaxLength(128).ValueGeneratedOnAdd();
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -3,6 +3,10 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	  <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.35.0" />
 	</ItemGroup>
 	<ItemGroup>

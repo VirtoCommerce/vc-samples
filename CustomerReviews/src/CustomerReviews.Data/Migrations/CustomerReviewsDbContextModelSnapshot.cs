@@ -23,29 +23,38 @@ namespace CustomerReviews.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
                     b.Property<string>("AuthorNickname")
+                        .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
                         .HasMaxLength(1024);
 
                     b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<DateTime?>("ModifiedDate");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
+                        .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
                     b.HasKey("Id");
