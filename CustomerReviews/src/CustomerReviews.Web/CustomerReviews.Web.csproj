@@ -4,10 +4,6 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\CustomerReviews.Core\CustomerReviews.Core.csproj" />
       <ProjectReference Include="..\CustomerReviews.Data\CustomerReviews.Data.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 </Project>
