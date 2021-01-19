@@ -6,6 +6,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * CartModule2 - sample extending VC cart and line item with new fields
 
+* ConvertPrice -  - Azure Function sample to convert price from one currency to another with actual currency convert rate
+
 * CustomerReviews - an example of a custom module with best coding practices, recommended code structure and styleguides applied. Includes DAL, web API and custom Platform web UI
 
 * CustomerReviews.Export - [Generic export](https://github.com/VirtoCommerce/vc-module-export) implementation for CustomerReviews sample module
@@ -28,7 +30,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * UnmanagedModule - source code for "Sample Unmanaged Module" in [Creating new module](https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module) tutorial
 
-* VcSapIntegration - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to integrate VirtoCommerce platform with SAP. 
+* VcSapIntegration - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to integrate VirtoCommerce platform with SAP
 
 * WhatsAppNotification - Sample sending Order change notifications to WhatsApp via Twilio or Woowa gateways
 
