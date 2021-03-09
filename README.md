@@ -32,6 +32,8 @@ This repository is the official storage for VirtoCommerce samples source code. E
 
 * VcSapIntegration - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to integrate VirtoCommerce platform with SAP
 
+* VcEventbusModuleSample - [Microsoft Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) application sample to show how to subscribe to Event Grid Topic by Logic App
+
 * WhatsAppNotification - Sample sending Order change notifications to WhatsApp via Twilio or Woowa gateways
 
 ## License

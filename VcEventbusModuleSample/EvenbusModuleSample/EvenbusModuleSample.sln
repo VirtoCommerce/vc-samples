@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "EvenbusModuleSample", "EvenbusModuleSample\EvenbusModuleSample.deployproj", "{CA5C1661-1A59-44F9-8571-CAAB40D38A23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA5C1661-1A59-44F9-8571-CAAB40D38A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5C1661-1A59-44F9-8571-CAAB40D38A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5C1661-1A59-44F9-8571-CAAB40D38A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5C1661-1A59-44F9-8571-CAAB40D38A23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D29AFA6-20A2-424D-B479-8D4CC3798BE5}
+	EndGlobalSection
+EndGlobal
