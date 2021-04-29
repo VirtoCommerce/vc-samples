@@ -13,7 +13,7 @@ This repository is the official storage for VirtoCommerce samples source code. E
 * ProgressiveWebAppPrototype - sample PWA application to show Service Worker and IndexedDB API features as well as offline mode.
 
 * UnmanagedModule - source code for "Sample Unmanaged Module" in <a href="https://virtocommerce.com/docs/vc2devguide/working-with-platform-manager/extending-functionality/creating-new-module" target="_blank">Creating new module</a> tutorial
-
+* ContextChangedProblem - source code for a try to repeat problem described here: <a href="https://virtocommerce.atlassian.net/wiki/spaces/PLREC/pages/1692106753/Seamless+Update+for+Solution+with+Native+Extension" target="_blank">Seamless Update for Solution with Native Extension</a>. The modules sample implemented as described on the picture, but the problem does not repeat. It seems the problem was solved in EF CORE 3.1.8+ or the topic not fully describe the problem.
 
 
 # License

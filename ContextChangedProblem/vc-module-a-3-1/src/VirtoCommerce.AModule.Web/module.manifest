@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>VirtoCommerce.A</id>
+  <version>3.1.0</version>
+  <version-tag />
+  <platformVersion>3.50.0</platformVersion>
+  <title>A Module</title>
+  <description></description>
+  <authors>
+    <author>Virto Commerce</author>
+  </authors>
+  <owners>
+    <owner>Virto Commerce</owner>
+  </owners>
+  <projectUrl>https://virtocommerce.com/apps/extensions/vc-module-changes-collector</projectUrl>
+  <iconUrl>Modules/$(VirtoCommerce.AModule)/Content/logo.png</iconUrl>
+  <requireLicenseAcceptance>false</requireLicenseAcceptance>
+  <releaseNotes />
+  <copyright>Copyright © 2011-2021 Virto Commerce. All rights reserved</copyright>
+  <tags>stores</tags>
+  <assemblyFile>VirtoCommerce.AModule.Web.dll</assemblyFile>
+  <moduleType>VirtoCommerce.AModule.Web.Module, VirtoCommerce.AModule.Web</moduleType>
+  <dependencies>
+  </dependencies>
+  <groups>
+    <group></group>
+  </groups>
+  <useFullTypeNameInSwagger>false</useFullTypeNameInSwagger>
+</module>
