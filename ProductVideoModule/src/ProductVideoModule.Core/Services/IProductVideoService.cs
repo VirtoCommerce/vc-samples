@@ -8,6 +8,8 @@ namespace ProductVideoModule.Core.Services
 {
     public interface IProductVideoService
     {
-        Task<IEnumerable<VideoLink>> GetVideoPage(int page = 0, int size = 10);
+        Task<VideoLink[]> GetByIdsAsync(string[] videoLinksIds);
+        Task SaveVideoLinksAsync(VideoLink[] items);
+        Task DeleteVideoLinksAsync(string[] ids);
     }
 }

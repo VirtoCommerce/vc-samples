@@ -8,10 +8,4 @@
     <PackageReference Include="VirtoCommerce.Platform.Core" Version="3.55.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Notifications\" />
-    <Folder Include="Search\" />
-  </ItemGroup>
-
 </Project>

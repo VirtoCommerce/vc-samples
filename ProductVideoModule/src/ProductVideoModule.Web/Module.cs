@@ -31,6 +31,7 @@ namespace ProductVideoModule.Web
             serviceCollection.AddTransient<IVideoLinkRepository, VideoLinkRepsitoryBase>();
             serviceCollection.AddSingleton<Func<IVideoLinkRepository>>(provider => () => provider.CreateScope().ServiceProvider.GetRequiredService<IVideoLinkRepository>());
             serviceCollection.AddTransient<IProductVideoService, ProductVideoService>();
+            serviceCollection.AddTransient<IProductVideoSearchService, ProductVideoSearchService>();
 
 
         }
