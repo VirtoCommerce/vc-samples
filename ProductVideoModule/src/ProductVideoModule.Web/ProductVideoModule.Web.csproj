@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProductVideoModule.Core\ProductVideoModule.Core.csproj" />
     <ProjectReference Include="..\ProductVideoModule.Data\ProductVideoModule.Data.csproj" />
   </ItemGroup>

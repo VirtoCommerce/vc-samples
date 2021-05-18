@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductVideoModule.Core.Models;
@@ -15,11 +17,16 @@ namespace ProductVideoModule.Web.Controllers.Api
     {
         private readonly IProductVideoService _productVideoService;
         private readonly IProductVideoSearchService _productVideoSearchService;
+        private readonly IValidator<ProductVideoSearchCriteria> _validator;
 
-        public ProductVideoController(IProductVideoService productVideoService, IProductVideoSearchService productVideoSearchService)
+        public ProductVideoController(
+            IProductVideoService productVideoService,
+            IProductVideoSearchService productVideoSearchService,
+            IValidator<ProductVideoSearchCriteria> validator)
         {
             _productVideoService = productVideoService;
             _productVideoSearchService = productVideoSearchService;
+            _validator = validator;
         }
 
         /// <summary>
@@ -32,34 +39,15 @@ namespace ProductVideoModule.Web.Controllers.Api
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Read)]
         public async Task<IActionResult> SearchProductVideos(ProductVideoSearchCriteria criteria)
         {
-            string errorMessage;
-            if (!ValidateSearchCriteria(criteria, out errorMessage))
+            var validationResult = await _validator.ValidateAsync(criteria);
+
+            if (!validationResult.IsValid)
             {
-                return BadRequest(errorMessage);
+                return BadRequest(String.Join(' ', validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
             var result = await _productVideoSearchService.SearchVideoLinksAsync(criteria);
-            return Ok(result);            
-        }
-
-        private bool ValidateSearchCriteria(ProductVideoSearchCriteria criteria, out string errorMessage)
-        {
-            errorMessage = null;
-            bool result = false;/*default(bool)*/
-
-            if (criteria.ProductIds == null || criteria.ProductIds.Length == 0)
-            {
-                errorMessage = "Search request must contain a product Id.";
-            }
-            else if (criteria.Skip < 0 || criteria.Take < 0 || criteria.Take > 100)
-            {
-                errorMessage = "Search request parameters 'Skip' and 'Take' must be positive digits. Take parameter must be less then a hundred.";
-            }
-            else
-            {
-                return !result;
-            }
-            return result;
+            return Ok(result);
         }
 
         /// <summary>
@@ -71,7 +59,6 @@ namespace ProductVideoModule.Web.Controllers.Api
         [ProducesResponseType(typeof(VideoLink), statusCode: StatusCodes.Status200OK)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Read)]
         public async Task<IActionResult> GetById([FromRoute] string id) => Ok(await _productVideoService.GetByIdsAsync(new string[] { id }));
-
 
         /// <summary>
         ///  Create new or update existing product video
