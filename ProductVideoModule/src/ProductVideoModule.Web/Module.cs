@@ -15,14 +15,18 @@ using VirtoCommerce.Platform.Core.Settings;
 
 namespace ProductVideoModule.Web
 {
-    public class Module : IModule
+    public class Module : IModule, IHasConfiguration
     {
+        public IConfiguration Configuration { get; set; }
         public ManifestModuleInfo ModuleInfo { get; set; }
 
         public void Initialize(IServiceCollection serviceCollection)
         {
             // Fluent Validation
             serviceCollection.AddValidators();
+
+            // Options
+            serviceCollection.AddOptions<ProductVideoModuleOptions>().Bind(Configuration.GetSection("ExternalYoutubeApi")).ValidateDataAnnotations();
 
             // Database initialization
             var configuration = serviceCollection.BuildServiceProvider().GetRequiredService<IConfiguration>();
@@ -34,6 +38,7 @@ namespace ProductVideoModule.Web
             serviceCollection.AddSingleton<Func<IVideoLinkRepository>>(provider => () => provider.CreateScope().ServiceProvider.GetRequiredService<IVideoLinkRepository>());
             serviceCollection.AddTransient<IProductVideoService, ProductVideoService>();
             serviceCollection.AddTransient<IProductVideoSearchService, ProductVideoSearchService>();
+            serviceCollection.AddTransient<IInternalYoutubeService, InternalYoutubeService>();
         }
 
         public void PostInitialize(IApplicationBuilder appBuilder)

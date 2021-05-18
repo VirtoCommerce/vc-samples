@@ -33,8 +33,8 @@ namespace ProductVideoModule.Web.Controllers.Api
         /// Return product Video search results
         /// </summary>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("search")]
+        [HttpPost]
+        [Route("search")]
         [ProducesResponseType(typeof(GenericSearchResult<VideoLink>), statusCode: StatusCodes.Status200OK)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Read)]
         public async Task<IActionResult> SearchProductVideos(ProductVideoSearchCriteria criteria)
@@ -43,7 +43,7 @@ namespace ProductVideoModule.Web.Controllers.Api
 
             if (!validationResult.IsValid)
             {
-                return BadRequest(String.Join(' ', validationResult.Errors.Select(x => x.ErrorMessage)));
+                return BadRequest(string.Join(' ', validationResult.Errors.Select(x => x.ErrorMessage)));
             }
 
             var result = await _productVideoSearchService.SearchVideoLinksAsync(criteria);
@@ -54,8 +54,8 @@ namespace ProductVideoModule.Web.Controllers.Api
         /// Get video by Id
         /// </summary>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet]
-        [Microsoft.AspNetCore.Mvc.Route("{id}")]
+        [HttpGet]
+        [Route("{id}")]
         [ProducesResponseType(typeof(VideoLink), statusCode: StatusCodes.Status200OK)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Read)]
         public async Task<IActionResult> GetById([FromRoute] string id) => Ok(await _productVideoService.GetByIdsAsync(new string[] { id }));
@@ -65,8 +65,8 @@ namespace ProductVideoModule.Web.Controllers.Api
         /// </summary>
         /// <param name="customerReviews">Customer reviews</param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("")]
+        [HttpPost]
+        [Route("")]
         [ProducesResponseType(typeof(void), statusCode: StatusCodes.Status204NoContent)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Create)]
         public IActionResult Update([FromBody] VideoLink[] videoLinks)
@@ -80,8 +80,8 @@ namespace ProductVideoModule.Web.Controllers.Api
         /// </summary>
         /// <param name="ids">IDs</param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpDelete]
-        [Microsoft.AspNetCore.Mvc.Route("")]
+        [HttpDelete]
+        [Route("")]
         [ProducesResponseType(typeof(void), statusCode: StatusCodes.Status204NoContent)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Delete)]
         public IActionResult Delete(string[] ids)
