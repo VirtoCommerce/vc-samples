@@ -9,7 +9,11 @@ namespace ProductVideoModule.Core.Services
     public interface IProductVideoService
     {
         Task<VideoLink[]> GetByIdsAsync(string[] videoLinksIds);
+
         Task SaveVideoLinksAsync(VideoLink[] items);
+
         Task DeleteVideoLinksAsync(string[] ids);
+
+        Task ChangeVideoLinksStatuses(IDictionary<string, VideoLinkStatus> linksStatusesDictionary);
     }
 }

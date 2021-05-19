@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProductVideoModule.Core;
 using ProductVideoModule.Core.Events;
 using ProductVideoModule.Core.Models;
 using ProductVideoModule.Core.Services;
@@ -23,6 +24,7 @@ namespace ProductVideoModule.Data.Services
         private readonly Func<IVideoLinkRepository> _repositoryFactory;
         private readonly IPlatformMemoryCache _platformMemoryCache;
         private readonly IEventPublisher _eventPublisher;
+
         public ProductVideoService(Func<IVideoLinkRepository> repositoryFactory, IPlatformMemoryCache platformMemoryCache
             , IEventPublisher eventPublisher)
         {
@@ -55,7 +57,6 @@ namespace ProductVideoModule.Data.Services
 
             using (var repository = _repositoryFactory())
             {
-
                 //
                 var alreadyExistEntities = await repository.GetByIdsAsync(items.Select(x => x.Id));
                 foreach (var videolink in items)
@@ -72,7 +73,6 @@ namespace ProductVideoModule.Data.Services
                         newEntries.Add(new GenericChangedEntry<VideoLink>(videolink, EntryState.Added));
                     }
                 }
-
 
                 await repository.UnitOfWork.CommitAsync();
                 pkMap.ResolvePrimaryKeys();
@@ -96,7 +96,20 @@ namespace ProductVideoModule.Data.Services
                 await repository.UnitOfWork.CommitAsync();
 
                 ClearCache();
+            }
+        }
 
+        public async Task ChangeVideoLinksStatuses(IDictionary<string, VideoLinkStatus> linksStatusesDictionary)
+        {
+            using (var repository = _repositoryFactory())
+            {
+                var entities = await repository.GetByIdsAsync(linksStatusesDictionary.Keys);
+                foreach (var linkEntity in entities)
+                {
+                    linkEntity.Status = linksStatusesDictionary[linkEntity.Id];
+                }
+
+                await repository.UnitOfWork.CommitAsync();
             }
         }
 

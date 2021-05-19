@@ -5,10 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductVideoModule.Core;
+using ProductVideoModule.Core.Events;
 using ProductVideoModule.Core.Services;
+using ProductVideoModule.Data.Handlers;
 using ProductVideoModule.Data.Repositories;
 using ProductVideoModule.Data.Services;
 using ProductVideoModule.Web.Extensions;
+using VirtoCommerce.Platform.Core.Bus;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
@@ -39,6 +42,9 @@ namespace ProductVideoModule.Web
             serviceCollection.AddTransient<IProductVideoService, ProductVideoService>();
             serviceCollection.AddTransient<IProductVideoSearchService, ProductVideoSearchService>();
             serviceCollection.AddTransient<IInternalYoutubeService, InternalYoutubeService>();
+
+            // EventHandlers
+            serviceCollection.AddTransient<ProductVideoAddedEventHandler>();
         }
 
         public void PostInitialize(IApplicationBuilder appBuilder)
@@ -61,6 +67,9 @@ namespace ProductVideoModule.Web
                     dbContext.Database.Migrate();
                 }
             }
+
+            var inProcessBus = appBuilder.ApplicationServices.GetService<IHandlerRegistrar>();
+            inProcessBus.RegisterHandler<ProductVideoAddedEvent>(async (message, token) => await appBuilder.ApplicationServices.GetService<ProductVideoAddedEventHandler>().Handle(message));
         }
 
         public void Uninstall()

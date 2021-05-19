@@ -9,5 +9,6 @@ namespace ProductVideoModule.Core.Models
     {
         public string Url { get; set; }
         public string ProductId { get; set; }
+        public VideoLinkStatus Status { get; set; }
     }
 }

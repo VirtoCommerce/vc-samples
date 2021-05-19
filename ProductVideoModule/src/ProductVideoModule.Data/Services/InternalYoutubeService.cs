@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using Microsoft.Extensions.Options;
 using ProductVideoModule.Core;
+using ProductVideoModule.Core.Models;
 using ProductVideoModule.Core.Services;
 using VirtoCommerce.Platform.Core.Exceptions;
 
@@ -15,13 +19,19 @@ namespace ProductVideoModule.Data.Services
     public class InternalYoutubeService : IInternalYoutubeService
     {
         private readonly YouTubeService _youtubeService;
+        private readonly IProductVideoService _productVideoService;
 
-        public InternalYoutubeService(IOptions<ProductVideoModuleOptions> moduleOptions)
+        private readonly HttpClient _httpClient;
+        private const string _externalUrl = "https://img.youtube.com/vi/{0}/0.jpg";
+
+        public InternalYoutubeService(IOptions<ProductVideoModuleOptions> moduleOptions, IProductVideoService productVideoService)
         {
             if (moduleOptions.Value.YoutubeApiKey is null)
                 throw new PlatformException("Platform configuration file must contain the section named as 'ExternalYoutubeApi'. This section consist of YoutubeApiKey property.");
 
             _youtubeService = new YouTubeService(new BaseClientService.Initializer { ApiKey = moduleOptions.Value.YoutubeApiKey });
+            _productVideoService = productVideoService;
+            _httpClient = new HttpClient();
         }
 
         public async Task<SearchListResponse> SearchByExternalApi(string keyWord)
@@ -34,6 +44,23 @@ namespace ProductVideoModule.Data.Services
             var searchListResponse = await searchListRequest.ExecuteAsync();
 
             return searchListResponse;
+        }
+
+        public async Task CheckVideosExsistence(IEnumerable<VideoLink> videoLinks)
+        {
+            var statusesDict = new Dictionary<string, VideoLinkStatus>();
+            var regEx = new Regex(@"^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]+).*");
+
+            foreach (var link in videoLinks)
+            {
+                var videoId = regEx.Match(link.Url).Groups[1].Value;
+                var response = await _httpClient.GetAsync(string.Format(_externalUrl, videoId));
+
+                if (response.IsSuccessStatusCode)
+                    statusesDict.Add(link.Id, VideoLinkStatus.Verified);
+            }
+
+            await _productVideoService.ChangeVideoLinksStatuses(statusesDict);
         }
     }
 }
