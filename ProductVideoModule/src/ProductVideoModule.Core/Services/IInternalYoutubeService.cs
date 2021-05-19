@@ -9,7 +9,7 @@ namespace ProductVideoModule.Core.Services
 {
     public interface IInternalYoutubeService
     {
-        Task<SearchListResponse> SearchByExternalApi(string keyWord);
+        Task<SearchListResponse> SearchByExternalApi(string keyword);
 
         Task CheckVideosExsistence(IEnumerable<VideoLink> videoLinks);
     }

@@ -22,7 +22,8 @@ namespace ProductVideoModule.Data.Services
         private readonly IProductVideoService _productVideoService;
 
         private readonly HttpClient _httpClient;
-        private const string _externalUrl = "https://img.youtube.com/vi/{0}/0.jpg";
+        private const string EXTERNAL_URL = "https://img.youtube.com/vi/{0}/0.jpg";
+        private readonly Regex PATTERN = new Regex(@"^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]+).*");
 
         public InternalYoutubeService(IOptions<ProductVideoModuleOptions> moduleOptions, IProductVideoService productVideoService)
         {
@@ -34,10 +35,10 @@ namespace ProductVideoModule.Data.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<SearchListResponse> SearchByExternalApi(string keyWord)
+        public async Task<SearchListResponse> SearchByExternalApi(string keyword)
         {
             var searchListRequest = _youtubeService.Search.List("snippet");
-            searchListRequest.Q = keyWord; // Replace with your search term.
+            searchListRequest.Q = keyword; // Replace with your search term.
             searchListRequest.MaxResults = 10;
 
             // Call the search.list method to retrieve results matching the specified query term.
@@ -49,12 +50,11 @@ namespace ProductVideoModule.Data.Services
         public async Task CheckVideosExsistence(IEnumerable<VideoLink> videoLinks)
         {
             var statusesDict = new Dictionary<string, VideoLinkStatus>();
-            var regEx = new Regex(@"^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]+).*");
 
             foreach (var link in videoLinks)
             {
-                var videoId = regEx.Match(link.Url).Groups[1].Value;
-                var response = await _httpClient.GetAsync(string.Format(_externalUrl, videoId));
+                var videoId = PATTERN.Match(link.Url).Groups[1].Value;
+                var response = await _httpClient.GetAsync(string.Format(EXTERNAL_URL, videoId));
 
                 if (response.IsSuccessStatusCode)
                     statusesDict.Add(link.Id, VideoLinkStatus.Verified);
