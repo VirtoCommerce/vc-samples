@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <module>
-    <id>VirtoCommerce.ProductVideo</id>    
+    <id>ProductVideo</id>
     <version>1.0.0</version>
     <version-tag>v1</version-tag>
-    <platformVersion>3.0.0</platformVersion>    
+    <platformVersion>3.0.0</platformVersion>
     <dependencies>
         <dependency id="VirtoCommerce.Core" version="3.0.0" />
     </dependencies>
@@ -18,11 +18,11 @@
     <groups>
         <group>samples</group>
     </groups>
-    <projectUrl>https://github.com/VirtoCommerce/vc-samples</projectUrl>    
+    <projectUrl>https://github.com/VirtoCommerce/vc-samples</projectUrl>
     <iconUrl></iconUrl>
     <releaseNotes>First version.</releaseNotes>
     <copyright>Copyright 2011-2020 Virto Commerce. All rights reserved</copyright>
     <tags>sample</tags>
     <assemblyFile>ProductVideoModule.Web.dll</assemblyFile>
-    <moduleType>ProductVideoModule.Web.Module, ProductVideoModule.Web</moduleType>    
+    <moduleType>ProductVideoModule.Web.Module, ProductVideoModule.Web</moduleType>
 </module>

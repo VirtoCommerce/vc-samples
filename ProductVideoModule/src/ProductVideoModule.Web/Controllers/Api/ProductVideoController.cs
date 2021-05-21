@@ -37,7 +37,7 @@ namespace ProductVideoModule.Web.Controllers.Api
         [Route("search")]
         [ProducesResponseType(typeof(GenericSearchResult<VideoLink>), statusCode: StatusCodes.Status200OK)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Read)]
-        public async Task<IActionResult> SearchProductVideos(ProductVideoSearchCriteria criteria)
+        public async Task<IActionResult> SearchProductVideos([FromBody] ProductVideoSearchCriteria criteria)
         {
             var validationResult = await _validator.ValidateAsync(criteria);
 
@@ -69,9 +69,9 @@ namespace ProductVideoModule.Web.Controllers.Api
         [Route("")]
         [ProducesResponseType(typeof(void), statusCode: StatusCodes.Status204NoContent)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Create)]
-        public IActionResult Update([FromBody] VideoLink[] videoLinks)
+        public async Task<IActionResult> Update([FromBody] VideoLink[] videoLinks)
         {
-            _productVideoService.SaveVideoLinksAsync(videoLinks);
+            await _productVideoService.SaveVideoLinksAsync(videoLinks);
             return StatusCode(StatusCodes.Status204NoContent);
         }
 
@@ -84,9 +84,9 @@ namespace ProductVideoModule.Web.Controllers.Api
         [Route("")]
         [ProducesResponseType(typeof(void), statusCode: StatusCodes.Status204NoContent)]
         //[CheckPermission(Permission = Core.ModuleConstants.Security.Permissions.Delete)]
-        public IActionResult Delete(string[] ids)
+        public async Task<IActionResult> Delete([FromQuery] string[] ids)
         {
-            _productVideoService.DeleteVideoLinksAsync(ids);
+            await _productVideoService.DeleteVideoLinksAsync(ids);
             return StatusCode(StatusCodes.Status204NoContent);
         }
     }
