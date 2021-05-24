@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{ 'catalog.dialogs.catalog-items-delete.title' | translate }}</h3>
+</div>
+<div class="modal-body">
+    <div class="form-group">
+        <div class="form-error">{{ 'catalog.dialogs.catalog-items-delete.warning' | translate }}</div>
+    </div>
+    <p>The following will be deleted:{{ videoCount }}</p>
+
+    Enter 'yes' to enable deletion:
+    <div class="form-input __mini">
+        <input ng-model="enteredText" ng-keyup="$event.which === 13 && 'yes' === enteredText && yes()" />
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn" ng-click="yes()" ng-class="{'__disabled': 'yes'!==enteredText}">{{ 'platform.commands.confirm' | translate }}</button>
+    <button class="btn" ng-click="cancel()">{{ 'platform.commands.cancel' | translate }}</button>
+</div>

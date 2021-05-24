@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.51.0.2294" />
+    <PackageReference Include="VirtoCommerce.Platform.Core" Version="3.55.0" />
+    <PackageReference Include="VirtoCommerce.SearchModule.Core" Version="3.12.0" />
+  </ItemGroup>
+
+</Project>
