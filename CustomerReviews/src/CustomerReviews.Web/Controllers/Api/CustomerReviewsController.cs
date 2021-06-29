@@ -5,19 +5,20 @@ using CustomerReviews.Core.Model.Search;
 using CustomerReviews.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VirtoCommerce.Platform.Core.GenericCrud;
 
 namespace CustomerReviews.Web.Controllers.Api
 {
     [Route("api/customerReviews")]
     public class CustomerReviewsController : Controller
     {
-        private readonly ICustomerReviewSearchService _customerReviewSearchService;
-        private readonly ICustomerReviewService _customerReviewService;
+        private readonly ISearchService<CustomerReviewSearchCriteria, CustomerReviewSearchResult, CustomerReview> _customerReviewSearchService;
+        private readonly ICrudService<CustomerReview> _customerReviewService;
 
         public CustomerReviewsController(ICustomerReviewSearchService customerReviewSearchService, ICustomerReviewService customerReviewService)
         {
-            _customerReviewSearchService = customerReviewSearchService;
-            _customerReviewService = customerReviewService;
+            _customerReviewSearchService = (ISearchService<CustomerReviewSearchCriteria, CustomerReviewSearchResult, CustomerReview>) customerReviewSearchService;
+            _customerReviewService = (ICrudService<CustomerReview>) customerReviewService;
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace CustomerReviews.Web.Controllers.Api
         [Authorize(ModuleConstants.Security.Permissions.Read)]
         public async Task<ActionResult<CustomerReviewSearchResult>> SearchCustomerReviews([FromBody]CustomerReviewSearchCriteria criteria)
         {
-            var result = await _customerReviewSearchService.SearchCustomerReviewsAsync(criteria);
+            var result = await _customerReviewSearchService.SearchAsync(criteria);
             return result;
         }
 
@@ -42,7 +43,7 @@ namespace CustomerReviews.Web.Controllers.Api
         [Authorize(ModuleConstants.Security.Permissions.Update)]
         public async Task<ActionResult> Update([FromBody]CustomerReview[] customerReviews)
         {
-            await _customerReviewService.SaveCustomerReviewsAsync(customerReviews);
+            await _customerReviewService.SaveChangesAsync(customerReviews);
             return NoContent();
         }
 
@@ -56,7 +57,7 @@ namespace CustomerReviews.Web.Controllers.Api
         [Authorize(ModuleConstants.Security.Permissions.Delete)]
         public async Task<ActionResult> Delete([FromQuery] string[] ids)
         {
-            await _customerReviewService.DeleteCustomerReviewsAsync(ids);
+            await _customerReviewService.DeleteAsync(ids);
             return NoContent();
         }
     }

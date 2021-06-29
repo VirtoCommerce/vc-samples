@@ -2,10 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using CustomerReviews.Core.Model;
 using VirtoCommerce.Platform.Core.Common;
+using VirtoCommerce.Platform.Core.Domain;
 
 namespace CustomerReviews.Data.Model
 {
-    public class CustomerReviewEntity : AuditableEntity
+    public class CustomerReviewEntity : AuditableEntity, IDataEntity<CustomerReviewEntity, CustomerReview>
     {
         [StringLength(128)]
         public string AuthorNickname { get; set; }
@@ -20,42 +21,42 @@ namespace CustomerReviews.Data.Model
         [StringLength(128)]
         public string ProductId { get; set; }
 
-        public virtual CustomerReview ToModel(CustomerReview customerReview)
+        public virtual CustomerReview ToModel(CustomerReview model)
         {
-            if (customerReview == null)
-                throw new ArgumentNullException(nameof(customerReview));
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
 
-            customerReview.Id = Id;
-            customerReview.CreatedBy = CreatedBy;
-            customerReview.CreatedDate = CreatedDate;
-            customerReview.ModifiedBy = ModifiedBy;
-            customerReview.ModifiedDate = ModifiedDate;
+            model.Id = Id;
+            model.CreatedBy = CreatedBy;
+            model.CreatedDate = CreatedDate;
+            model.ModifiedBy = ModifiedBy;
+            model.ModifiedDate = ModifiedDate;
 
-            customerReview.AuthorNickname = AuthorNickname;
-            customerReview.Content = Content;
-            customerReview.IsActive = IsActive;
-            customerReview.ProductId = ProductId;
+            model.AuthorNickname = AuthorNickname;
+            model.Content = Content;
+            model.IsActive = IsActive;
+            model.ProductId = ProductId;
 
-            return customerReview;
+            return model;
         }
 
-        public virtual CustomerReviewEntity FromModel(CustomerReview customerReview, PrimaryKeyResolvingMap pkMap)
+        public virtual CustomerReviewEntity FromModel(CustomerReview model, PrimaryKeyResolvingMap pkMap)
         {
-            if (customerReview == null)
-                throw new ArgumentNullException(nameof(customerReview));
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
 
-            pkMap.AddPair(customerReview, this);
+            pkMap.AddPair(model, this);
 
-            Id = customerReview.Id;
-            CreatedBy = customerReview.CreatedBy;
-            CreatedDate = customerReview.CreatedDate;
-            ModifiedBy = customerReview.ModifiedBy;
-            ModifiedDate = customerReview.ModifiedDate;
+            Id = model.Id;
+            CreatedBy = model.CreatedBy;
+            CreatedDate = model.CreatedDate;
+            ModifiedBy = model.ModifiedBy;
+            ModifiedDate = model.ModifiedDate;
 
-            AuthorNickname = customerReview.AuthorNickname;
-            Content = customerReview.Content;
-            IsActive = customerReview.IsActive;
-            ProductId = customerReview.ProductId;
+            AuthorNickname = model.AuthorNickname;
+            Content = model.Content;
+            IsActive = model.IsActive;
+            ProductId = model.ProductId;
 
             return this;
         }

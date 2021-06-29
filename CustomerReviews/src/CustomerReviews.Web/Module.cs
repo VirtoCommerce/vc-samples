@@ -52,7 +52,7 @@ namespace CustomerReviews.Web
             using (var serviceScope = appBuilder.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<CustomerReviewsDbContext>();
-                dbContext.Database.MigrateIfNotApplied(MigrationName.GetUpdateV2MigrationNameByOwnerName(ModuleInfo.Id, ""));
+                dbContext.Database.MigrateIfNotApplied(MigrationName.GetUpdateV2MigrationName(ModuleInfo.Id));
                 dbContext.Database.EnsureCreated();
                 dbContext.Database.Migrate();
             }
