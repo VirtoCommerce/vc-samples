@@ -7,7 +7,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.35.0" />
+	  <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.62.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\CustomerReviews.Core\CustomerReviews.Core.csproj" />

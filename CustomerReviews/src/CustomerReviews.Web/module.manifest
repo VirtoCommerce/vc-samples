@@ -3,7 +3,7 @@
     <id>CustomerReviews</id>
     <version>3.0.0</version>
     <version-tag></version-tag>
-    <platformVersion>3.35.0</platformVersion>
+    <platformVersion>3.62.0</platformVersion>
 
     <title>Sample Customer reviews</title>
     <description>Sample module demonstrating best practices in a real life example.</description>

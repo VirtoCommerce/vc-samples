@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerReviews.Data.Model;
@@ -9,6 +10,6 @@ namespace CustomerReviews.Data.Repositories
     {
         IQueryable<CustomerReviewEntity> CustomerReviews { get; }
 
-        Task<CustomerReviewEntity[]> GetByIdsAsync(string[] ids);
+        Task<IEnumerable<CustomerReviewEntity>> GetByIdsAsync(IEnumerable<string> ids);
     }
 }

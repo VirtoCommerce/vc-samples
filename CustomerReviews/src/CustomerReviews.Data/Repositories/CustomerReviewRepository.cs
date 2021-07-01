@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerReviews.Data.Model;
@@ -14,9 +15,9 @@ namespace CustomerReviews.Data.Repositories
 
         public IQueryable<CustomerReviewEntity> CustomerReviews => DbContext.Set<CustomerReviewEntity>();
 
-        public async Task<CustomerReviewEntity[]> GetByIdsAsync(string[] ids)
+        public Task<IEnumerable<CustomerReviewEntity>> GetByIdsAsync(IEnumerable<string> ids)
         {
-            return await CustomerReviews.Where(x => ids.Contains(x.Id)).ToArrayAsync();
+            return Task.FromResult<IEnumerable<CustomerReviewEntity>>(CustomerReviews.Where(x => ids.Contains(x.Id)).ToList());
         }
     }
 }

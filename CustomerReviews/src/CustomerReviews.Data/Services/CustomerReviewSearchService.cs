@@ -1,63 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using CustomerReviews.Core.Model;
 using CustomerReviews.Core.Model.Search;
 using CustomerReviews.Core.Services;
-using CustomerReviews.Data.Caching;
 using CustomerReviews.Data.Model;
 using CustomerReviews.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using VirtoCommerce.Platform.Core.Caching;
 using VirtoCommerce.Platform.Core.Common;
+using VirtoCommerce.Platform.Core.GenericCrud;
+using VirtoCommerce.Platform.Data.GenericCrud;
 
 namespace CustomerReviews.Data.Services
 {
-    public class CustomerReviewSearchService : ICustomerReviewSearchService
+    public class CustomerReviewSearchService : SearchService<CustomerReviewSearchCriteria, CustomerReviewSearchResult, CustomerReview, CustomerReviewEntity>, ICustomerReviewSearchService
     {
-        private readonly Func<ICustomerReviewRepository> _repositoryFactory;
-        private readonly IPlatformMemoryCache _platformMemoryCache;
-        private readonly ICustomerReviewService _customerReviewService;
-
         public CustomerReviewSearchService(Func<ICustomerReviewRepository> repositoryFactory, IPlatformMemoryCache platformMemoryCache, ICustomerReviewService customerReviewService)
+            : base(repositoryFactory, platformMemoryCache, (ICrudService<CustomerReview>)customerReviewService)
         {
-            _repositoryFactory = repositoryFactory;
-            _platformMemoryCache = platformMemoryCache;
-            _customerReviewService = customerReviewService;
         }
 
-        public async Task<CustomerReviewSearchResult> SearchCustomerReviewsAsync(CustomerReviewSearchCriteria criteria)
+        protected override IQueryable<CustomerReviewEntity> BuildQuery(IRepository repository, CustomerReviewSearchCriteria criteria)
         {
-            var cacheKey = CacheKey.With(GetType(), nameof(SearchCustomerReviewsAsync), criteria.GetCacheKey());
-            return await _platformMemoryCache.GetOrCreateExclusiveAsync(cacheKey, async (cacheEntry) =>
-            {
-                cacheEntry.AddExpirationToken(CustomerReviewCacheRegion.CreateChangeToken());
-                var result = AbstractTypeFactory<CustomerReviewSearchResult>.TryCreateInstance();
-                using (var repository = _repositoryFactory())
-                {
-                    var query = BuildQuery(repository, criteria);
-                    var sortInfos = BuildSortExpression(criteria);
-
-                    result.TotalCount = await query.CountAsync();
-                    if (criteria.Take > 0)
-                    {
-                        var customerReviewIds = await query.OrderBySortInfos(sortInfos).ThenBy(x => x.Id)
-                                                  .Select(x => x.Id)
-                                                  .Skip(criteria.Skip).Take(criteria.Take)
-                                                  .ToArrayAsync();
-
-                        var unorderedResults = await _customerReviewService.GetByIdsAsync(customerReviewIds);
-                        result.Results = unorderedResults.OrderBy(x => Array.IndexOf(customerReviewIds, x.Id)).ToArray();
-                    }
-                }
-                return result;
-            });
-        }
-
-        protected virtual IQueryable<CustomerReviewEntity> BuildQuery(ICustomerReviewRepository repository, CustomerReviewSearchCriteria criteria)
-        {
-            var query = repository.CustomerReviews;
+            var query = ((ICustomerReviewRepository)repository).CustomerReviews;
 
             if (!criteria.ProductIds.IsNullOrEmpty())
             {
@@ -77,7 +43,7 @@ namespace CustomerReviews.Data.Services
             return query;
         }
 
-        protected virtual IList<SortInfo> BuildSortExpression(CustomerReviewSearchCriteria criteria)
+        protected override IList<SortInfo> BuildSortExpression(CustomerReviewSearchCriteria criteria)
         {
             var sortInfos = criteria.SortInfos;
             if (sortInfos.IsNullOrEmpty())
