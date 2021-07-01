@@ -17,7 +17,7 @@ namespace CustomerReviews.Data.Repositories
 
         public Task<IEnumerable<CustomerReviewEntity>> GetByIdsAsync(IEnumerable<string> ids)
         {
-            return Task.Run(() => CustomerReviews.Where(x => ids.Contains(x.Id)).AsEnumerable());
+            return Task.FromResult<IEnumerable<CustomerReviewEntity>>(CustomerReviews.Where(x => ids.Contains(x.Id)).ToList());
         }
     }
 }
